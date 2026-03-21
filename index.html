@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Projektportal — Kommunen × Lejonfastigheter</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<!-- ── Top navigation ──────────────────────────────────────── -->
+<nav class="top-nav">
+  <a href="index.html" class="nav-brand">
+    <div class="nav-logo-block">
+      <div class="nav-logo-lkpg">Linköpings<br>Kommun</div>
+      <div class="nav-logo-sep">×</div>
+      <div class="nav-logo-lejon">Lejon-<br>fastigheter</div>
+    </div>
+    <span class="nav-title">Projektportal</span>
+  </a>
+
+  <button class="nav-toggle" aria-label="Meny">
+    <span></span><span></span><span></span>
+  </button>
+
+  <ul class="nav-links">
+    <li><a href="index.html" class="active-red">Start</a></li>
+    <li>
+      <a href="om-styrmodellen/index.html">Om styrmodellen ▾</a>
+      <div class="dropdown">
+        <a href="om-styrmodellen/index.html">Om styrmodellen</a>
+        <a href="om-styrmodellen/fragor-svar.html">Frågor &amp; svar</a>
+        <a href="om-styrmodellen/begrepp.html">Begrepp &amp; definitioner</a>
+      </div>
+    </li>
+    <li><a href="mallar/index.html">Mallar &amp; verktyg</a></li>
+    <li>
+      <a href="projekt/index.html">Projekt ▾</a>
+      <div class="dropdown">
+        <a href="projekt/index.html">Projekt – översikt</a>
+        <a href="projekt/behov-ide.html">Behov/idé</a>
+        <a href="projekt/forbereda.html">Förbereda</a>
+        <a href="projekt/planera.html">Planera</a>
+        <a href="projekt/genomfora.html">Genomföra</a>
+        <a href="projekt/avsluta.html">Avsluta</a>
+        <a href="projekt/effekt.html">Effekt</a>
+        <a href="projekt/roller.html">Roller i projekt</a>
+      </div>
+    </li>
+    <li>
+      <a href="lessons-learned/index.html">Lessons learned ▾</a>
+      <div class="dropdown">
+        <a href="lessons-learned/index.html">Lessons learned &amp; Retro</a>
+        <a href="lessons-learned/lessons-learned.html">Lessons learned</a>
+        <a href="lessons-learned/retrospektiv.html">Retrospektiv</a>
+      </div>
+    </li>
+    <li><a href="trello/index.html">Trello</a></li>
+  </ul>
+</nav>
+
+<!-- ── Hero banner ──────────────────────────────────────────── -->
+<div class="brand-banner">
+  <div class="brand-banner-text">
+    <h1>Gemensam projektportal<br>för lokalprojekt</h1>
+    <p>Styrd av kommunens projektmodell — anpassad för samarbetet med Lejonfastigheter</p>
+  </div>
+  <div class="brand-badges">
+    <div class="badge badge-lkpg">
+      <div class="badge-icon">🏛️</div>
+      <div class="badge-label">Linköpings<br>Kommun</div>
+    </div>
+    <div class="badge badge-lejon">
+      <div class="badge-icon">🦁</div>
+      <div class="badge-label">Lejon-<br>fastigheter</div>
+    </div>
+  </div>
+</div>
+
+<!-- ── Main content (no sidebar on start) ───────────────────── -->
+<div class="home-hero">
+  <h1>Välkommen till <em>vår</em> gemensamma projektportal</h1>
+  <p class="lead">Här hittar du information, styrande principer, verktyg och mallar för hur vi driver lokalprojekt tillsammans — från lokalbehov till inflyttning.</p>
+
+  <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:28px;">
+    <span class="context-pill pill-kommune">Kommunens projektmodell</span>
+    <span class="context-pill pill-lejon">Lejonfastigheters processer</span>
+    <span class="context-pill pill-gemensam">Gemensamt gränssnitt</span>
+  </div>
+
+  <hr class="divider">
+
+  <h2>Kom igång</h2>
+  <div class="card-grid">
+    <a href="projekt/index.html" class="nav-card">
+      <div class="nav-card-icon">📋</div>
+      <h3>Projekt</h3>
+      <p>Faser, beslutspunkter och checklistor för hela projektlivscykeln.</p>
+    </a>
+    <a href="om-styrmodellen/index.html" class="nav-card">
+      <div class="nav-card-icon">🗂️</div>
+      <h3>Om styrmodellen</h3>
+      <p>Varför vi har en gemensam styrmodell och vad den innehåller.</p>
+    </a>
+    <a href="mallar/index.html" class="nav-card">
+      <div class="nav-card-icon">📄</div>
+      <h3>Mallar &amp; verktyg</h3>
+      <p>Projektdirektiv, projektplan, statusrapport och övriga mallar.</p>
+    </a>
+    <a href="projekt/roller.html" class="nav-card">
+      <div class="nav-card-icon">👥</div>
+      <h3>Roller</h3>
+      <p>Ansvar och befogenheter för beställare, styrgrupp och projektledare.</p>
+    </a>
+    <a href="lessons-learned/index.html" class="nav-card">
+      <div class="nav-card-icon">💡</div>
+      <h3>Lessons learned</h3>
+      <p>Lär av tidigare projekt och dokumentera egna lärdomar.</p>
+    </a>
+    <a href="projekt/forbereda.html" class="nav-card lejon-card">
+      <div class="nav-card-icon">🦁</div>
+      <h3>Starta ett lokalprojekt</h3>
+      <p>Specifikt stöd för projekt i gränssnittet kommunen–Lejonfastigheter.</p>
+    </a>
+  </div>
+
+  <hr class="divider">
+
+  <h2>Projektprocessen i korthet</h2>
+  <div class="phase-strip">
+    <a href="projekt/behov-ide.html" class="phase-step">Behov/idé</a>
+    <a href="projekt/forbereda.html" class="phase-step">Förbereda</a>
+    <a href="projekt/planera.html" class="phase-step">Planera</a>
+    <a href="projekt/genomfora.html" class="phase-step">Genomföra</a>
+    <a href="projekt/avsluta.html" class="phase-step">Avsluta</a>
+    <a href="projekt/effekt.html" class="phase-step">Effekt</a>
+  </div>
+  <p>Modellen är baserad på Linköpings kommuns kommungemensamma styrmodell för projekt och uppdrag (uppdaterad november 2024) och Lejonfastigheters Lejonguide-processer för investeringsprojekt.</p>
+
+  <hr class="divider">
+
+  <h2>Det här är en gemensam portal</h2>
+  <p>Portalen är ett <strong>proof of concept</strong> för ett gemensamt digitalt stöd i lokalprojekt mellan Linköpings kommuns förvaltningar och Lejonfastigheter. Innehållet baseras på kommunens befintliga projektportal och Lejonfastigheters processbeskrivningar, anpassade för det gemensamma gränssnittet.</p>
+
+  <div class="lejon-section">
+    <div class="lejon-section-header">
+      <span class="lejon-badge-pill">Lejonfastigheter</span>
+      <h3>Varför en gemensam portal?</h3>
+    </div>
+    <p>Idag saknas ett samlat ställe där kommunens förvaltningar och Lejonfastigheters projektorganisation möts kring gemensam projektlogik — vem gör vad, när och enligt vilken modell. Den här portalen är ett steg mot att lösa det.</p>
+    <p>Den <strong>viktigaste förbättringen</strong> vi arbetar mot är ett tydligt projektstart: beställare, uppdrag och mandat definierade — innan utrednings- och förstudieskeden flödar ihop.</p>
+  </div>
+</div>
+
+<!-- ── Footer ─────────────────────────────────────────────────── -->
+<footer>
+  <div class="footer-brand">
+    <span style="color:#555">Linköpings Kommun × Lejonfastigheter</span>
+    <span style="color:#444">—</span>
+    <span>Projektportal</span>
+  </div>
+  <div>
+    Proof of concept · Innehåll baserat på kommunens projektportal &amp; Lejonguiden
+  </div>
+</footer>
+
+<script src="js/nav.js"></script>
+</body>
+</html>
