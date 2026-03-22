@@ -454,6 +454,79 @@
     color: var(--text-dim); font-style: normal;
   }
 
+  /* ── Dual-process visualization (Kapitel 02) ── */
+  .dual-process { margin: 48px 0; }
+
+  .dp-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px; letter-spacing: 0.25em; text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+  .dp-label-lk { color: var(--lk-teal-light); }
+  .dp-label-lf { color: rgba(240,180,0,0.5); }
+
+  .dp-rail {
+    display: flex;
+    gap: 0;
+    position: relative;
+  }
+
+  .dp-step {
+    flex: 1;
+    text-align: center;
+    padding: 13px 6px 13px 22px;
+    font-size: 11px; font-weight: 600;
+    letter-spacing: 0.05em; text-transform: uppercase;
+    margin-right: -16px; position: relative;
+    clip-path: polygon(0% 0%, calc(100% - 16px) 0%, 100% 50%, calc(100% - 16px) 100%, 0% 100%, 16px 50%);
+  }
+  .dp-step:first-child {
+    clip-path: polygon(0% 0%, calc(100% - 16px) 0%, 100% 50%, calc(100% - 16px) 100%, 0% 100%);
+    padding-left: 12px;
+  }
+  .dp-step:last-child {
+    clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%, 16px 50%);
+    margin-right: 0; padding-right: 12px;
+  }
+  .dp-step:nth-child(1) { z-index: 7; }
+  .dp-step:nth-child(2) { z-index: 6; }
+  .dp-step:nth-child(3) { z-index: 5; }
+  .dp-step:nth-child(4) { z-index: 4; }
+  .dp-step:nth-child(5) { z-index: 3; }
+  .dp-step:nth-child(6) { z-index: 2; }
+
+  /* Kommunen-steg: full teal */
+  .dp-lk {
+    background: rgba(27,94,90,0.55);
+    color: rgba(210,240,238,0.9);
+    border-top: 1px solid rgba(42,148,144,0.4);
+    border-bottom: 1px solid rgba(42,148,144,0.4);
+    box-shadow: 0 4px 16px rgba(0,0,0,0.3);
+  }
+
+  /* LF-steg: dämpad amber — "under" kommunens rad */
+  .dp-lf {
+    background: rgba(240,180,0,0.08);
+    color: rgba(240,180,0,0.45);
+    border-top: 1px solid rgba(240,180,0,0.15);
+    border-bottom: 1px solid rgba(240,180,0,0.15);
+  }
+
+  /* Brygga/gränssnitt */
+  .dp-bridge {
+    display: flex; align-items: center; gap: 16px;
+    margin: 20px 0 16px;
+  }
+  .dp-bridge-line {
+    flex: 1; height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(240,180,0,0.3), transparent);
+  }
+  .dp-bridge-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase;
+    color: rgba(240,180,0,0.55); white-space: nowrap; flex-shrink: 0;
+  }
+
   /* CTA */
   #cta { background: var(--dark-2); min-height: 55vh; display: flex; align-items: center; }
 
@@ -629,37 +702,36 @@
     <h2 class="section-title reveal reveal-delay-1">Varför <span class="ital">inte</span> ett enda system?</h2>
     <p class="section-lead reveal reveal-delay-2">Lejonfastigheter är ett fastighetsbolag med en fastighetsutvecklingslogik. Kommunen är en förvaltningsorganisation med politisk styrning. De behöver prata samma språk — utan att vara samma sak.</p>
 
-    <div class="concept-grid reveal reveal-delay-3">
-      <div class="concept-cell lf">
-        <div class="concept-icon icon-lf">🦁</div>
-        <div class="concept-label label-lf">Lejonfastigheter</div>
-        <div class="concept-title">Lejonet behålls som intern plattform</div>
-        <div class="concept-body">Lejonfastigheters processer, mallar och rutiner lever kvar på Lejonet. Det som tillkommer är ett formellt projektstart — en tydlig inkörsport med beställare, uppdrag och mandat definierade — och en likriktning av BP-punkter mot kommunens modell.</div>
+    <div class="dual-process reveal reveal-delay-3">
+
+      <!-- Kommunens projektmodell — teal, översta raden -->
+      <div class="dp-label dp-label-lk">Kommunens projektmodell</div>
+      <div class="dp-rail dp-rail-lk">
+        <div class="dp-step dp-lk">Behov / idé</div>
+        <div class="dp-step dp-lk">Förbereda</div>
+        <div class="dp-step dp-lk">Planera</div>
+        <div class="dp-step dp-lk">Genomföra</div>
+        <div class="dp-step dp-lk">Avsluta</div>
+        <div class="dp-step dp-lk">Effekt</div>
       </div>
-      <div class="concept-cell lk">
-        <div class="concept-icon icon-lk">🏛</div>
-        <div class="concept-label label-lk">Kommunen</div>
-        <div class="concept-title">Kommunen möter projektmodellens logik</div>
-        <div class="concept-body">Kommunens förvaltningar är bekanta med Linköpings projektstyrningsmodell — faser, BP-punkter, roller. Den gemensamma portalen talar detta språk och gör gränssnittet friktionsfritt.</div>
+
+      <!-- Markering av det kritiska gränssnittet -->
+      <div class="dp-bridge">
+        <div class="dp-bridge-line"></div>
+        <span class="dp-bridge-label">Det kritiska gränssnittet — investeringsbeslut, hyresöverenskommelse, intern överlämning</span>
+        <div class="dp-bridge-line"></div>
       </div>
-      <div class="concept-cell lf">
-        <div class="concept-icon icon-lf">🔗</div>
-        <div class="concept-label label-lf">Mappning</div>
-        <div class="concept-title">LF:s faser mappas mot kommunens BP-struktur</div>
-        <div class="concept-body">Programhandling, systemhandling, bygghandling — allt har en motsvarighet i BP 1–5-strukturen. Den gemensamma portalen synliggör kopplingen utan att LF behöver ändra sin interna terminologi.</div>
+
+      <!-- LF:s Lejonguiden-processer — amber, understa raden -->
+      <div class="dp-label dp-label-lf">Lejonguiden — internt</div>
+      <div class="dp-rail dp-rail-lf">
+        <div class="dp-step dp-lf">Utreda lokalbehov</div>
+        <div class="dp-step dp-lf">Specificera lokal</div>
+        <div class="dp-step dp-lf">Planera &amp; projektera</div>
+        <div class="dp-step dp-lf">Producera</div>
+        <div class="dp-step dp-lf">Lämna över</div>
       </div>
-      <div class="concept-cell lk">
-        <div class="concept-icon icon-lk">⚖️</div>
-        <div class="concept-label label-lk">Nyckelpunkt</div>
-        <div class="concept-title">Investeringsbeslut är gemensam vändpunkt</div>
-        <div class="concept-body">Mellan programhandling och systemhandling sker hyresöverenskommelse, investeringsbeslut och intern överlämning. Här formaliserar kommunen och LF sitt ömsesidiga åtagande.</div>
-      </div>
-      <div class="concept-cell lk" style="grid-column: 1 / -1; border-top: 1px solid var(--border);">
-        <div class="concept-icon icon-lk">⚙️</div>
-        <div class="concept-label label-lk">Gränssnitt</div>
-        <div class="concept-title">Gränssnittet: där processen lämnar över till projektet</div>
-        <div class="concept-body">Lokalförsörjningsprocessen och projektmodellen möts i ett explicit gränssnittsmoment: beslutet om att starta projekt. Här definieras beställare, uppdrag och mandat. Det är inte ett steg i processen — det är starten på något nytt, med andra styrprinciper.</div>
-      </div>
+
     </div>
   </div>
 </section>
