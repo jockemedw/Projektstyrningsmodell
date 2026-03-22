@@ -288,11 +288,11 @@
   .concept-grid {
     display: grid; grid-template-columns: 1fr 1fr;
     gap: 2px; border-radius: 16px; overflow: hidden;
-    border: 1px solid var(--border); margin-top: 44px;
+    border: 1px solid var(--border); margin-top: 24px;
   }
 
   .concept-cell {
-    padding: 42px 38px; background: var(--dark-2);
+    padding: 26px 30px; background: var(--dark-2);
     position: relative; overflow: hidden;
   }
 
@@ -534,6 +534,51 @@
     background: rgba(240,180,0,0.05);
   }
 
+  /* KAPITEL 03 — Implementation layout */
+  .impl-section-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px; letter-spacing: 0.28em; text-transform: uppercase;
+    color: var(--text-dim); margin: 48px 0 16px;
+  }
+  .impl-intro {
+    font-size: 15px; color: var(--text-muted); margin-bottom: 20px; line-height: 1.7;
+  }
+  .impl-card-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 14px; margin-bottom: 0;
+  }
+  .impl-card {
+    background: var(--dark-3); border: 1px solid var(--border);
+    border-radius: 12px; padding: 26px 22px;
+    transition: border-color 0.25s, transform 0.25s;
+  }
+  .impl-card:hover { border-color: rgba(240,180,0,0.35); transform: translateY(-4px); }
+  .impl-card:nth-child(4) { grid-column: 1; }
+  .impl-card:nth-child(5) { grid-column: 2; }
+  .impl-card-num {
+    font-family: 'Playfair Display', serif; font-size: 30px; font-weight: 900;
+    color: rgba(240,180,0,0.22); line-height: 1; margin-bottom: 12px;
+  }
+  .impl-card-title {
+    font-family: 'Playfair Display', serif; font-size: 15px; font-weight: 700;
+    margin-bottom: 8px; color: var(--text-primary);
+  }
+  .impl-card-body { font-size: 13px; color: var(--text-muted); line-height: 1.65; }
+
+  .impl-rest-panel {
+    background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.07);
+    border-radius: 10px; padding: 22px 28px;
+  }
+  .impl-rest-list {
+    list-style: none; padding: 0; margin: 0;
+    display: grid; grid-template-columns: 1fr 1fr; gap: 7px 40px;
+  }
+  .impl-rest-list li {
+    font-size: 13px; color: var(--text-dim); line-height: 1.5;
+    padding-left: 14px; position: relative;
+  }
+  .impl-rest-list li::before { content: '–'; position: absolute; left: 0; color: var(--text-dim); }
+
   /* CTA */
   #cta { background: var(--dark-2); min-height: 55vh; display: flex; align-items: center; }
 
@@ -637,7 +682,6 @@
     <li><a href="#layers">Strukturen</a></li>
     <li><a href="#concept">Konceptet</a></li>
     <li><a href="#roadmap">Implementering</a></li>
-    <li><a href="#process-projekt">Process &amp; projekt</a></li>
     <li><a href="#beslutspunkter">BP-likriktning</a></li>
     <li><a href="#cta">Nästa steg</a></li>
   </ul>
@@ -760,91 +804,97 @@
 <section id="roadmap">
   <div class="container">
     <div class="chapter reveal">Kapitel 03 — Implementering</div>
-    <h2 class="section-title reveal reveal-delay-1">Tre steg.<br><span class="ital">I rätt ordning.</span></h2>
-    <p class="section-lead reveal reveal-delay-2">Implementeringen prioriteras för att ge störst effekt med minsta möjliga friktion. Steg 1 löser det viktigaste problemet: avsaknaden av ett formellt projektstart.</p>
+    <h2 class="section-title reveal reveal-delay-1">Från plan till skarp drift.<br><span class="ital">I rätt ordning.</span></h2>
+    <p class="section-lead reveal reveal-delay-2">Implementeringen är uppdelad i tre delar: vad som krävs för skarp drift, vad som bygger vidare när grunden är på plats — och vad vi behöver göra för att ta oss dit.</p>
 
+    <!-- A — Skarp drift -->
+    <div class="impl-section-label reveal">01 — Skarp drift</div>
+    <p class="impl-intro reveal">Fem saker måste vara på plats för att projektmodellen ska fungera i praktiken. Inte mer, inte mindre.</p>
+    <div class="impl-card-grid reveal reveal-delay-1">
+      <div class="impl-card">
+        <div class="impl-card-num">1</div>
+        <div class="impl-card-title">Formellt projektstart — BP 1 i sin helhet</div>
+        <div class="impl-card-body">Namngiven beställare med mandat, utsedd projektledare, projektdirektiv med syfte, avgränsningar och prioritering.</div>
+      </div>
+      <div class="impl-card">
+        <div class="impl-card-num">2</div>
+        <div class="impl-card-title">Rollbeskrivning</div>
+        <div class="impl-card-body">Beställare, projektledare, styrgrupp och mottagare definierade i LF-kontext — vem gör vad och med vilket mandat.</div>
+      </div>
+      <div class="impl-card">
+        <div class="impl-card-num">3</div>
+        <div class="impl-card-title">BP-mappning</div>
+        <div class="impl-card-body">Lejonguiden synligt mappad mot BP 1–5. Korrespondensen kommuniceras och är känd av alla inblandade.</div>
+      </div>
+      <div class="impl-card">
+        <div class="impl-card-num">4</div>
+        <div class="impl-card-title">Tillämpningsanvisning</div>
+        <div class="impl-card-body">Lejonfastigheters tolkning av kommunens styrmodell — hur modellen tillämpas, vilka anpassningar som gäller och hänvisningar till befintliga mallar och processer.</div>
+      </div>
+      <div class="impl-card">
+        <div class="impl-card-num">5</div>
+        <div class="impl-card-title">Mötesstruktur</div>
+        <div class="impl-card-body">Styrgruppsmöte vid varje BP, projektmöten och retrospektiv som standard efter varje fas.</div>
+      </div>
+    </div>
+
+    <!-- B — Resten av kakan -->
+    <div class="impl-section-label reveal">02 — Resten av kakan</div>
+    <div class="impl-rest-panel reveal">
+      <p class="impl-intro">Viktigt — men kan tas successivt när de fem grunderna sitter.</p>
+      <ul class="impl-rest-list">
+        <li>Separation process/projektmodell på Lejonguiden</li>
+        <li>Gemensam projektportal Lejon × Kommunen</li>
+        <li>Fullständiga mallar för BP 2, 4 och 5</li>
+        <li>Statusrapport med trafikljusbedömning</li>
+        <li>Slutrapportmall</li>
+        <li>Formell ändringshantering kopplad till beslutslogg</li>
+        <li>Antura-konfiguration</li>
+        <li>Effektuppföljning och nyttoutvärdering</li>
+        <li>Bredare förankring och beställar-coaching</li>
+        <li>Fickkort (faserna, BP och rollerna i LF-kontext)</li>
+      </ul>
+    </div>
+
+    <!-- C — Vägen dit -->
+    <div class="impl-section-label reveal">03 — Vägen dit</div>
+    <p class="impl-intro reveal">Aktiviteterna som tar oss från nu till skarp drift.</p>
     <div class="roadmap-track">
       <div class="roadmap-line"></div>
-
-      <div class="roadmap-step">
-        <div class="step-dot active"></div>
-        <div class="step-number">Steg 01 — Pågående</div>
-        <div class="step-title">Etablera formellt projektstart på Lejonguiden</div>
-        <div class="step-body">Idag kallas "behov" ofta för "projekt" direkt — utredning, förstudie och program flödar ihop utan fasavskiljning tills investeringsbeslut fattas. Rotsaken är att lokalförsörjningsprocessen och projektmodellen inte är tydligt separerade: projektet uppfattas som "nästa steg i flödet" snarare än som ett fristående åtagande med eget mandat. Steg 1 etablerar det formella projektstarten: en explicit övergångspunkt där beställare, uppdrag och mandat definieras — och BP-punkterna likriktade mot kommunens modell.</div>
-        <div class="step-tags">
-          <span class="tag hi-lf">Formellt projektstart</span>
-          <span class="tag hi-lf">BP-likriktning</span>
-          <span class="tag">Lejonguiden</span>
-          <span class="tag">Intern förändring</span>
-        </div>
-      </div>
-
       <div class="roadmap-step">
         <div class="step-dot"></div>
-        <div class="step-number">Steg 02 — Nästa</div>
-        <div class="step-title">Bygga gemensam projektportal (Lejon × Kommunen)</div>
-        <div class="step-body">När LF:s interna struktur är på plats byggs det gemensamma gränssnittet. En anpassad portal som kommunens förvaltningar möter i lokalprojekt — med projektmodellens logik utåt och LF:s styrmodell, mallar och rutiner inåt.</div>
-        <div class="step-tags">
-          <span class="tag hi-lk">Projektportal</span>
-          <span class="tag hi-lk">Gemensamt gränssnitt</span>
-          <span class="tag">GitHub Pages</span>
-          <span class="tag">Kommunikation</span>
-        </div>
+        <div class="step-number">Steg 1</div>
+        <div class="step-title">Dialog med förvaltningarna</div>
+        <div class="step-body">Tidig dialog med beställande förvaltningar om den kommande förändringen och vad beställarrollen innebär.</div>
       </div>
-
       <div class="roadmap-step">
         <div class="step-dot"></div>
-        <div class="step-number">Steg 03 — Framåt</div>
-        <div class="step-title">Förankra, pilota och breddinför</div>
-        <div class="step-body">Portalen testas i verkliga lokalprojekt. Lärdomar dokumenteras och modellen justeras. Målet är ett levande verktyg som förvaltas gemensamt och uppdateras när processerna förändras.</div>
-        <div class="step-tags">
-          <span class="tag hi-lf">Pilot</span>
-          <span class="tag hi-lk">Förvaltning</span>
-          <span class="tag">Lessons learned</span>
-          <span class="tag">Breddinförande</span>
-        </div>
+        <div class="step-number">Steg 2</div>
+        <div class="step-title">Workshop — projektledare och chefer</div>
+        <div class="step-body">Genomgång av styrmodellen, rollerna och hur LF tillämpar den i praktiken.</div>
+      </div>
+      <div class="roadmap-step">
+        <div class="step-dot"></div>
+        <div class="step-number">Steg 3</div>
+        <div class="step-title">Utbildningsinsats</div>
+        <div class="step-body">Fördjupad utbildning om styrmodellen i LF-kontext för berörda medarbetare.</div>
+      </div>
+      <div class="roadmap-step">
+        <div class="step-dot"></div>
+        <div class="step-number">Steg 4</div>
+        <div class="step-title">Pilotprojekt</div>
+        <div class="step-body">Testa modellen i 2–3 verkliga projekt. Dokumentera erfarenheter och förfina mallarna löpande.</div>
+      </div>
+      <div class="roadmap-step">
+        <div class="step-dot"></div>
+        <div class="step-number">Steg 5</div>
+        <div class="step-title">Information till förvaltningarna</div>
+        <div class="step-body">Kommunicera till beställande förvaltningar att Lejonfastigheter nu tillämpar kommunens projektmodell.</div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- PROCESS VS PROJEKT -->
-<section id="process-projekt">
-  <div class="container">
-    <div class="chapter reveal">Kapitel 03b — Process kontra projekt — varför distinktionen är avgörande</div>
-    <h2 class="section-title reveal reveal-delay-1">Lokalförsörjningsprocessen<br>är linjearbete.<br><span class="ital">Ett projekt är det inte.</span></h2>
-    <p class="section-lead reveal reveal-delay-2">Att skilja dem åt är inte semantik — det är grunden för tydlig styrning, rätt mandat och ett fungerande formellt projektstart.</p>
-
-    <div class="roadmap-track">
-      <div class="roadmap-line"></div>
-
-      <div class="roadmap-step">
-        <div class="step-dot"></div>
-        <div class="step-title">Lokalförsörjningsprocessen är ett linjeflöde</div>
-        <div class="step-body">Lokalförsörjningsprocessen beskriver hur Lejonfastigheter kontinuerligt hanterar kommunens lokalbehov — från behovsidentifiering och utredning till att en lokal är löst och överlämnad. Det är ett återkommande, rollbaserat arbete med en processägare, definierade steg och tydliga in- och utflöden. Klassiskt linjearbete.</div>
-      </div>
-
-      <div class="roadmap-step">
-        <div class="step-dot"></div>
-        <div class="step-title">Projektet initieras från processen — men är inte en del av den</div>
-        <div class="step-body">När lokalförsörjningsprocessen konstaterar att lösningen kräver nybyggnation eller anpassning av en befintlig lokal, triggas ett projekt. Från det ögonblicket förändras spelreglerna: det finns en beställare, ett tidsavgränsat uppdrag, beslutsgrindar och en projektledare med delegerat ansvar. Det är inte längre ett processflöde — det är ett temporärt, unikt arbete med egna styrprinciper.<br><br>Projektet initieras alltså från processen, men är inte en del av den. Processen beställer projektet. Den är inte projektet.</div>
-      </div>
-
-      <div class="roadmap-step">
-        <div class="step-dot"></div>
-        <div class="step-title">Konsekvensen för Lejonguiden</div>
-        <div class="step-body">Lokalförsörjningsprocessen och projektmodellen är på Lejonguiden separata objekt med ett explicit gränssnitt emellan. Lokalförsörjningsprocessen avslutas med ett tydligt gränssnittsmoment: beslutet om att starta projekt, med namngiven beställare, definierat uppdrag och delegerat mandat. Därifrån tar projektmodellen vid — med egna styrprinciper, egna faser och egna beslutspunkter.<br><br>Det är detta gränssnitt som gör det formella projektstarten meningsfullt och möjligt att faktiskt etablera.</div>
-        <div class="step-tags">
-          <span class="tag hi-lf">Styrningslogik</span>
-          <span class="tag">Process vs projekt</span>
-          <span class="tag">Mandat</span>
-          <span class="tag hi-lk">Gränssnitt</span>
-        </div>
-      </div>
-
-    </div>
-  </div>
-</section>
 
 <!-- BP -->
 <section id="beslutspunkter">
