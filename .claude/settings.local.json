@@ -3,7 +3,10 @@
     "allow": [
       "WebFetch(domain:sites.google.com)",
       "Bash(gh api:*)",
-      "WebFetch(domain:jockemedw.github.io)"
+      "WebFetch(domain:jockemedw.github.io)",
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "Bash(git push:*)"
     ]
   }
 }
