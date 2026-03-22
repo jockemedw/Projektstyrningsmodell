@@ -26,7 +26,7 @@ Portalen är en statisk HTML-sajt baserad på:
 
 ## GitHub Pages
 
-Sajten är redo för GitHub Pages. Aktivera via:
+Sajten publiceras via GitHub Pages:
 **Settings → Pages → Deploy from branch → main → / (root)**
 
 ## Bilder (TODO)
