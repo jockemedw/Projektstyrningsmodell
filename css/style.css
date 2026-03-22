@@ -3,26 +3,45 @@
    Gemensam projektstyrningsportal
    ============================================================ */
 
-@import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,600;0,9..144,700;1,9..144,300&family=DM+Sans:wght@300;400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap');
 
 /* ── Variabler ─────────────────────────────────────────────── */
 :root {
-  --lkpg-red:      #C8102E;   /* Linköpings kommunröd */
-  --lejon-orange:  #E8731A;   /* Lejonfastigheters orange */
-  --lejon-gold:    #F5A623;   /* Accent guld */
-  --dark:          #1A1A1A;
-  --mid:           #3D3D3D;
-  --muted:         #767676;
-  --light-bg:      #F7F5F2;
+  /* Linköpings Kommun */
+  --lk-teal:        #1B5E5A;   /* Primär petrolgrön */
+  --lk-teal-light:  #2A9490;   /* Ljusare teal för accenter */
+  --lk-yellow:      #EDD800;   /* Lime-gul accent */
+
+  /* Lejonfastigheter */
+  --lf-teal:        #1A3A4A;   /* Mörkblå/navy bas */
+  --lf-yellow:      #F0B400;   /* Amber-gul — LF:s starka accent */
+  --lf-yellow-light:#F5CA3A;
+
+  /* Bakgrunder */
+  --bg-white:  #FFFFFF;
+  --bg-light:  #F4F6F5;        /* Ljust grå-grön ton */
+  --bg-section:#E8F0EF;        /* Svagt teal-tonad sektion */
+
+  /* Text */
+  --text-dark:   #1A2428;
+  --text-body:   #3A4A50;
+  --text-muted:  #6A7E84;
+
+  /* Legacy aliases (bakåtkompatibilitet) */
+  --dark:          #1A2428;
+  --mid:           #3A4A50;
+  --muted:         #6A7E84;
+  --light-bg:      #F4F6F5;
   --white:         #FFFFFF;
-  --border:        #E2DDD8;
-  --phase-bg:      #FDF9F5;
+  --border:        #D5DDD9;
+  --phase-bg:      #F4F8F7;
 
   --nav-height: 64px;
   --sidebar-width: 260px;
 
-  --font-display: 'Fraunces', Georgia, serif;
+  --font-display: 'Playfair Display', Georgia, serif;
   --font-body:    'DM Sans', sans-serif;
+  --font-mono:    'DM Mono', monospace;
 
   --shadow-sm: 0 1px 3px rgba(0,0,0,0.08);
   --shadow-md: 0 4px 16px rgba(0,0,0,0.10);
@@ -36,11 +55,11 @@ body {
   font-family: var(--font-body);
   font-size: 16px;
   line-height: 1.7;
-  color: var(--dark);
-  background: var(--white);
+  color: var(--text-dark);
+  background: var(--bg-white);
 }
 img { max-width: 100%; height: auto; }
-a { color: var(--lkpg-red); text-decoration: none; }
+a { color: var(--lk-teal); text-decoration: none; }
 a:hover { text-decoration: underline; }
 
 /* ── Top navbar ─────────────────────────────────────────────── */
@@ -48,7 +67,7 @@ a:hover { text-decoration: underline; }
   position: sticky;
   top: 0;
   z-index: 100;
-  background: var(--dark);
+  background: var(--lf-teal);
   height: var(--nav-height);
   display: flex;
   align-items: center;
@@ -72,7 +91,7 @@ a:hover { text-decoration: underline; }
 }
 
 .nav-logo-lkpg {
-  background: var(--lkpg-red);
+  background: var(--lk-teal);
   color: white;
   font-family: var(--font-display);
   font-weight: 700;
@@ -84,16 +103,16 @@ a:hover { text-decoration: underline; }
 }
 
 .nav-logo-sep {
-  background: var(--lejon-orange);
-  color: white;
+  background: var(--lf-yellow);
+  color: var(--lf-teal);
   font-size: 16px;
   padding: 6px 6px;
   font-weight: 300;
 }
 
 .nav-logo-lejon {
-  background: var(--lejon-orange);
-  color: white;
+  background: var(--lf-yellow);
+  color: var(--lf-teal);
   font-family: var(--font-display);
   font-weight: 700;
   font-size: 13px;
@@ -130,7 +149,7 @@ a:hover { text-decoration: underline; }
 }
 
 .nav-links > li > a {
-  color: #B8B4AF;
+  color: #B8CDD4;
   font-size: 13px;
   font-weight: 500;
   padding: 0 14px;
@@ -149,9 +168,57 @@ a:hover { text-decoration: underline; }
   background: rgba(255,255,255,0.08);
 }
 
+.nav-links > li > a.active-teal {
+  color: white;
+  background: var(--lk-teal);
+}
+
+/* Legacy: keep active-red working but map to teal */
 .nav-links > li > a.active-red {
   color: white;
-  background: var(--lkpg-red);
+  background: var(--lk-teal);
+}
+
+/* ── Nav special tab (Implementeringsplan) ─────────────────── */
+.nav-item-special {
+  display: flex;
+  align-items: center;
+  padding: 0 8px;
+}
+
+.nav-item-special .nav-link-special {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  background: rgba(240,180,0,0.12);
+  border: 1px solid rgba(240,180,0,0.35);
+  border-radius: 100px;
+  padding: 5px 14px;
+  color: #C8960A;
+  font-family: var(--font-mono, monospace);
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: background 0.2s, color 0.2s;
+}
+
+.nav-item-special .nav-link-special:hover {
+  background: rgba(240,180,0,0.22);
+  color: var(--lf-yellow, #F0B400);
+}
+
+.nav-special-dot {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: var(--lf-yellow, #F0B400);
+  flex-shrink: 0;
+  animation: dotPulse 2s infinite;
+}
+
+@keyframes dotPulse {
+  0%, 100% { opacity: 0.6; }
+  50%       { opacity: 1; box-shadow: 0 0 6px rgba(240,180,0,0.6); }
 }
 
 /* Dropdown */
@@ -161,15 +228,15 @@ a:hover { text-decoration: underline; }
   position: absolute;
   top: 100%;
   left: 0;
-  background: var(--dark);
+  background: var(--lf-teal);
   min-width: 200px;
   box-shadow: var(--shadow-lg);
   z-index: 200;
-  border-top: 2px solid var(--lkpg-red);
+  border-top: 2px solid var(--lk-teal);
 }
 .dropdown a {
   display: block;
-  color: #B8B4AF;
+  color: #B8CDD4;
   font-size: 13px;
   padding: 10px 16px;
   text-decoration: none;
@@ -193,14 +260,14 @@ a:hover { text-decoration: underline; }
   display: block;
   width: 22px;
   height: 2px;
-  background: #B8B4AF;
+  background: #B8CDD4;
   border-radius: 2px;
   transition: transform 0.2s;
 }
 
 /* ── Dual-brand banner ──────────────────────────────────────── */
 .brand-banner {
-  background: linear-gradient(135deg, var(--lkpg-red) 0%, #A00D24 40%, #3D1A0A 70%, var(--lejon-orange) 100%);
+  background: linear-gradient(135deg, var(--lk-teal) 0%, #174E4A 40%, #152C36 70%, var(--lf-teal) 100%);
   padding: 48px 40px;
   display: flex;
   align-items: center;
@@ -218,7 +285,7 @@ a:hover { text-decoration: underline; }
 .brand-banner h1 {
   font-family: var(--font-display);
   font-size: clamp(22px, 4vw, 36px);
-  font-weight: 600;
+  font-weight: 700;
   color: white;
   line-height: 1.2;
   margin-bottom: 8px;
@@ -244,10 +311,29 @@ a:hover { text-decoration: underline; }
   padding: 12px 16px;
   border-radius: 4px;
 }
-.badge-lkpg { background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.2); }
-.badge-lejon { background: rgba(232,115,26,0.25); border: 1px solid rgba(232,115,26,0.4); }
+.badge-lkpg { background: rgba(42,148,144,0.25); border: 1px solid rgba(42,148,144,0.4); }
+.badge-lejon { background: rgba(240,180,0,0.15); border: 1px solid rgba(240,180,0,0.35); }
 .badge-icon { font-size: 22px; }
 .badge-label { color: rgba(255,255,255,0.85); font-size: 11px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; }
+
+/* ── Implementation banner ─────────────────────────────────── */
+.impl-banner {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: rgba(240,180,0,0.08);
+  border: 1px solid rgba(240,180,0,0.25);
+  border-radius: 100px;
+  padding: 7px 16px;
+  font-size: 13px; color: var(--text-muted);
+  margin-bottom: 20px;
+}
+
+.impl-banner a { color: #C8960A; text-decoration: none; font-weight: 500; }
+.impl-banner a:hover { text-decoration: underline; }
+
+.impl-banner-dot {
+  width: 7px; height: 7px; border-radius: 50%;
+  background: var(--lf-yellow); flex-shrink: 0;
+}
 
 /* ── Page layout ────────────────────────────────────────────── */
 .page-wrapper {
@@ -259,7 +345,7 @@ a:hover { text-decoration: underline; }
 .sidebar {
   width: var(--sidebar-width);
   flex-shrink: 0;
-  background: var(--light-bg);
+  background: var(--bg-light);
   border-right: 1px solid var(--border);
   padding: 28px 0;
   position: sticky;
@@ -275,7 +361,7 @@ a:hover { text-decoration: underline; }
   font-weight: 600;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: var(--muted);
+  color: var(--text-muted);
   padding: 12px 20px 6px;
 }
 
@@ -285,20 +371,20 @@ a:hover { text-decoration: underline; }
   gap: 8px;
   padding: 8px 20px;
   font-size: 14px;
-  color: var(--mid);
+  color: var(--text-body);
   text-decoration: none;
   transition: background 0.1s, color 0.1s;
   border-left: 3px solid transparent;
 }
 .sidebar-link:hover {
-  background: rgba(200,16,46,0.06);
-  color: var(--lkpg-red);
+  background: rgba(27,94,90,0.06);
+  color: var(--lk-teal);
   text-decoration: none;
 }
 .sidebar-link.active {
-  background: rgba(200,16,46,0.08);
-  color: var(--lkpg-red);
-  border-left-color: var(--lkpg-red);
+  background: rgba(27,94,90,0.08);
+  color: var(--lk-teal);
+  border-left-color: var(--lk-teal);
   font-weight: 500;
 }
 .sidebar-link .dot {
@@ -307,7 +393,7 @@ a:hover { text-decoration: underline; }
   background: var(--border);
   flex-shrink: 0;
 }
-.sidebar-link.active .dot { background: var(--lkpg-red); }
+.sidebar-link.active .dot { background: var(--lk-teal); }
 
 /* Main content */
 .main-content {
@@ -317,19 +403,20 @@ a:hover { text-decoration: underline; }
 }
 
 /* ── Typography ─────────────────────────────────────────────── */
-h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 600; line-height: 1.25; }
-h1 { font-size: clamp(28px, 4vw, 40px); margin-bottom: 20px; color: var(--dark); }
-h2 { font-size: clamp(20px, 3vw, 26px); margin: 36px 0 14px; color: var(--dark); }
-h3 { font-size: 18px; margin: 28px 0 10px; color: var(--mid); }
-h4 { font-size: 15px; margin: 20px 0 8px; color: var(--mid); font-family: var(--font-body); font-weight: 600; }
-p { margin-bottom: 16px; color: var(--mid); }
-ul, ol { margin: 0 0 16px 24px; color: var(--mid); }
+h1, h2, h3 { font-family: var(--font-display); font-weight: 700; line-height: 1.25; }
+h4 { font-family: var(--font-body); font-weight: 600; line-height: 1.25; }
+h1 { font-size: clamp(28px, 4vw, 40px); margin-bottom: 20px; color: var(--text-dark); }
+h2 { font-size: clamp(20px, 3vw, 26px); margin: 36px 0 14px; color: var(--text-dark); }
+h3 { font-size: 18px; margin: 28px 0 10px; color: var(--text-body); }
+h4 { font-size: 15px; margin: 20px 0 8px; color: var(--text-body); }
+p { margin-bottom: 16px; color: var(--text-body); }
+ul, ol { margin: 0 0 16px 24px; color: var(--text-body); }
 li { margin-bottom: 6px; }
 
 .lead {
   font-size: 18px;
   line-height: 1.6;
-  color: var(--mid);
+  color: var(--text-body);
   font-weight: 300;
   margin-bottom: 28px;
 }
@@ -349,7 +436,7 @@ li { margin-bottom: 6px; }
   text-align: center;
   padding: 10px 8px;
   background: var(--phase-bg);
-  color: var(--muted);
+  color: var(--text-muted);
   font-weight: 500;
   text-decoration: none;
   border-right: 1px solid var(--border);
@@ -358,43 +445,43 @@ li { margin-bottom: 6px; }
   letter-spacing: 0.02em;
 }
 .phase-step:last-child { border-right: none; }
-.phase-step:hover { background: rgba(200,16,46,0.06); color: var(--lkpg-red); text-decoration: none; }
+.phase-step:hover { background: rgba(27,94,90,0.06); color: var(--lk-teal); text-decoration: none; }
 .phase-step.current {
-  background: var(--lkpg-red);
+  background: var(--lk-teal);
   color: white;
   font-weight: 600;
 }
 .phase-step.lejon-current {
-  background: var(--lejon-orange);
-  color: white;
+  background: var(--lf-yellow);
+  color: var(--lf-teal);
   font-weight: 600;
 }
 
 /* ── Decision point cards ───────────────────────────────────── */
 .bp-card {
-  border-left: 4px solid var(--lkpg-red);
-  background: #FDF6F7;
+  border-left: 4px solid var(--lk-teal);
+  background: #F0F7F6;
   border-radius: 0 6px 6px 0;
   padding: 20px 24px;
   margin: 28px 0;
 }
 .bp-card.lejon {
-  border-left-color: var(--lejon-orange);
-  background: #FDF8F3;
+  border-left-color: var(--lf-yellow);
+  background: #FDF8EE;
 }
 .bp-card-title {
   font-family: var(--font-display);
   font-weight: 700;
   font-size: 15px;
-  color: var(--lkpg-red);
+  color: var(--lk-teal);
   margin-bottom: 10px;
   display: flex;
   align-items: center;
   gap: 8px;
 }
-.bp-card.lejon .bp-card-title { color: var(--lejon-orange); }
+.bp-card.lejon .bp-card-title { color: var(--lf-yellow); }
 .bp-badge {
-  background: var(--lkpg-red);
+  background: var(--lk-teal);
   color: white;
   font-size: 10px;
   font-weight: 700;
@@ -403,7 +490,7 @@ li { margin-bottom: 6px; }
   font-family: var(--font-body);
   letter-spacing: 0.05em;
 }
-.bp-card.lejon .bp-badge { background: var(--lejon-orange); }
+.bp-card.lejon .bp-badge { background: var(--lf-yellow); color: var(--lf-teal); }
 
 /* ── Checklist ──────────────────────────────────────────────── */
 .checklist {
@@ -415,7 +502,7 @@ li { margin-bottom: 6px; }
   padding: 8px 12px 8px 36px;
   position: relative;
   font-size: 14px;
-  color: var(--mid);
+  color: var(--text-body);
   border-bottom: 1px solid var(--border);
 }
 .checklist li:last-child { border-bottom: none; }
@@ -432,12 +519,11 @@ li { margin-bottom: 6px; }
 
 /* ── Lejon-specifik sektion ─────────────────────────────────── */
 .lejon-section {
-  background: linear-gradient(135deg, #FDF3E8 0%, #FEF9F4 100%);
-  border: 1px solid rgba(232,115,26,0.25);
-  border-left: 4px solid var(--lejon-orange);
+  background: linear-gradient(135deg, rgba(240,180,0,0.07) 0%, transparent 100%);
+  border-left: 3px solid var(--lf-yellow);
   border-radius: 0 8px 8px 0;
-  padding: 28px 32px;
-  margin: 36px 0;
+  padding: 20px 24px;
+  margin: 24px 0;
 }
 .lejon-section-header {
   display: flex;
@@ -445,26 +531,32 @@ li { margin-bottom: 6px; }
   gap: 10px;
   margin-bottom: 16px;
 }
-.lejon-badge-pill {
-  background: var(--lejon-orange);
-  color: white;
+.lejon-badge-pill,
+.lejon-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-mono);
   font-size: 10px;
-  font-weight: 700;
-  padding: 3px 10px;
-  border-radius: 20px;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.18em;
   text-transform: uppercase;
+  padding: 3px 10px;
+  border-radius: 100px;
+  background: rgba(240,180,0,0.12);
+  color: #C8960A;
+  border: 1px solid rgba(240,180,0,0.35);
+  margin-bottom: 10px;
 }
 .lejon-section h3 {
   font-family: var(--font-display);
-  color: var(--lejon-orange);
+  color: #C8960A;
   margin: 0;
   font-size: 16px;
 }
 
-/* ── Mer info sektion (lila i original → här mörk ton) ──────── */
+/* ── Mer info sektion ──────────────────────────────────────── */
 .more-info {
-  background: var(--dark);
+  background: var(--lf-teal);
   color: #E8E4DF;
   padding: 36px 48px;
   margin: 48px -48px -80px;
@@ -475,8 +567,8 @@ li { margin-bottom: 6px; }
   font-size: 22px;
   margin-bottom: 20px;
 }
-.more-info p, .more-info li { color: #B8B4AF; }
-.more-info a { color: var(--lejon-gold); }
+.more-info p, .more-info li { color: #B8CDD4; }
+.more-info a { color: var(--lf-yellow); }
 .more-info h3 { color: #E8E4DF; font-size: 16px; }
 
 /* ── Tool cards ─────────────────────────────────────────────── */
@@ -490,22 +582,22 @@ li { margin-bottom: 6px; }
   border: 1px solid var(--border);
   border-radius: 8px;
   padding: 18px 20px;
-  background: var(--white);
+  background: var(--bg-white);
   transition: box-shadow 0.15s, border-color 0.15s;
 }
 .tool-card:hover {
   box-shadow: var(--shadow-md);
-  border-color: rgba(200,16,46,0.25);
+  border-color: rgba(27,94,90,0.25);
 }
 .tool-card-title {
   font-weight: 600;
   font-size: 14px;
-  color: var(--dark);
+  color: var(--text-dark);
   margin-bottom: 6px;
 }
 .tool-card p {
   font-size: 13px;
-  color: var(--muted);
+  color: var(--text-muted);
   margin: 0;
 }
 .tool-card a {
@@ -527,7 +619,7 @@ li { margin-bottom: 6px; }
 }
 .home-hero h1 em {
   font-style: italic;
-  color: var(--lkpg-red);
+  color: var(--lk-teal);
 }
 
 .card-grid {
@@ -543,29 +635,29 @@ li { margin-bottom: 6px; }
   text-decoration: none;
   display: block;
   transition: box-shadow 0.15s, transform 0.15s, border-color 0.15s;
-  background: var(--white);
+  background: var(--bg-white);
 }
 .nav-card:hover {
   box-shadow: var(--shadow-md);
   transform: translateY(-2px);
-  border-color: rgba(200,16,46,0.2);
+  border-color: rgba(27,94,90,0.3);
   text-decoration: none;
 }
 .nav-card-icon { font-size: 28px; margin-bottom: 10px; }
 .nav-card h3 {
   font-family: var(--font-display);
   font-size: 17px;
-  color: var(--dark);
+  color: var(--text-dark);
   margin: 0 0 6px;
 }
 .nav-card p {
   font-size: 13px;
-  color: var(--muted);
+  color: var(--text-muted);
   margin: 0;
   line-height: 1.5;
 }
-.nav-card.lejon-card { border-color: rgba(232,115,26,0.3); background: #FEFAF5; }
-.nav-card.lejon-card:hover { border-color: var(--lejon-orange); }
+.nav-card.lejon-card { border-color: rgba(240,180,0,0.3); background: #FFFCF4; }
+.nav-card.lejon-card:hover { border-color: var(--lf-yellow); }
 
 /* ── Dual-context pills ──────────────────────────────────────── */
 .context-pill {
@@ -581,9 +673,9 @@ li { margin-bottom: 6px; }
   margin-right: 6px;
   margin-bottom: 8px;
 }
-.pill-kommune { background: rgba(200,16,46,0.1); color: var(--lkpg-red); }
-.pill-lejon   { background: rgba(232,115,26,0.1); color: var(--lejon-orange); }
-.pill-gemensam { background: rgba(26,26,26,0.07); color: var(--mid); }
+.pill-kommune { background: rgba(27,94,90,0.1); color: var(--lk-teal); }
+.pill-lejon   { background: rgba(240,180,0,0.1); color: #C8960A; }
+.pill-gemensam { background: rgba(26,58,74,0.07); color: var(--text-body); }
 
 /* ── Divider ──────────────────────────────────────────────────── */
 .divider {
@@ -594,7 +686,7 @@ li { margin-bottom: 6px; }
 
 /* ── Img placeholder ─────────────────────────────────────────── */
 .img-placeholder {
-  background: var(--light-bg);
+  background: var(--bg-light);
   border: 2px dashed var(--border);
   border-radius: 8px;
   display: flex;
@@ -604,7 +696,7 @@ li { margin-bottom: 6px; }
   gap: 8px;
   padding: 40px;
   margin: 24px 0;
-  color: var(--muted);
+  color: var(--text-muted);
   font-size: 13px;
   text-align: center;
 }
@@ -612,8 +704,8 @@ li { margin-bottom: 6px; }
 
 /* ── Footer ──────────────────────────────────────────────────── */
 footer {
-  background: var(--dark);
-  color: #767676;
+  background: var(--lf-teal);
+  color: #6A8E96;
   font-size: 13px;
   padding: 28px 40px;
   display: flex;
@@ -622,7 +714,7 @@ footer {
   flex-wrap: wrap;
   gap: 12px;
 }
-footer a { color: #999; }
+footer a { color: #8DAAB2; }
 .footer-brand { display: flex; align-items: center; gap: 8px; }
 
 /* ── Responsive ──────────────────────────────────────────────── */
@@ -635,7 +727,7 @@ footer a { color: #999; }
     position: fixed;
     top: var(--nav-height);
     left: 0; right: 0;
-    background: var(--dark);
+    background: var(--lf-teal);
     padding: 16px 0;
     height: auto;
     box-shadow: var(--shadow-lg);

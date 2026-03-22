@@ -1,0 +1,801 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Implementeringsplan — Lejonguiden × Projektmodellen</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    /* Lejonfastigheter — mörkblå/teal + gul amber */
+    --lf-teal:        #1A3A4A;
+    --lf-teal-mid:    #1F4D62;
+    --lf-yellow:      #F0B400;
+    --lf-yellow-light:#F5CA3A;
+
+    /* Linköpings kommun — petrolgrön/teal + lime-gul */
+    --lk-teal:        #1B5E5A;
+    --lk-teal-light:  #2A9490;
+    --lk-yellow:      #EDD800;
+    --lk-bg-light:    #E6F2F1;
+
+    /* Bakgrunder */
+    --dark:    #0C1618;
+    --dark-2:  #101E22;
+    --dark-3:  #152229;
+    --surface: #1A2C34;
+
+    /* Text */
+    --text-primary: #EEE9DF;
+    --text-muted:   #8DAAB2;
+    --text-dim:     #4E6870;
+
+    /* Borders */
+    --border:        rgba(240,180,0,0.12);
+    --border-strong: rgba(240,180,0,0.30);
+    --border-teal:   rgba(42,148,144,0.30);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--dark);
+    color: var(--text-primary);
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 300;
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+
+  /* PROGRESS */
+  #progress {
+    position: fixed; top: 0; left: 0;
+    height: 2px; width: 0%;
+    background: linear-gradient(90deg, var(--lf-yellow), var(--lk-yellow));
+    z-index: 1000;
+    transition: width 0.1s linear;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0;
+    z-index: 100;
+    padding: 18px 48px;
+    display: flex; align-items: center; justify-content: space-between;
+    background: linear-gradient(180deg, rgba(12,22,24,0.97) 0%, transparent 100%);
+    backdrop-filter: blur(6px);
+  }
+
+  .nav-brand { display: flex; align-items: center; gap: 14px; }
+
+  .nav-mark { display: flex; gap: 3px; align-items: center; }
+  .mark-lf { width: 12px; height: 12px; background: var(--lf-yellow); border-radius: 2px; }
+  .mark-lk { width: 12px; height: 12px; background: var(--lk-teal-light); border-radius: 2px; }
+
+  .nav-title {
+    font-family: 'DM Mono', monospace;
+    font-size: 12px; letter-spacing: 0.08em;
+    color: var(--text-muted);
+  }
+
+  .nav-links { display: flex; gap: 32px; list-style: none; }
+  .nav-links a {
+    color: var(--text-dim); text-decoration: none;
+    font-size: 12px; letter-spacing: 0.06em; text-transform: uppercase;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--lf-yellow); }
+
+  /* SECTIONS */
+  section {
+    min-height: 100vh;
+    display: flex; flex-direction: column; justify-content: center;
+    padding: 120px 0; position: relative;
+  }
+
+  .container { max-width: 1100px; margin: 0 auto; padding: 0 64px; }
+
+  /* HERO */
+  #hero { min-height: 100vh; display: grid; place-items: center; overflow: hidden; }
+
+  .hero-bg {
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(ellipse 70% 60% at 65% 35%, rgba(27,94,90,0.18) 0%, transparent 65%),
+      radial-gradient(ellipse 55% 70% at 15% 75%, rgba(26,58,74,0.20) 0%, transparent 60%);
+  }
+
+  .hero-grid {
+    position: absolute; inset: 0;
+    background-image:
+      linear-gradient(rgba(42,148,144,0.045) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(42,148,144,0.045) 1px, transparent 1px);
+    background-size: 56px 56px;
+  }
+
+  /* Soft diagonal accent */
+  .hero-split {
+    position: absolute; inset: 0; overflow: hidden; pointer-events: none;
+  }
+  .hero-split::before {
+    content: '';
+    position: absolute; top: -20%; right: -5%;
+    width: 50%; height: 140%;
+    background: rgba(27,94,90,0.055);
+    transform: skewX(-8deg);
+    border-left: 1px solid rgba(42,148,144,0.12);
+  }
+
+  .hero-content {
+    position: relative; text-align: center;
+    max-width: 900px; padding: 0 40px;
+  }
+
+  .hero-eyebrow {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px; letter-spacing: 0.28em; text-transform: uppercase;
+    color: var(--lf-yellow); margin-bottom: 32px;
+    opacity: 0; animation: fadeUp 0.8s 0.2s ease forwards;
+  }
+
+  .hero-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(48px, 7vw, 92px);
+    font-weight: 900; line-height: 1.0; letter-spacing: -0.02em;
+    margin-bottom: 28px;
+    opacity: 0; animation: fadeUp 0.8s 0.4s ease forwards;
+  }
+
+  .hero-subtitle {
+    font-size: 18px; color: var(--text-muted);
+    max-width: 540px; margin: 0 auto 48px; line-height: 1.8;
+    opacity: 0; animation: fadeUp 0.8s 0.6s ease forwards;
+  }
+
+  .hero-brands {
+    display: flex; gap: 12px; justify-content: center;
+    margin-bottom: 44px;
+    opacity: 0; animation: fadeUp 0.8s 0.8s ease forwards;
+  }
+
+  .brand-pill {
+    display: flex; align-items: center; gap: 8px;
+    padding: 7px 16px; border-radius: 100px;
+    font-family: 'DM Mono', monospace;
+    font-size: 11px; letter-spacing: 0.1em; border: 1px solid;
+  }
+
+  .pill-lf { background: rgba(240,180,0,0.07); border-color: rgba(240,180,0,0.28); color: var(--lf-yellow); }
+  .pill-lk { background: rgba(27,94,90,0.10); border-color: rgba(42,148,144,0.35); color: var(--lk-teal-light); }
+
+  .pill-dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; }
+  .dot-lf { background: var(--lf-yellow); }
+  .dot-lk { background: var(--lk-teal-light); }
+
+  .hero-scroll {
+    display: flex; flex-direction: column; align-items: center; gap: 8px;
+    color: var(--text-dim); font-size: 11px;
+    letter-spacing: 0.15em; text-transform: uppercase;
+    opacity: 0; animation: fadeUp 0.8s 1.0s ease forwards;
+  }
+
+  .hero-scroll-line {
+    width: 1px; height: 48px;
+    background: linear-gradient(180deg, var(--lf-yellow) 0%, transparent 100%);
+    animation: scrollPulse 2s infinite;
+  }
+
+  /* SHARED */
+  .chapter {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px; letter-spacing: 0.3em; text-transform: uppercase;
+    color: var(--lf-yellow); margin-bottom: 20px;
+  }
+
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(34px, 4.2vw, 58px);
+    font-weight: 700; line-height: 1.1; letter-spacing: -0.015em;
+    margin-bottom: 22px;
+  }
+
+  .ital { font-style: italic; color: var(--lf-yellow); }
+  .teal-accent { color: var(--lk-teal-light); }
+
+  .section-lead {
+    font-size: 17px; color: var(--text-muted);
+    max-width: 640px; line-height: 1.85; margin-bottom: 52px;
+  }
+
+  /* LAYERS */
+  #layers { background: var(--dark-2); }
+
+  .layer-stack {
+    max-width: 780px; margin: 52px auto 0; position: relative;
+  }
+
+  .layer {
+    border-radius: 14px; padding: 34px 42px;
+    transition: transform 0.3s, box-shadow 0.3s;
+    cursor: default; position: relative;
+  }
+
+  .layer:hover { transform: translateY(-5px) scale(1.01); }
+
+  .layer-kommunen {
+    background: linear-gradient(135deg, rgba(27,94,90,0.20) 0%, rgba(27,94,90,0.10) 100%);
+    border: 1px solid rgba(42,148,144,0.40);
+    box-shadow: 0 0 60px rgba(27,94,90,0.12); z-index: 1;
+  }
+
+  .layer-portal {
+    background: linear-gradient(135deg, rgba(240,180,0,0.07) 0%, rgba(27,94,90,0.12) 100%);
+    border: 1px solid rgba(240,180,0,0.25);
+    z-index: 2; margin: -13px 28px;
+    box-shadow: 0 0 40px rgba(240,180,0,0.05);
+  }
+
+  .layer-lejon {
+    background: linear-gradient(135deg, rgba(240,180,0,0.16) 0%, rgba(240,180,0,0.05) 100%);
+    border: 1px solid var(--lf-yellow);
+    box-shadow: 0 0 60px rgba(240,180,0,0.11), inset 0 1px 0 rgba(240,220,80,0.22);
+    z-index: 3; margin: -13px 56px;
+  }
+
+  .layer-badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    font-family: 'DM Mono', monospace;
+    font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase;
+    padding: 4px 12px; border-radius: 100px; margin-bottom: 12px;
+  }
+
+  .badge-lk  { background: rgba(27,94,90,0.22); color: #7DCBC8; border: 1px solid rgba(42,148,144,0.45); }
+  .badge-mix { background: rgba(240,180,0,0.09); color: var(--lf-yellow-light); border: 1px solid var(--border-strong); }
+  .badge-lf  { background: rgba(240,180,0,0.16); color: var(--lf-yellow); border: 1px solid var(--lf-yellow); }
+
+  .layer-name { font-family: 'Playfair Display', serif; font-size: 21px; font-weight: 700; margin-bottom: 8px; }
+  .layer-desc { font-size: 14px; color: var(--text-muted); line-height: 1.65; }
+
+  .layer-connector {
+    display: flex; justify-content: center;
+    padding: 10px 0; position: relative; z-index: 10;
+  }
+
+  .connector-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px; letter-spacing: 0.12em; color: var(--text-dim);
+    background: var(--dark-2); padding: 0 16px; position: relative;
+  }
+
+  .connector-label::before, .connector-label::after {
+    content: ''; position: absolute; top: 50%;
+    width: 36px; height: 1px; background: var(--border);
+  }
+  .connector-label::before { right: 100%; }
+  .connector-label::after  { left: 100%; }
+
+  /* CONCEPT */
+  #concept { background: var(--dark); }
+
+  .concept-grid {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 2px; border-radius: 16px; overflow: hidden;
+    border: 1px solid var(--border); margin-top: 44px;
+  }
+
+  .concept-cell {
+    padding: 42px 38px; background: var(--dark-2);
+    position: relative; overflow: hidden;
+  }
+
+  .concept-cell::before {
+    content: ''; position: absolute;
+    top: 0; left: 0; width: 4px; height: 100%;
+  }
+
+  .concept-cell.lf::before { background: var(--lf-yellow); }
+  .concept-cell.lk::before { background: var(--lk-teal-light); }
+  .concept-cell:nth-child(3), .concept-cell:nth-child(4) { border-top: 1px solid var(--border); }
+
+  .concept-icon {
+    width: 44px; height: 44px; border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 20px; margin-bottom: 16px;
+  }
+
+  .icon-lf { background: rgba(240,180,0,0.12); }
+  .icon-lk { background: rgba(27,94,90,0.16); }
+
+  .concept-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; margin-bottom: 10px;
+  }
+
+  .label-lf { color: rgba(240,180,0,0.55); }
+  .label-lk { color: rgba(42,148,144,0.65); }
+
+  .concept-title { font-family: 'Playfair Display', serif; font-size: 19px; font-weight: 700; margin-bottom: 10px; }
+  .concept-body  { font-size: 14px; color: var(--text-muted); line-height: 1.7; }
+
+  /* ROADMAP */
+  #roadmap { background: var(--dark-3); }
+
+  .roadmap-track { padding-left: 64px; margin-top: 44px; position: relative; }
+
+  .roadmap-line {
+    position: absolute; left: 20px; top: 20px; bottom: 20px;
+    width: 1px;
+    background: linear-gradient(180deg, var(--lf-yellow) 0%, var(--border) 100%);
+  }
+
+  .roadmap-step {
+    position: relative; margin-bottom: 50px;
+    opacity: 0; transform: translateX(-16px);
+    transition: opacity 0.5s, transform 0.5s;
+  }
+
+  .roadmap-step.visible { opacity: 1; transform: translateX(0); }
+
+  .step-dot {
+    position: absolute; left: -52px; top: 4px;
+    width: 24px; height: 24px; border-radius: 50%;
+    border: 2px solid var(--lf-yellow); background: var(--dark-3);
+    display: flex; align-items: center; justify-content: center;
+  }
+
+  .step-dot::after { content: ''; width: 8px; height: 8px; border-radius: 50%; background: var(--lf-yellow); }
+
+  .step-dot.active { background: var(--lf-yellow); box-shadow: 0 0 20px rgba(240,180,0,0.4); }
+  .step-dot.active::after { background: var(--dark); }
+
+  .step-number { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.2em; color: var(--lf-yellow); margin-bottom: 8px; }
+  .step-title { font-family: 'Playfair Display', serif; font-size: 24px; font-weight: 700; margin-bottom: 10px; }
+  .step-body { font-size: 15px; color: var(--text-muted); max-width: 640px; line-height: 1.75; margin-bottom: 16px; }
+
+  .step-tags { display: flex; flex-wrap: wrap; gap: 8px; }
+
+  .tag {
+    font-family: 'DM Mono', monospace; font-size: 11px;
+    padding: 5px 12px; border-radius: 100px;
+    border: 1px solid var(--border); color: var(--text-dim);
+    background: rgba(240,180,0,0.04);
+  }
+
+  .tag.hi-lf { border-color: var(--lf-yellow); color: var(--lf-yellow); background: rgba(240,180,0,0.08); }
+  .tag.hi-lk { border-color: var(--lk-teal-light); color: var(--lk-teal-light); background: rgba(27,94,90,0.10); }
+
+  /* BP */
+  #beslutspunkter { background: var(--dark-2); }
+
+  .bp-row {
+    display: grid; grid-template-columns: repeat(5, 1fr);
+    gap: 14px; margin-top: 44px; position: relative;
+  }
+
+  .bp-row::before {
+    content: ''; position: absolute;
+    top: 36px; left: 8%; right: 8%; height: 1px;
+    background: linear-gradient(90deg, transparent, var(--border-strong), transparent);
+  }
+
+  .bp-card {
+    background: var(--dark-3); border: 1px solid var(--border);
+    border-radius: 12px; padding: 26px 14px; text-align: center;
+    transition: transform 0.25s, border-color 0.25s, box-shadow 0.25s;
+    cursor: default;
+  }
+
+  .bp-card:hover { transform: translateY(-6px); border-color: var(--lf-yellow); box-shadow: 0 16px 40px rgba(240,180,0,0.12); }
+  .bp-card.key-bp { border-color: rgba(240,180,0,0.50); box-shadow: 0 0 28px rgba(240,180,0,0.09); }
+
+  .bp-circle {
+    width: 50px; height: 50px; border-radius: 50%;
+    border: 2px solid var(--lf-yellow);
+    display: flex; align-items: center; justify-content: center;
+    margin: 0 auto 12px;
+    font-family: 'Playfair Display', serif; font-size: 17px; font-weight: 700;
+    color: var(--lf-yellow); background: rgba(240,180,0,0.07);
+    transition: background 0.25s;
+  }
+
+  .bp-card:hover .bp-circle { background: rgba(240,180,0,0.17); }
+  .bp-name { font-size: 13px; font-weight: 500; margin-bottom: 5px; }
+  .bp-sub  { font-size: 11px; color: var(--text-dim); line-height: 1.5; }
+
+  .lf-key-moment {
+    margin-top: 32px; padding: 26px 30px;
+    background: linear-gradient(135deg, rgba(240,180,0,0.06), rgba(27,94,90,0.06));
+    border: 1px solid var(--border-strong); border-radius: 12px;
+    display: flex; align-items: flex-start; gap: 16px;
+  }
+
+  .key-star { font-size: 22px; flex-shrink: 0; margin-top: 2px; }
+  .key-text { font-size: 14px; color: var(--text-muted); line-height: 1.7; }
+  .key-text strong { color: var(--text-primary); font-weight: 500; }
+
+  /* VISION */
+  #vision { background: var(--dark); overflow: hidden; }
+
+  .vision-bg {
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(ellipse 55% 75% at 0% 50%, rgba(27,94,90,0.07) 0%, transparent 60%),
+      radial-gradient(ellipse 45% 60% at 100% 30%, rgba(240,180,0,0.05) 0%, transparent 55%);
+    pointer-events: none;
+  }
+
+  blockquote { max-width: 820px; margin: 0 auto; text-align: center; padding: 0 40px; }
+
+  blockquote::before {
+    content: '"'; font-family: 'Playfair Display', serif;
+    font-size: 160px; line-height: 0.8;
+    color: rgba(240,180,0,0.09); display: block;
+    text-align: left; margin-left: -20px; margin-bottom: -40px;
+  }
+
+  blockquote p {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(21px, 3.2vw, 34px); font-style: italic;
+    line-height: 1.55; margin-bottom: 28px;
+  }
+
+  blockquote cite {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase;
+    color: var(--text-dim); font-style: normal;
+  }
+
+  /* CTA */
+  #cta { background: var(--dark-2); min-height: 55vh; display: flex; align-items: center; }
+
+  .cta-inner { text-align: center; max-width: 700px; margin: 0 auto; padding: 0 40px; }
+
+  .cta-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(32px, 4vw, 50px); font-weight: 900;
+    line-height: 1.15; margin-bottom: 20px;
+  }
+
+  .cta-body { font-size: 16px; color: var(--text-muted); margin-bottom: 40px; line-height: 1.8; }
+
+  .btn-row { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+
+  .btn {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 12px 28px; border-radius: 8px;
+    font-size: 13px; font-weight: 500; letter-spacing: 0.03em;
+    cursor: pointer; transition: all 0.2s; text-decoration: none; border: none;
+  }
+
+  .btn-primary { background: var(--lf-yellow); color: var(--dark); }
+  .btn-primary:hover { background: var(--lf-yellow-light); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(240,180,0,0.26); }
+
+  .btn-outline { background: transparent; color: var(--text-muted); border: 1px solid var(--border-strong); }
+  .btn-outline:hover { border-color: var(--lk-teal-light); color: var(--lk-teal-light); transform: translateY(-2px); }
+
+  /* FOOTER */
+  footer {
+    background: var(--dark); padding: 34px 64px;
+    display: flex; align-items: center; justify-content: space-between;
+    border-top: 1px solid var(--border);
+  }
+
+  .footer-left { display: flex; align-items: center; gap: 14px; }
+  .footer-sep { width: 1px; height: 20px; background: var(--border); }
+  .footer-text { font-size: 12px; color: var(--text-dim); }
+  .footer-right { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--text-dim); letter-spacing: 0.1em; }
+
+  /* ANIMATIONS */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes scrollPulse {
+    0%, 100% { opacity: 0.4; }
+    50%       { opacity: 1; }
+  }
+
+  .reveal {
+    opacity: 0; transform: translateY(28px);
+    transition: opacity 0.65s ease, transform 0.65s ease;
+  }
+
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+  .reveal-delay-1 { transition-delay: 0.1s; }
+  .reveal-delay-2 { transition-delay: 0.2s; }
+  .reveal-delay-3 { transition-delay: 0.3s; }
+
+  @media (max-width: 768px) {
+    nav { padding: 14px 24px; }
+    .nav-links { display: none; }
+    .container { padding: 0 24px; }
+    .concept-grid { grid-template-columns: 1fr; }
+    .bp-row { grid-template-columns: repeat(3, 1fr); }
+    footer { flex-direction: column; gap: 10px; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<div id="progress"></div>
+
+<nav>
+  <div class="nav-brand">
+    <div class="nav-mark">
+      <div class="mark-lf"></div>
+      <div class="mark-lk"></div>
+    </div>
+    <span class="nav-title">Lejonfastigheter × Linköpings Kommun</span>
+  </div>
+  <ul class="nav-links">
+    <li><a href="#layers">Strukturen</a></li>
+    <li><a href="#concept">Konceptet</a></li>
+    <li><a href="#roadmap">Implementering</a></li>
+    <li><a href="#beslutspunkter">BP-likriktning</a></li>
+    <li><a href="#cta">Nästa steg</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
+  <div class="hero-split"></div>
+  <div class="hero-content">
+    <div class="hero-eyebrow">Implementeringsplan 2025 – 2026</div>
+    <h1 class="hero-title">
+      Ett verktyg.<br>
+      <span class="ital">Två perspektiv.</span>
+    </h1>
+    <p class="hero-subtitle">Hur Lejonfastigheters interna styrning och kommunens projektmodell möts — utan att blandas samman.</p>
+    <div class="hero-brands">
+      <div class="brand-pill pill-lf">
+        <div class="pill-dot dot-lf"></div>
+        Lejonfastigheter
+      </div>
+      <span style="color:var(--text-dim);font-size:14px;display:flex;align-items:center;">×</span>
+      <div class="brand-pill pill-lk">
+        <div class="pill-dot dot-lk"></div>
+        Linköpings Kommun
+      </div>
+    </div>
+    <div class="hero-scroll">
+      <div class="hero-scroll-line"></div>
+      <span>Scrolla</span>
+    </div>
+  </div>
+</section>
+
+<!-- LAYERS -->
+<section id="layers">
+  <div class="container">
+    <div class="chapter reveal">Kapitel 01 — Arkitekturen</div>
+    <h2 class="section-title reveal reveal-delay-1">Lejonet som bas.<br><span class="ital">Projektmodellen som mask.</span></h2>
+    <p class="section-lead reveal reveal-delay-2">Idag är Lejonguiden Lejonfastigheters interna processbeskrivning. I det nya upplägget förblir det så — men ovanpå läggs ett gemensamt gränssnitt mot kommunen, styrt av projektmodellens logik.</p>
+
+    <div class="layer-stack">
+
+      <div class="layer layer-kommunen reveal">
+        <div class="layer-badge badge-lk">🏛 Linköpings kommuns förvaltningar — motpart</div>
+        <div class="layer-name">Kommunen möter det bekanta</div>
+        <div class="layer-desc">Kommunens förvaltningar möter Lejonfastigheter via projektportalens logik — faser, BP-punkter och roller är bekanta och enhetliga med hur kommunen arbetar internt.</div>
+      </div>
+
+      <div class="layer-connector">
+        <span class="connector-label">gemensam projektportal (Lejon × Kommunen)</span>
+      </div>
+
+      <div class="layer layer-portal reveal reveal-delay-1">
+        <div class="layer-badge badge-mix">⬡ Gemensamt gränssnitt</div>
+        <div class="layer-name">Projektportal Lejon × Kommunen</div>
+        <div class="layer-desc">En anpassad vy baserad på kommunens projektmodell (G1–G5, BP 1–5), med Lejonfastigheters processer översatta till samma fasstruktur. Kommunen ser det de känner igen. Lejon vet vad det betyder internt.</div>
+      </div>
+
+      <div class="layer-connector">
+        <span class="connector-label">intern mappning / översättning</span>
+      </div>
+
+      <div class="layer layer-lejon reveal reveal-delay-2">
+        <div class="layer-badge badge-lf">🦁 Lejonet — internt verktyg</div>
+        <div class="layer-name">Lejonet &amp; Lejonguiden</div>
+        <div class="layer-desc">Lejonguiden, LM-mallar och fastighetsutvecklingsprocessen. Formellt projektstart etableras här. BP-punkter och faser är likriktade mot projektmodellen men med Lejonfastigheters egna begrepp och rutiner.</div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- CONCEPT -->
+<section id="concept">
+  <div class="container">
+    <div class="chapter reveal">Kapitel 02 — Konceptet</div>
+    <h2 class="section-title reveal reveal-delay-1">Varför <span class="ital">inte</span> ett enda system?</h2>
+    <p class="section-lead reveal reveal-delay-2">Lejonfastigheter är ett fastighetsbolag med en fastighetsutvecklingslogik. Kommunen är en förvaltningsorganisation med politisk styrning. De behöver prata samma språk — utan att vara samma sak.</p>
+
+    <div class="concept-grid reveal reveal-delay-3">
+      <div class="concept-cell lf">
+        <div class="concept-icon icon-lf">🦁</div>
+        <div class="concept-label label-lf">Lejonfastigheter</div>
+        <div class="concept-title">Lejonet behålls som intern plattform</div>
+        <div class="concept-body">Lejonfastigheters processer, mallar och rutiner lever kvar på Lejonet. Inget byts ut. Formellt projektstart etableras som ny inkörsport — men i övrigt styr LF som vanligt internt.</div>
+      </div>
+      <div class="concept-cell lk">
+        <div class="concept-icon icon-lk">🏛</div>
+        <div class="concept-label label-lk">Kommunen</div>
+        <div class="concept-title">Kommunen möter projektmodellens logik</div>
+        <div class="concept-body">Kommunens förvaltningar är bekanta med Linköpings projektstyrningsmodell — faser, BP-punkter, roller. Den gemensamma portalen talar detta språk och gör gränssnittet friktionsfritt.</div>
+      </div>
+      <div class="concept-cell lf">
+        <div class="concept-icon icon-lf">🔗</div>
+        <div class="concept-label label-lf">Mappning</div>
+        <div class="concept-title">LF:s faser mappas mot kommunens BP-struktur</div>
+        <div class="concept-body">Programhandling, systemhandling, bygghandling — allt har en motsvarighet i G1–G5-strukturen. Den gemensamma portalen synliggör kopplingen utan att LF behöver ändra sin interna terminologi.</div>
+      </div>
+      <div class="concept-cell lk">
+        <div class="concept-icon icon-lk">⚖️</div>
+        <div class="concept-label label-lk">Nyckelpunkt</div>
+        <div class="concept-title">Investeringsbeslut är gemensam vändpunkt</div>
+        <div class="concept-body">Mellan programhandling och systemhandling sker hyresöverenskommelse, investeringsbeslut och intern överlämning. Här formaliserar kommunen och LF sitt ömsesidiga åtagande.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ROADMAP -->
+<section id="roadmap">
+  <div class="container">
+    <div class="chapter reveal">Kapitel 03 — Implementering</div>
+    <h2 class="section-title reveal reveal-delay-1">Tre steg.<br><span class="ital">I rätt ordning.</span></h2>
+    <p class="section-lead reveal reveal-delay-2">Implementeringen prioriteras för att ge störst effekt med minsta möjliga friktion. Steg 1 löser det viktigaste problemet: avsaknaden av ett formellt projektstart.</p>
+
+    <div class="roadmap-track">
+      <div class="roadmap-line"></div>
+
+      <div class="roadmap-step">
+        <div class="step-dot active"></div>
+        <div class="step-number">Steg 01 — Pågående</div>
+        <div class="step-title">Etablera formellt projektstart på Lejonet</div>
+        <div class="step-body">Idag kallas "behov" ofta för "projekt" direkt — utredning, förstudie och program flödar ihop utan tydlig fasavskiljning tills investeringsbeslut fattas. Steg 1 fixar detta: ett formellt projektstart där beställare, uppdrag och mandat är definierade, och BP-punkterna likriktade mot kommunens modell.</div>
+        <div class="step-tags">
+          <span class="tag hi-lf">Formellt projektstart</span>
+          <span class="tag hi-lf">BP-likriktning</span>
+          <span class="tag">Lejonet</span>
+          <span class="tag">Intern förändring</span>
+        </div>
+      </div>
+
+      <div class="roadmap-step">
+        <div class="step-dot"></div>
+        <div class="step-number">Steg 02 — Nästa</div>
+        <div class="step-title">Bygga gemensam projektportal (Lejon × Kommunen)</div>
+        <div class="step-body">När LF:s interna struktur är på plats byggs det gemensamma gränssnittet. En anpassad portal som kommunens förvaltningar möter i lokalprojekt — med projektmodellens logik utåt och LF:s processer inåt.</div>
+        <div class="step-tags">
+          <span class="tag hi-lk">Projektportal</span>
+          <span class="tag hi-lk">Gemensamt gränssnitt</span>
+          <span class="tag">GitHub Pages</span>
+          <span class="tag">Kommunikation</span>
+        </div>
+      </div>
+
+      <div class="roadmap-step">
+        <div class="step-dot"></div>
+        <div class="step-number">Steg 03 — Framåt</div>
+        <div class="step-title">Förankra, pilota och breddinför</div>
+        <div class="step-body">Portalen testas i verkliga lokalprojekt. Lärdomar dokumenteras och modellen justeras. Målet är ett levande verktyg som förvaltas gemensamt och uppdateras när processerna förändras.</div>
+        <div class="step-tags">
+          <span class="tag hi-lf">Pilot</span>
+          <span class="tag hi-lk">Förvaltning</span>
+          <span class="tag">Lessons learned</span>
+          <span class="tag">Breddinförande</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BP -->
+<section id="beslutspunkter">
+  <div class="container">
+    <div class="chapter reveal">Kapitel 04 — BP-likriktning</div>
+    <h2 class="section-title reveal reveal-delay-1">Kommunens <span class="ital">beslutspunkter</span> —<br>LF:s interna rytm.</h2>
+    <p class="section-lead reveal reveal-delay-2">BP 1–5 är kommunens projektmodells kontrollpunkter. I det nya upplägget har Lejonfastigheters faser en tydlig korrespondens till dessa — utan att LF behöver byta terminologi internt.</p>
+
+    <div class="bp-row reveal reveal-delay-1">
+      <div class="bp-card">
+        <div class="bp-circle">G1</div>
+        <div class="bp-name">BP 1</div>
+        <div class="bp-sub">Startsäkring<br>Projektdirektiv klart</div>
+      </div>
+      <div class="bp-card">
+        <div class="bp-circle">G2</div>
+        <div class="bp-name">BP 2</div>
+        <div class="bp-sub">Projektplan godkänd<br>Planering klar</div>
+      </div>
+      <div class="bp-card key-bp">
+        <div class="bp-circle" style="border-color:var(--lf-yellow-light);background:rgba(240,180,0,0.14);">G3</div>
+        <div class="bp-name" style="color:var(--lf-yellow-light);">LF Investeringsbeslut</div>
+        <div class="bp-sub" style="color:rgba(240,200,60,0.7);">Hyresöverenskommelse<br>Program → Systemhandling</div>
+      </div>
+      <div class="bp-card">
+        <div class="bp-circle">G4</div>
+        <div class="bp-name">BP 4</div>
+        <div class="bp-sub">Leverans godkänd<br>Genomförande klart</div>
+      </div>
+      <div class="bp-card">
+        <div class="bp-circle">G5</div>
+        <div class="bp-name">BP 5</div>
+        <div class="bp-sub">Projektavslut<br>Effektmätning</div>
+      </div>
+    </div>
+
+    <div class="lf-key-moment reveal reveal-delay-2">
+      <div class="key-star">⭐</div>
+      <div class="key-text"><strong>Viktigaste punkten:</strong> Mellan programhandling och systemhandling sker investeringsbeslut (via framskrivning), hyresöverenskommelse med kommunen, kommunens nämndbeslut, och intern överlämning från fastighetsutveckling till projektavdelning. Detta är G3 i den gemensamma modellen — och idag den mest oklara punkten i processen.</div>
+    </div>
+  </div>
+</section>
+
+<!-- VISION -->
+<section id="vision">
+  <div class="vision-bg"></div>
+  <div class="container">
+    <blockquote class="reveal">
+      <p>Kommunen ska känna igen sig. Lejonfastigheter ska känna sig hemma. Den gemensamma portalen är bryggan — inte en ny process, utan ett gemensamt språk.</p>
+      <cite>— Implementeringsfilosofi</cite>
+    </blockquote>
+  </div>
+</section>
+
+<!-- CTA -->
+<section id="cta">
+  <div class="container" style="width:100%;">
+    <div class="cta-inner">
+      <div class="chapter reveal" style="text-align:center;">Kapitel 05 — Nästa steg</div>
+      <h2 class="cta-title reveal reveal-delay-1">Redo att <span class="ital">starta</span> steg ett?</h2>
+      <p class="cta-body reveal reveal-delay-2">Formellt projektstart på Lejonet är den viktigaste förändringen. Det löser det strukturella grundproblemet — och allt annat bygger på det.</p>
+      <div class="btn-row reveal reveal-delay-3">
+        <a href="#roadmap" class="btn btn-primary">↑ Gå till implementeringsplanen</a>
+        <a href="#layers" class="btn btn-outline">↑ Tillbaka till strukturen</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-left">
+    <div class="nav-mark"><div class="mark-lf"></div><div class="mark-lk"></div></div>
+    <div class="footer-sep"></div>
+    <div class="footer-text">Projektimplementering — Intern presentation</div>
+  </div>
+  <div class="footer-right">2025 – 2026</div>
+</footer>
+
+<script>
+  window.addEventListener('scroll', () => {
+    const total = document.body.scrollHeight - window.innerHeight;
+    document.getElementById('progress').style.width = ((window.scrollY / total) * 100) + '%';
+  });
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.12, rootMargin: '0px 0px -60px 0px' });
+
+  document.querySelectorAll('.reveal, .roadmap-step').forEach(el => observer.observe(el));
+
+  const sections = document.querySelectorAll('section[id]');
+  const navLinks = document.querySelectorAll('.nav-links a');
+
+  window.addEventListener('scroll', () => {
+    let current = '';
+    sections.forEach(s => { if (window.scrollY >= s.offsetTop - 200) current = s.id; });
+    navLinks.forEach(a => {
+      a.style.color = a.getAttribute('href') === `#${current}` ? 'var(--lf-yellow)' : '';
+    });
+  });
+</script>
+</body>
+</html>
