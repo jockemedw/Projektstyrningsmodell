@@ -8,44 +8,66 @@ Ett proof-of-concept för en **gemensam statisk webbportal** (GitHub Pages) för
 
 ---
 
+## Session-noteringar (senast uppdaterat 2026-03-22)
+
+### Beslut och konventioner fastlagda denna session
+- **Inga G-beteckningar** (G1–G5 borttagna ur hela portalen). Portalen förhåller sig enbart till kommunens BP 1–5. LF har sina interna beslutspunkter separat — de syns inte här.
+- **"Lejonet" → "Lejonguiden"** genomgående i alla filer (22 ersättningar, 6 filer). CSS-klasser och "Lejonfastigheter" lämnades oförändrade.
+- **"Lessons learned"-sektionen** borttagen från navigationen tills vidare. Filerna finns kvar men är inte länkade.
+- **Tvålagermodell**: Portalen beskriver två lager — (1) Den gemensamma projektportalen (Lejon × Kommunen) och (2) Lejonguiden (intern). Inga tre lager.
+- **Lokalförsörjningsprocessen** är en gemensam process mellan Linköpings Kommun och Lejonfastigheter — beskrivs så i Kapitel 01.
+
+### Implementering.html — nuläge
+- **Kapitel 01**: Tvålager-visualisering med dubbla chevron-rader (kommunens faser teal ovan, LF:s processer amber under) — "maskar"-konceptet.
+- **Kapitel 02**: Concept-grid med 5 kort (oförändrat).
+- **Kapitel 03**: Horisontell panel-transition:
+  - **Panel A (Steg 1 — Russinen)**: 5 kort, ordning: Tillämpningsanvisning → BP-mappning → Formellt projektstart → Rollbeskrivning → Mötesstruktur
+  - **Panel B (Steg 2 — Resten av kakan)**: Glider in från höger. Scroll upp → tillbaka till panel A. Scroll ned → nästa sektion.
+  - JS: wheel-event interceptor med `passive: false`.
+- **Vägen dit**: Egen snap-sektion efter panel B. Tidslinje med 5 steg. Rubriken är bara "Vägen dit." (ingen Steg 3-prefix).
+- **Kapitel 04 (BP-likriktning)**: Oförändrat.
+- **Kapitel 05**: Oförändrat.
+
+### Kvarstående arbete (lägre prioritet)
+- `trello/`-sektionen (12 undersidor)
+- `lessons-learned/` om den ska återinföras
+- Responsivitet på mobil för implementering.html (chevron-strip + panel-transition)
+
+---
+
 ## Vad som är gjort
 
-### Filstruktur (portal.zip, redan nedladdad)
+### Filstruktur — aktuell status
 ```
-portal/
-├── index.html                    ✅ Klar — startsida med hero, kortnavigation, fasstrip
-├── css/style.css                 ✅ Klar — komplett design, CSS-variabler, responsiv
-├── js/nav.js                     ✅ Klar — mobilmeny, aktiv-markering
-├── playwright-script.js          ✅ Klar — laddar ner bilder från Google Sites
-├── README.md                     ✅ Klar
+├── index.html                    ✅ Klar
+├── css/style.css                 ✅ Klar — CSS-variabler, chevron phase-strip, page-header
+├── js/nav.js                     ✅ Klar
+├── implementering.html           ✅ Klar — mörk presentationssida, horisontell panel-transition K03
 │
 ├── projekt/
-│   ├── behov-ide.html            ✅ Klar — fullt innehåll + Lejon-sektion
-│   ├── forbereda.html            ✅ Klar — fullt innehåll + BP1 + Lejon-sektion
-│   ├── planera.html              ✅ Klar — fullt innehåll + BP2 + Lejon-sektion
-│   ├── genomfora.html            🚧 Stubb
-│   ├── avsluta.html              🚧 Stubb
-│   ├── effekt.html               🚧 Stubb
-│   ├── roller.html               🚧 Stubb
-│   ├── index.html                🚧 Stubb
+│   ├── behov-ide.html            ✅ Klar
+│   ├── forbereda.html            ✅ Klar — BP1
+│   ├── planera.html              ✅ Klar — BP2, det kritiska gränssnittet
+│   ├── genomfora.html            ✅ Klar
+│   ├── avsluta.html              ✅ Klar
+│   ├── effekt.html               ✅ Klar
+│   ├── roller.html               ✅ Klar
+│   ├── index.html                ✅ Klar — fas-cards, LF-processkartläggning
 │   ├── diarieföring.html         🚧 Stubb
 │   └── e-arkivet.html            🚧 Stubb
 │
 ├── om-styrmodellen/
-│   ├── index.html                ✅ Klar — fullt innehåll
-│   ├── fragor-svar.html          🚧 Stubb
-│   └── begrepp.html              🚧 Stubb
+│   ├── index.html                ✅ Klar
+│   ├── fragor-svar.html          ✅ Klar — 20 Q&A-par inkl. LF-samarbetet
+│   └── begrepp.html              ✅ Klar — 33 begrepp inkl. LF-specifika termer
 │
 ├── mallar/
-│   └── index.html                ✅ Klar — alla mallkort, LM-sektion
+│   └── index.html                ✅ Klar
 │
-├── lessons-learned/
-│   ├── index.html                🚧 Stubb
-│   ├── lessons-learned.html      🚧 Stubb
-│   └── retrospektiv.html         🚧 Stubb
+├── lessons-learned/              ⏸ Pausad — borttagen från nav
 │
 ├── trello/
-│   └── index.html                🚧 Stubb (12 undersidor att skapa)
+│   └── index.html                🚧 Stubb (lägre prioritet)
 │
 └── lejon/
     ├── forbereda-lokal.html      🚧 Stubb — ska bli LF:s "Utreda lokalbehov"-process
