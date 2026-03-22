@@ -443,31 +443,31 @@ li { margin-bottom: 7px; }
   flex: 1;
   position: relative;
   text-align: center;
-  padding: 10px 6px 10px 22px;
+  padding: 20px 8px 20px 24px;
   background: #EDF1F0;
   color: var(--text-muted);
-  font-weight: 500;
+  font-weight: 600;
   text-decoration: none;
-  font-size: 11px;
-  letter-spacing: 0.04em;
+  font-size: 14px;
+  letter-spacing: 0.05em;
   text-transform: uppercase;
-  margin-right: -13px;
-  clip-path: polygon(0% 0%, calc(100% - 13px) 0%, 100% 50%, calc(100% - 13px) 100%, 0% 100%, 13px 50%);
+  margin-right: -22px;
+  clip-path: polygon(0% 0%, calc(100% - 22px) 0%, 100% 50%, calc(100% - 22px) 100%, 0% 100%, 22px 50%);
   transition: background 0.15s, color 0.15s;
   z-index: 1;
 }
 
 /* First step — no left notch */
 .phase-step:first-child {
-  clip-path: polygon(0% 0%, calc(100% - 13px) 0%, 100% 50%, calc(100% - 13px) 100%, 0% 100%);
-  padding-left: 12px;
+  clip-path: polygon(0% 0%, calc(100% - 22px) 0%, 100% 50%, calc(100% - 22px) 100%, 0% 100%);
+  padding-left: 16px;
 }
 
 /* Last step — no right arrow */
 .phase-step:last-child {
-  clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%, 13px 50%);
+  clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%, 22px 50%);
   margin-right: 0;
-  padding-right: 12px;
+  padding-right: 16px;
 }
 
 /* z-index descending so each step's arrow appears above the next step */
