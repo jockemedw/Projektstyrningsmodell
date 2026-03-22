@@ -322,6 +322,7 @@
 
   /* ROADMAP */
   #roadmap { background: var(--dark-3); }
+  #process-projekt { background: var(--dark); }
 
   .roadmap-track { padding-left: 64px; margin-top: 44px; position: relative; }
 
@@ -551,6 +552,7 @@
     <li><a href="#layers">Strukturen</a></li>
     <li><a href="#concept">Konceptet</a></li>
     <li><a href="#roadmap">Implementering</a></li>
+    <li><a href="#process-projekt">Process &amp; projekt</a></li>
     <li><a href="#beslutspunkter">BP-likriktning</a></li>
     <li><a href="#cta">Nästa steg</a></li>
   </ul>
@@ -590,7 +592,7 @@
 <section id="layers">
   <div class="container">
     <div class="chapter reveal">Kapitel 01 — Arkitekturen</div>
-    <h2 class="section-title reveal reveal-delay-1">Lejonet som bas.<br><span class="ital">Projektmodellen som mask.</span></h2>
+    <h2 class="section-title reveal reveal-delay-1">Lejonet som bas.<br><span class="ital">Projektmodellen som gemensamt språk.</span></h2>
     <p class="section-lead reveal reveal-delay-2">Idag är Lejonguiden Lejonfastigheters interna processbeskrivning. I det nya upplägget förblir det så — men ovanpå läggs ett gemensamt gränssnitt mot kommunen, styrt av projektmodellens logik.</p>
 
     <div class="layer-stack">
@@ -637,7 +639,7 @@
         <div class="concept-icon icon-lf">🦁</div>
         <div class="concept-label label-lf">Lejonfastigheter</div>
         <div class="concept-title">Lejonet behålls som intern plattform</div>
-        <div class="concept-body">Lejonfastigheters processer, mallar och rutiner lever kvar på Lejonet. Inget byts ut. Formellt projektstart etableras som ny inkörsport — men i övrigt styr LF som vanligt internt.</div>
+        <div class="concept-body">Lejonfastigheters processer, mallar och rutiner lever kvar på Lejonet. Det som tillkommer är ett formellt projektstart — en tydlig inkörsport med beställare, uppdrag och mandat definierade — och en likriktning av BP-punkter mot kommunens modell.</div>
       </div>
       <div class="concept-cell lk">
         <div class="concept-icon icon-lk">🏛</div>
@@ -657,6 +659,12 @@
         <div class="concept-title">Investeringsbeslut är gemensam vändpunkt</div>
         <div class="concept-body">Mellan programhandling och systemhandling sker hyresöverenskommelse, investeringsbeslut och intern överlämning. Här formaliserar kommunen och LF sitt ömsesidiga åtagande.</div>
       </div>
+      <div class="concept-cell lk" style="grid-column: 1 / -1; border-top: 1px solid var(--border);">
+        <div class="concept-icon icon-lk">⚙️</div>
+        <div class="concept-label label-lk">Gränssnitt</div>
+        <div class="concept-title">Gränssnittet: där processen lämnar över till projektet</div>
+        <div class="concept-body">Lokalförsörjningsprocessen och projektmodellen möts i ett explicit gränssnittsmoment: beslutet om att starta projekt. Här definieras beställare, uppdrag och mandat. Det är inte ett steg i processen — det är starten på något nytt, med andra styrprinciper.</div>
+      </div>
     </div>
   </div>
 </section>
@@ -675,7 +683,7 @@
         <div class="step-dot active"></div>
         <div class="step-number">Steg 01 — Pågående</div>
         <div class="step-title">Etablera formellt projektstart på Lejonet</div>
-        <div class="step-body">Idag kallas "behov" ofta för "projekt" direkt — utredning, förstudie och program flödar ihop utan tydlig fasavskiljning tills investeringsbeslut fattas. Steg 1 fixar detta: ett formellt projektstart där beställare, uppdrag och mandat är definierade, och BP-punkterna likriktade mot kommunens modell.</div>
+        <div class="step-body">Idag kallas "behov" ofta för "projekt" direkt — utredning, förstudie och program flödar ihop utan fasavskiljning tills investeringsbeslut fattas. Rotsaken är att lokalförsörjningsprocessen och projektmodellen inte är tydligt separerade: projektet uppfattas som "nästa steg i flödet" snarare än som ett fristående åtagande med eget mandat. Steg 1 etablerar det formella projektstarten: en explicit övergångspunkt där beställare, uppdrag och mandat definieras — och BP-punkterna likriktade mot kommunens modell.</div>
         <div class="step-tags">
           <span class="tag hi-lf">Formellt projektstart</span>
           <span class="tag hi-lf">BP-likriktning</span>
@@ -688,7 +696,7 @@
         <div class="step-dot"></div>
         <div class="step-number">Steg 02 — Nästa</div>
         <div class="step-title">Bygga gemensam projektportal (Lejon × Kommunen)</div>
-        <div class="step-body">När LF:s interna struktur är på plats byggs det gemensamma gränssnittet. En anpassad portal som kommunens förvaltningar möter i lokalprojekt — med projektmodellens logik utåt och LF:s processer inåt.</div>
+        <div class="step-body">När LF:s interna struktur är på plats byggs det gemensamma gränssnittet. En anpassad portal som kommunens förvaltningar möter i lokalprojekt — med projektmodellens logik utåt och LF:s styrmodell, mallar och rutiner inåt.</div>
         <div class="step-tags">
           <span class="tag hi-lk">Projektportal</span>
           <span class="tag hi-lk">Gemensamt gränssnitt</span>
@@ -713,11 +721,49 @@
   </div>
 </section>
 
+<!-- PROCESS VS PROJEKT -->
+<section id="process-projekt">
+  <div class="container">
+    <div class="chapter reveal">Kapitel 03b — Process kontra projekt — varför distinktionen är avgörande</div>
+    <h2 class="section-title reveal reveal-delay-1">Lokalförsörjningsprocessen<br>är linjearbete.<br><span class="ital">Ett projekt är det inte.</span></h2>
+    <p class="section-lead reveal reveal-delay-2">Att skilja dem åt är inte semantik — det är grunden för tydlig styrning, rätt mandat och ett fungerande formellt projektstart.</p>
+
+    <div class="roadmap-track">
+      <div class="roadmap-line"></div>
+
+      <div class="roadmap-step">
+        <div class="step-dot"></div>
+        <div class="step-title">Lokalförsörjningsprocessen är ett linjeflöde</div>
+        <div class="step-body">Lokalförsörjningsprocessen beskriver hur Lejonfastigheter kontinuerligt hanterar kommunens lokalbehov — från behovsidentifiering och utredning till att en lokal är löst och överlämnad. Det är ett återkommande, rollbaserat arbete med en processägare, definierade steg och tydliga in- och utflöden. Klassiskt linjearbete.</div>
+      </div>
+
+      <div class="roadmap-step">
+        <div class="step-dot"></div>
+        <div class="step-title">Projektet initieras från processen — men är inte en del av den</div>
+        <div class="step-body">När lokalförsörjningsprocessen konstaterar att lösningen kräver nybyggnation eller anpassning av en befintlig lokal, triggas ett projekt. Från det ögonblicket förändras spelreglerna: det finns en beställare, ett tidsavgränsat uppdrag, beslutsgrindar och en projektledare med delegerat ansvar. Det är inte längre ett processflöde — det är ett temporärt, unikt arbete med egna styrprinciper.<br><br>Projektet initieras alltså från processen, men är inte en del av den. Processen beställer projektet. Den är inte projektet.</div>
+      </div>
+
+      <div class="roadmap-step">
+        <div class="step-dot"></div>
+        <div class="step-title">Konsekvensen för Lejonet</div>
+        <div class="step-body">Lokalförsörjningsprocessen och projektmodellen är på Lejonet separata objekt med ett explicit gränssnitt emellan. Lokalförsörjningsprocessen avslutas med ett tydligt gränssnittsmoment: beslutet om att starta projekt, med namngiven beställare, definierat uppdrag och delegerat mandat. Därifrån tar projektmodellen vid — med egna styrprinciper, egna faser och egna beslutspunkter.<br><br>Det är detta gränssnitt som gör det formella projektstarten meningsfullt och möjligt att faktiskt etablera.</div>
+        <div class="step-tags">
+          <span class="tag hi-lf">Styrningslogik</span>
+          <span class="tag">Process vs projekt</span>
+          <span class="tag">Mandat</span>
+          <span class="tag hi-lk">Gränssnitt</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
 <!-- BP -->
 <section id="beslutspunkter">
   <div class="container">
     <div class="chapter reveal">Kapitel 04 — BP-likriktning</div>
-    <h2 class="section-title reveal reveal-delay-1">Kommunens <span class="ital">beslutspunkter</span> —<br>LF:s interna rytm.</h2>
+    <h2 class="section-title reveal reveal-delay-1">Kommunens <span class="ital">beslutspunkter</span> —<br>LF:s faser i samma struktur.</h2>
     <p class="section-lead reveal reveal-delay-2">BP 1–5 är kommunens projektmodells kontrollpunkter. I det nya upplägget har Lejonfastigheters faser en tydlig korrespondens till dessa — utan att LF behöver byta terminologi internt.</p>
 
     <div class="bp-row reveal reveal-delay-1">
@@ -750,7 +796,7 @@
 
     <div class="lf-key-moment reveal reveal-delay-2">
       <div class="key-star">⭐</div>
-      <div class="key-text"><strong>Viktigaste punkten:</strong> Mellan programhandling och systemhandling sker investeringsbeslut (via framskrivning), hyresöverenskommelse med kommunen, kommunens nämndbeslut, och intern överlämning från fastighetsutveckling till projektavdelning. Detta är G3 i den gemensamma modellen — och idag den mest oklara punkten i processen.</div>
+      <div class="key-text"><strong>Viktigaste punkten:</strong> Mellan programhandling och systemhandling sker investeringsbeslut (via framskrivning), hyresöverenskommelse med kommunen, kommunens nämndbeslut och intern överlämning från fastighetsutveckling till projektavdelning. Det är G3 i den gemensamma modellen — och den punkt där lokalförsörjningsprocessen formellt överlämnar till projektmodellen. Beställare, uppdrag och mandat definieras här. Det är idag den mest oklara och mest kritiska punkten i hela kedjan.</div>
     </div>
   </div>
 </section>
@@ -772,7 +818,7 @@
     <div class="cta-inner">
       <div class="chapter reveal" style="text-align:center;">Kapitel 05 — Nästa steg</div>
       <h2 class="cta-title reveal reveal-delay-1">Redo att <span class="ital">starta</span> steg ett?</h2>
-      <p class="cta-body reveal reveal-delay-2">Formellt projektstart på Lejonet är den viktigaste förändringen. Det löser det strukturella grundproblemet — och allt annat bygger på det.</p>
+      <p class="cta-body reveal reveal-delay-2">Formellt projektstart på Lejonet är den viktigaste förändringen. Det blir möjligt när lokalförsörjningsprocessen och projektmodellen är tydligt separerade — med ett explicit gränssnittsmoment där beställare, uppdrag och mandat definieras. Det löser det strukturella grundproblemet, och allt annat bygger på det.</p>
       <div class="btn-row reveal reveal-delay-3">
         <a href="#roadmap" class="btn btn-primary">↑ Gå till implementeringsplanen</a>
         <a href="#layers" class="btn btn-outline">↑ Tillbaka till strukturen</a>
