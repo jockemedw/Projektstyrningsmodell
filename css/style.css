@@ -84,52 +84,44 @@ a:hover { text-decoration: underline; }
   flex-shrink: 0;
 }
 
-.nav-logo-block {
+/* ── Brand mark: two colored bars (teal + yellow) ── */
+.nav-brand-mark {
   display: flex;
-  align-items: center;
+  flex-direction: column;
+  gap: 4px;
+  padding: 2px 0;
+  flex-shrink: 0;
+}
+
+.mark-bar {
+  height: 3px;
+  width: 32px;
+  border-radius: 2px;
+}
+.mark-bar--teal   { background: var(--lk-teal-light); }
+.mark-bar--yellow { background: var(--lf-yellow); }
+
+.nav-brand-text {
+  display: flex;
+  flex-direction: column;
   gap: 0;
 }
 
-.nav-logo-lkpg {
-  background: var(--lk-teal);
-  color: white;
-  font-family: var(--font-display);
-  font-weight: 700;
-  font-size: 13px;
-  padding: 6px 10px;
-  letter-spacing: 0.03em;
-  line-height: 1.2;
-  text-align: center;
-}
-
-.nav-logo-sep {
-  background: var(--lf-yellow);
-  color: var(--lf-teal);
-  font-size: 16px;
-  padding: 6px 6px;
-  font-weight: 300;
-}
-
-.nav-logo-lejon {
-  background: var(--lf-yellow);
-  color: var(--lf-teal);
-  font-family: var(--font-display);
-  font-weight: 700;
-  font-size: 13px;
-  padding: 6px 10px;
-  letter-spacing: 0.03em;
-  line-height: 1.2;
-  text-align: center;
-}
-
-.nav-title {
-  color: #E8E4DF;
+.nav-brand-name {
+  color: #FFFFFF;
   font-family: var(--font-body);
-  font-size: 14px;
+  font-size: 16px;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  line-height: 1.15;
+}
+
+.nav-brand-sub {
+  color: rgba(255,255,255,0.38);
+  font-size: 10px;
   font-weight: 400;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.07em;
   text-transform: uppercase;
-  margin-left: 8px;
 }
 
 .nav-links {
@@ -356,7 +348,8 @@ a:hover { text-decoration: underline; }
   flex-shrink: 0;
   background: var(--bg-light);
   border-right: 1px solid var(--border);
-  padding: 28px 0;
+  border-top: 3px solid var(--lk-teal);
+  padding: 40px 0 28px;
   position: sticky;
   top: var(--nav-height);
   height: calc(100vh - var(--nav-height));
@@ -407,9 +400,9 @@ a:hover { text-decoration: underline; }
 /* Main content */
 .main-content {
   flex: 1;
-  padding: 40px 48px 80px;
-  max-width: 860px;
-  margin: 0 auto;
+  padding: 52px 56px 80px;
+  max-width: 900px;
+  margin: 0;
 }
 
 /* ── Typography ─────────────────────────────────────────────── */

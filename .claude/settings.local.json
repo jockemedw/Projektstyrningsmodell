@@ -13,7 +13,8 @@
       "Bash(npx playwright:*)",
       "Bash(node playwright-script.js)",
       "Bash(npm install:*)",
-      "Bash(ls C:/Users/joaki/Documents/GitHub/Projektstyrningsmodell/images/*.png)"
+      "Bash(ls C:/Users/joaki/Documents/GitHub/Projektstyrningsmodell/images/*.png)",
+      "Bash(python3 -c \":*)"
     ]
   }
 }
