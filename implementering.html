@@ -534,6 +534,20 @@
     background: rgba(240,180,0,0.05);
   }
 
+  /* KAPITEL 03 — Panel layout */
+  .impl-panel {
+    position: absolute; inset: 0;
+    display: flex; flex-direction: column; justify-content: center;
+    padding: 80px 64px;
+    transition: transform 0.55s cubic-bezier(0.65, 0, 0.35, 1);
+    overflow-y: auto;
+  }
+  .impl-step-heading {
+    font-family: 'Playfair Display', serif;
+    font-size: 24px; font-weight: 700;
+    color: var(--lf-yellow); margin-bottom: 22px;
+  }
+
   /* KAPITEL 03 — Implementation layout */
   .impl-section-label {
     font-family: 'DM Mono', monospace;
@@ -682,6 +696,7 @@
     <li><a href="#layers">Strukturen</a></li>
     <li><a href="#concept">Konceptet</a></li>
     <li><a href="#roadmap">Implementering</a></li>
+    <li><a href="#vagen-dit">Vägen dit</a></li>
     <li><a href="#beslutspunkter">BP-likriktning</a></li>
     <li><a href="#cta">Nästa steg</a></li>
   </ul>
@@ -801,64 +816,76 @@
 </section>
 
 <!-- ROADMAP -->
-<section id="roadmap">
+<section id="roadmap" style="height:100vh;overflow:hidden;">
+
+  <!-- Panel A: Steg 1 — Russinen -->
+  <div id="impl-panel-a" class="impl-panel">
+    <div class="container">
+      <div class="chapter">Kapitel 03 — Implementering</div>
+      <h2 class="section-title" style="margin-bottom:16px;">Från plan till skarp drift.<br><span class="ital">I rätt ordning.</span></h2>
+      <p class="section-lead" style="margin-bottom:24px;">Implementeringen föreslås delas upp i två delar: Vad som krävs för skarp drift — och vad vi kan göra sen.</p>
+      <div class="impl-step-heading">Steg 1 — Russinen</div>
+      <div class="impl-card-grid">
+        <div class="impl-card">
+          <div class="impl-card-num">1</div>
+          <div class="impl-card-title">Tillämpningsanvisning</div>
+          <div class="impl-card-body">Lejonfastigheters tolkning av kommunens styrmodell — hur modellen tillämpas, vilka anpassningar som gäller och hänvisningar till befintliga mallar och processer.</div>
+        </div>
+        <div class="impl-card">
+          <div class="impl-card-num">2</div>
+          <div class="impl-card-title">BP-mappning</div>
+          <div class="impl-card-body">Lejonguiden synligt mappad mot BP 1–5. Korrespondensen kommuniceras och är känd av alla inblandade.</div>
+        </div>
+        <div class="impl-card">
+          <div class="impl-card-num">3</div>
+          <div class="impl-card-title">Formellt projektstart — BP 1 i sin helhet</div>
+          <div class="impl-card-body">Namngiven beställare med mandat, utsedd projektledare, projektdirektiv med syfte, avgränsningar och prioritering.</div>
+        </div>
+        <div class="impl-card">
+          <div class="impl-card-num">4</div>
+          <div class="impl-card-title">Rollbeskrivning</div>
+          <div class="impl-card-body">Beställare, projektledare, styrgrupp och mottagare definierade i LF-kontext — vem gör vad och med vilket mandat.</div>
+        </div>
+        <div class="impl-card">
+          <div class="impl-card-num">5</div>
+          <div class="impl-card-title">Mötesstruktur</div>
+          <div class="impl-card-body">Styrgruppsmöte vid varje BP, projektmöten och retrospektiv som standard efter varje fas.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Panel B: Steg 2 — Resten av kakan -->
+  <div id="impl-panel-b" class="impl-panel" style="transform:translateX(100%);">
+    <div class="container">
+      <div class="chapter">Kapitel 03 — Implementering</div>
+      <div class="impl-step-heading" style="margin-top:8px;margin-bottom:28px;">Steg 2 — Resten av kakan</div>
+      <div class="impl-rest-panel">
+        <p class="impl-intro">Viktigt — men kan tas successivt när de fem grunderna sitter.</p>
+        <ul class="impl-rest-list">
+          <li>Separation process/projektmodell på Lejonguiden</li>
+          <li>Gemensam projektportal Lejon × Kommunen</li>
+          <li>Fullständiga mallar för BP 2, 4 och 5</li>
+          <li>Statusrapport med trafikljusbedömning</li>
+          <li>Slutrapportmall</li>
+          <li>Formell ändringshantering kopplad till beslutslogg</li>
+          <li>Antura-konfiguration</li>
+          <li>Effektuppföljning och nyttoutvärdering</li>
+          <li>Bredare förankring och beställar-coaching</li>
+          <li>Fickkort (faserna, BP och rollerna i LF-kontext)</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+</section>
+
+<!-- VÄGEN DIT -->
+<section id="vagen-dit" style="background:var(--dark-3);">
   <div class="container">
-    <div class="chapter reveal">Kapitel 03 — Implementering</div>
-    <h2 class="section-title reveal reveal-delay-1">Från plan till skarp drift.<br><span class="ital">I rätt ordning.</span></h2>
-    <p class="section-lead reveal reveal-delay-2">Implementeringen är uppdelad i tre delar: vad som krävs för skarp drift, vad som bygger vidare när grunden är på plats — och vad vi behöver göra för att ta oss dit.</p>
-
-    <!-- A — Skarp drift -->
-    <div class="impl-section-label reveal">01 — Skarp drift</div>
-    <p class="impl-intro reveal">Fem saker måste vara på plats för att projektmodellen ska fungera i praktiken. Inte mer, inte mindre.</p>
-    <div class="impl-card-grid reveal reveal-delay-1">
-      <div class="impl-card">
-        <div class="impl-card-num">1</div>
-        <div class="impl-card-title">Formellt projektstart — BP 1 i sin helhet</div>
-        <div class="impl-card-body">Namngiven beställare med mandat, utsedd projektledare, projektdirektiv med syfte, avgränsningar och prioritering.</div>
-      </div>
-      <div class="impl-card">
-        <div class="impl-card-num">2</div>
-        <div class="impl-card-title">Rollbeskrivning</div>
-        <div class="impl-card-body">Beställare, projektledare, styrgrupp och mottagare definierade i LF-kontext — vem gör vad och med vilket mandat.</div>
-      </div>
-      <div class="impl-card">
-        <div class="impl-card-num">3</div>
-        <div class="impl-card-title">BP-mappning</div>
-        <div class="impl-card-body">Lejonguiden synligt mappad mot BP 1–5. Korrespondensen kommuniceras och är känd av alla inblandade.</div>
-      </div>
-      <div class="impl-card">
-        <div class="impl-card-num">4</div>
-        <div class="impl-card-title">Tillämpningsanvisning</div>
-        <div class="impl-card-body">Lejonfastigheters tolkning av kommunens styrmodell — hur modellen tillämpas, vilka anpassningar som gäller och hänvisningar till befintliga mallar och processer.</div>
-      </div>
-      <div class="impl-card">
-        <div class="impl-card-num">5</div>
-        <div class="impl-card-title">Mötesstruktur</div>
-        <div class="impl-card-body">Styrgruppsmöte vid varje BP, projektmöten och retrospektiv som standard efter varje fas.</div>
-      </div>
-    </div>
-
-    <!-- B — Resten av kakan -->
-    <div class="impl-section-label reveal">02 — Resten av kakan</div>
-    <div class="impl-rest-panel reveal">
-      <p class="impl-intro">Viktigt — men kan tas successivt när de fem grunderna sitter.</p>
-      <ul class="impl-rest-list">
-        <li>Separation process/projektmodell på Lejonguiden</li>
-        <li>Gemensam projektportal Lejon × Kommunen</li>
-        <li>Fullständiga mallar för BP 2, 4 och 5</li>
-        <li>Statusrapport med trafikljusbedömning</li>
-        <li>Slutrapportmall</li>
-        <li>Formell ändringshantering kopplad till beslutslogg</li>
-        <li>Antura-konfiguration</li>
-        <li>Effektuppföljning och nyttoutvärdering</li>
-        <li>Bredare förankring och beställar-coaching</li>
-        <li>Fickkort (faserna, BP och rollerna i LF-kontext)</li>
-      </ul>
-    </div>
-
-    <!-- C — Vägen dit -->
-    <div class="impl-section-label reveal">03 — Vägen dit</div>
-    <p class="impl-intro reveal">Aktiviteterna som tar oss från nu till skarp drift.</p>
+    <div class="chapter reveal">Kapitel 03 — Vägen dit</div>
+    <h2 class="section-title reveal reveal-delay-1"><span class="ital">Vägen dit.</span></h2>
+    <p class="section-lead reveal reveal-delay-2">Aktiviteterna som tar oss från nu till skarp drift.</p>
     <div class="roadmap-track">
       <div class="roadmap-line"></div>
       <div class="roadmap-step">
@@ -894,7 +921,6 @@
     </div>
   </div>
 </section>
-
 
 <!-- BP -->
 <section id="beslutspunkter">
@@ -978,6 +1004,41 @@
     const total = document.body.scrollHeight - window.innerHeight;
     document.getElementById('progress').style.width = ((window.scrollY / total) * 100) + '%';
   });
+
+  // Horizontal panel transition for Kapitel 03
+  const roadmapEl  = document.getElementById('roadmap');
+  const panelA     = document.getElementById('impl-panel-a');
+  const panelB     = document.getElementById('impl-panel-b');
+  let roadmapPanel = 'a';
+  let panelBusy    = false;
+
+  function switchPanel(to) {
+    panelBusy = true;
+    if (to === 'b') {
+      panelA.style.transform = 'translateX(-100%)';
+      panelB.style.transform = 'translateX(0)';
+      roadmapPanel = 'b';
+    } else {
+      panelA.style.transform = 'translateX(0)';
+      panelB.style.transform = 'translateX(100%)';
+      roadmapPanel = 'a';
+    }
+    setTimeout(() => { panelBusy = false; }, 650);
+  }
+
+  window.addEventListener('wheel', function(e) {
+    if (panelBusy) { e.preventDefault(); return; }
+    const onRoadmap = Math.abs(window.scrollY - roadmapEl.offsetTop) < 5;
+    if (!onRoadmap) return;
+    if (e.deltaY > 0 && roadmapPanel === 'a') {
+      e.preventDefault();
+      switchPanel('b');
+    } else if (e.deltaY < 0 && roadmapPanel === 'b') {
+      e.preventDefault();
+      switchPanel('a');
+    }
+    // panel B + scroll down → let snap continue to next section
+  }, { passive: false });
 
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
