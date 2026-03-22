@@ -14,7 +14,17 @@
       "Bash(node playwright-script.js)",
       "Bash(npm install:*)",
       "Bash(ls C:/Users/joaki/Documents/GitHub/Projektstyrningsmodell/images/*.png)",
-      "Bash(python3 -c \":*)"
+      "Bash(python3 -c \":*)",
+      "Bash(netstat -ano)",
+      "Bash(findstr \"LISTEN\")",
+      "Bash(findstr :808)",
+      "Bash(for f:*)",
+      "Bash(do echo:*)",
+      "Read(//c/Users/joaki/Documents/GitHub/Projektstyrningsmodell/**)",
+      "Bash(done)",
+      "Bash(curl -s \"https://sites.google.com/linkoping.se/projektportal/projekt/avsluta\")",
+      "Bash(curl -s https://sites.google.com/linkoping.se/projektportal/projekt/effekt)",
+      "Bash(curl -s https://sites.google.com/linkoping.se/projektportal/projekt/roller-i-projekt)"
     ]
   }
 }
