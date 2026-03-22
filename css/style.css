@@ -67,13 +67,13 @@ a:hover { text-decoration: underline; }
   position: sticky;
   top: 0;
   z-index: 100;
-  background: var(--lf-teal);
+  background: #0C1618;
   height: var(--nav-height);
   display: flex;
   align-items: center;
   padding: 0 24px;
   gap: 0;
-  box-shadow: var(--shadow-md);
+  border-bottom: 1px solid rgba(255,255,255,0.12);
 }
 
 .nav-brand {
@@ -149,34 +149,42 @@ a:hover { text-decoration: underline; }
 }
 
 .nav-links > li > a {
-  color: #B8CDD4;
+  color: rgba(230,230,230,0.85);
   font-size: 13px;
   font-weight: 500;
-  padding: 0 14px;
+  padding: 0 16px;
   height: 100%;
   display: flex;
   align-items: center;
   text-decoration: none;
   letter-spacing: 0.02em;
-  transition: color 0.15s, background 0.15s;
+  transition: color 0.2s;
   white-space: nowrap;
+  border-bottom: 2px solid transparent;
 }
 
-.nav-links > li > a:hover,
+.nav-links > li > a:hover {
+  color: #FFFFFF;
+  background: none;
+}
+
 .nav-links > li > a.active {
-  color: white;
-  background: rgba(255,255,255,0.08);
+  color: #FFFFFF;
+  background: none;
+  border-bottom: 2px solid rgba(255,255,255,0.5);
 }
 
 .nav-links > li > a.active-teal {
-  color: white;
-  background: var(--lk-teal);
+  color: #FFFFFF;
+  background: none;
+  border-bottom: 2px solid var(--lk-teal-light);
 }
 
 /* Legacy: keep active-red working but map to teal */
 .nav-links > li > a.active-red {
-  color: white;
-  background: var(--lk-teal);
+  color: #FFFFFF;
+  background: none;
+  border-bottom: 2px solid var(--lk-teal-light);
 }
 
 /* ── Nav special tab (Implementeringsplan) ─────────────────── */
@@ -228,22 +236,22 @@ a:hover { text-decoration: underline; }
   position: absolute;
   top: 100%;
   left: 0;
-  background: var(--lf-teal);
+  background: #0C1618;
   min-width: 200px;
-  box-shadow: var(--shadow-lg);
+  box-shadow: 0 4px 16px rgba(0,0,0,0.3);
   z-index: 200;
-  border-top: 2px solid var(--lk-teal);
+  border-top: 1px solid rgba(255,255,255,0.12);
 }
 .dropdown a {
   display: block;
-  color: #B8CDD4;
+  color: rgba(230,230,230,0.85);
   font-size: 13px;
   padding: 10px 16px;
   text-decoration: none;
-  transition: background 0.1s, color 0.1s;
-  border-bottom: 1px solid rgba(255,255,255,0.05);
+  transition: color 0.15s;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
 }
-.dropdown a:hover { background: rgba(255,255,255,0.08); color: white; }
+.dropdown a:hover { background: rgba(255,255,255,0.05); color: #FFFFFF; }
 
 /* Mobile hamburger */
 .nav-toggle {
@@ -260,7 +268,7 @@ a:hover { text-decoration: underline; }
   display: block;
   width: 22px;
   height: 2px;
-  background: #B8CDD4;
+  background: rgba(230,230,230,0.85);
   border-radius: 2px;
   transition: transform 0.2s;
 }
@@ -731,10 +739,11 @@ footer a { color: #8DAAB2; }
     position: fixed;
     top: var(--nav-height);
     left: 0; right: 0;
-    background: var(--lf-teal);
+    background: #0C1618;
     padding: 16px 0;
     height: auto;
-    box-shadow: var(--shadow-lg);
+    box-shadow: 0 4px 16px rgba(0,0,0,0.3);
+    border-bottom: 1px solid rgba(255,255,255,0.12);
   }
   .nav-links.open > li { height: auto; }
   .nav-links.open > li > a { padding: 12px 24px; }
