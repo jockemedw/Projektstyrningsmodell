@@ -9,7 +9,11 @@
       "Bash(git push:*)",
       "Bash(ls -la --ignore=.git --ignore=.claude *.md *.pdf *.docx *.txt *.xlsx)",
       "Bash(xxd)",
-      "mcp__Claude_Preview__preview_start"
+      "mcp__Claude_Preview__preview_start",
+      "Bash(npx playwright:*)",
+      "Bash(node playwright-script.js)",
+      "Bash(npm install:*)",
+      "Bash(ls C:/Users/joaki/Documents/GitHub/Projektstyrningsmodell/images/*.png)"
     ]
   }
 }
