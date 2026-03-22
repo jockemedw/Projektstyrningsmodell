@@ -39,6 +39,10 @@ npx playwright install chromium
 node playwright-script.js
 ```
 
+## Livesajt
+
+https://jockemedw.github.io/Projektstyrningsmodell/
+
 ## Nästa steg
 
 - [ ] Fyll i stubbar för Genomföra, Avsluta, Effekt, Roller
