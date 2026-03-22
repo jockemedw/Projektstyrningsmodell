@@ -3,7 +3,7 @@
    Gemensam projektstyrningsportal
    ============================================================ */
 
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter+Tight:ital,wght@0,400;0,600;0,700;0,800;1,700&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap');
 
 /* ── Variabler ─────────────────────────────────────────────── */
 :root {
@@ -39,7 +39,7 @@
   --nav-height: 64px;
   --sidebar-width: 260px;
 
-  --font-display: 'Playfair Display', Georgia, serif;
+  --font-display: 'Inter Tight', system-ui, sans-serif;
   --font-body:    'DM Sans', sans-serif;
   --font-mono:    'DM Mono', monospace;
 
@@ -53,7 +53,7 @@
 html { scroll-behavior: smooth; }
 body {
   font-family: var(--font-body);
-  font-size: 16px;
+  font-size: 17px;
   line-height: 1.7;
   color: var(--text-dark);
   background: var(--bg-white);
@@ -360,16 +360,17 @@ a:hover { text-decoration: underline; }
 
 .page-header h1 {
   color: #FFFFFF;
-  font-size: clamp(26px, 4vw, 38px);
+  font-size: clamp(28px, 4vw, 44px);
   margin-bottom: 12px;
   margin-top: 0;
+  font-weight: 800;
 }
 
 .page-header .lead {
-  color: rgba(255,255,255,0.78);
+  color: rgba(255,255,255,0.82);
   margin: 0;
-  font-size: 17px;
-  font-weight: 300;
+  font-size: 18px;
+  font-weight: 400;
 }
 
 .page-header .context-pill {
@@ -410,58 +411,92 @@ a:hover { text-decoration: underline; }
 }
 
 /* ── Typography ─────────────────────────────────────────────── */
-h1, h2, h3 { font-family: var(--font-display); font-weight: 700; line-height: 1.25; }
+h1, h2, h3 { font-family: var(--font-display); font-weight: 700; line-height: 1.2; }
 h4 { font-family: var(--font-body); font-weight: 600; line-height: 1.25; }
-h1 { font-size: clamp(28px, 4vw, 40px); margin-bottom: 20px; color: var(--text-dark); }
-h2 { font-size: clamp(20px, 3vw, 26px); margin: 36px 0 14px; color: var(--text-dark); }
-h3 { font-size: 18px; margin: 28px 0 10px; color: var(--text-body); }
-h4 { font-size: 15px; margin: 20px 0 8px; color: var(--text-body); }
-p { margin-bottom: 16px; color: var(--text-body); }
-ul, ol { margin: 0 0 16px 24px; color: var(--text-body); }
-li { margin-bottom: 6px; }
+h1 { font-size: clamp(28px, 4vw, 44px); margin-bottom: 20px; color: var(--text-dark); }
+h2 { font-size: clamp(20px, 3vw, 27px); margin: 40px 0 14px; color: var(--text-dark); }
+h3 { font-size: 22px; margin: 30px 0 10px; color: var(--text-body); font-weight: 600; }
+h4 { font-size: 16px; margin: 20px 0 8px; color: var(--text-body); }
+p { margin-bottom: 18px; color: var(--text-body); }
+ul, ol { margin: 0 0 18px 24px; color: var(--text-body); }
+li { margin-bottom: 7px; }
 
 .lead {
-  font-size: 18px;
+  font-size: 19px;
   line-height: 1.6;
   color: var(--text-body);
-  font-weight: 300;
+  font-weight: 400;
   margin-bottom: 28px;
 }
 
-/* ── Phase navigation strip ─────────────────────────────────── */
+/* ── Phase navigation strip — chevron arrows ────────────────── */
 .phase-strip {
   display: flex;
   gap: 0;
-  margin: 28px 0;
-  border: 1px solid var(--border);
-  border-radius: 6px;
-  overflow: hidden;
-  font-size: 12px;
+  margin: 28px 0 36px;
+  overflow: visible;
+  border: none;
+  border-radius: 0;
 }
+
 .phase-step {
   flex: 1;
+  position: relative;
   text-align: center;
-  padding: 10px 8px;
-  background: var(--phase-bg);
+  padding: 10px 6px 10px 22px;
+  background: #EDF1F0;
   color: var(--text-muted);
   font-weight: 500;
   text-decoration: none;
-  border-right: 1px solid var(--border);
-  transition: background 0.15s, color 0.15s;
   font-size: 11px;
-  letter-spacing: 0.02em;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  margin-right: -13px;
+  clip-path: polygon(0% 0%, calc(100% - 13px) 0%, 100% 50%, calc(100% - 13px) 100%, 0% 100%, 13px 50%);
+  transition: background 0.15s, color 0.15s;
+  z-index: 1;
 }
-.phase-step:last-child { border-right: none; }
-.phase-step:hover { background: rgba(27,94,90,0.06); color: var(--lk-teal); text-decoration: none; }
+
+/* First step — no left notch */
+.phase-step:first-child {
+  clip-path: polygon(0% 0%, calc(100% - 13px) 0%, 100% 50%, calc(100% - 13px) 100%, 0% 100%);
+  padding-left: 12px;
+}
+
+/* Last step — no right arrow */
+.phase-step:last-child {
+  clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%, 13px 50%);
+  margin-right: 0;
+  padding-right: 12px;
+}
+
+/* z-index descending so each step's arrow appears above the next step */
+.phase-step:nth-child(1) { z-index: 6; }
+.phase-step:nth-child(2) { z-index: 5; }
+.phase-step:nth-child(3) { z-index: 4; }
+.phase-step:nth-child(4) { z-index: 3; }
+.phase-step:nth-child(5) { z-index: 2; }
+.phase-step:nth-child(6) { z-index: 1; }
+
+.phase-step:hover {
+  background: rgba(27,94,90,0.14);
+  color: var(--lk-teal);
+  text-decoration: none;
+  z-index: 10;
+}
+
 .phase-step.current {
   background: var(--lk-teal);
   color: white;
-  font-weight: 600;
+  font-weight: 700;
+  z-index: 10;
 }
+
 .phase-step.lejon-current {
   background: var(--lf-yellow);
   color: var(--lf-teal);
-  font-weight: 600;
+  font-weight: 700;
+  z-index: 10;
 }
 
 /* ── Decision point cards ───────────────────────────────────── */

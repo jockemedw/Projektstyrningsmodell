@@ -39,7 +39,11 @@
   }
 
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-  html { scroll-behavior: smooth; }
+
+  html {
+    scroll-behavior: smooth;
+    scroll-snap-type: y mandatory;
+  }
 
   body {
     background: var(--dark);
@@ -93,7 +97,8 @@
   section {
     min-height: 100vh;
     display: flex; flex-direction: column; justify-content: center;
-    padding: 120px 0; position: relative;
+    padding: 72px 0; position: relative;
+    scroll-snap-align: start;
   }
 
   .container { max-width: 1100px; margin: 0 auto; padding: 0 64px; }
@@ -821,7 +826,7 @@
       <p class="cta-body reveal reveal-delay-2">Formellt projektstart på Lejonet är den viktigaste förändringen. Det blir möjligt när lokalförsörjningsprocessen och projektmodellen är tydligt separerade — med ett explicit gränssnittsmoment där beställare, uppdrag och mandat definieras. Det löser det strukturella grundproblemet, och allt annat bygger på det.</p>
       <div class="btn-row reveal reveal-delay-3">
         <a href="#roadmap" class="btn btn-primary">↑ Gå till implementeringsplanen</a>
-        <a href="#layers" class="btn btn-outline">↑ Tillbaka till strukturen</a>
+        <a href="index.html" class="btn btn-outline">← Till projektportalen</a>
       </div>
     </div>
   </div>
