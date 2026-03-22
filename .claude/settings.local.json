@@ -6,7 +6,10 @@
       "WebFetch(domain:jockemedw.github.io)",
       "Bash(git add:*)",
       "Bash(git commit:*)",
-      "Bash(git push:*)"
+      "Bash(git push:*)",
+      "Bash(ls -la --ignore=.git --ignore=.claude *.md *.pdf *.docx *.txt *.xlsx)",
+      "Bash(xxd)",
+      "mcp__Claude_Preview__preview_start"
     ]
   }
 }
