@@ -271,6 +271,7 @@ a:hover { text-decoration: underline; }
   padding: 48px 40px;
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: 32px;
   position: relative;
   overflow: hidden;
@@ -400,6 +401,7 @@ a:hover { text-decoration: underline; }
   flex: 1;
   padding: 40px 48px 80px;
   max-width: 860px;
+  margin: 0 auto;
 }
 
 /* ── Typography ─────────────────────────────────────────────── */
@@ -559,7 +561,8 @@ li { margin-bottom: 6px; }
   background: var(--lf-teal);
   color: #E8E4DF;
   padding: 36px 48px;
-  margin: 48px -48px -80px;
+  margin: 48px 0 -80px;
+  border-radius: 8px;
 }
 .more-info h2 {
   color: white;
@@ -611,6 +614,7 @@ li { margin-bottom: 6px; }
 .home-hero {
   padding: 56px 48px 48px;
   max-width: 860px;
+  margin: 0 auto;
 }
 .home-hero h1 {
   font-size: clamp(32px, 5vw, 52px);
