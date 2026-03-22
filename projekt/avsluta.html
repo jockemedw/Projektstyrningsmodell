@@ -7,6 +7,7 @@
   <link rel="stylesheet" href="../css/style.css">
 </head>
 <body>
+
 <nav class="top-nav">
   <a href="../index.html" class="nav-brand">
     <div class="nav-brand-mark">
@@ -15,7 +16,7 @@
     </div>
     <div class="nav-brand-text">
       <span class="nav-brand-name">Projektportal</span>
-      <span class="nav-brand-sub">Kommunen × Lejonfastigheter</span>
+      <span class="nav-brand-sub">Kommunen x Lejonfastigheter</span>
     </div>
   </a>
   <button class="nav-toggle" aria-label="Meny"><span></span><span></span><span></span></button>
@@ -27,18 +28,111 @@
       </a>
     </li>
     <li><a href="../index.html">Start</a></li>
-    <li><a href="../om-styrmodellen/index.html">Om styrmodellen</a></li>
+    <li><a href="../om-styrmodellen/index.html">Om styrmodellen ▾</a>
+      <div class="dropdown">
+        <a href="../om-styrmodellen/index.html">Om styrmodellen</a>
+        <a href="../om-styrmodellen/fragor-svar.html">Frågor &amp; svar</a>
+        <a href="../om-styrmodellen/begrepp.html">Begrepp &amp; definitioner</a>
+      </div>
+    </li>
     <li><a href="../mallar/index.html">Mallar &amp; verktyg</a></li>
-    <li><a href="../projekt/index.html">Projekt</a></li>
-    <li><a href="../lessons-learned/index.html">Lessons learned</a></li>
+    <li><a href="index.html" class="active-red">Projekt ▾</a>
+      <div class="dropdown">
+        <a href="index.html">Projekt – översikt</a>
+        <a href="behov-ide.html">Behov/idé</a>
+        <a href="forbereda.html">Förbereda</a>
+        <a href="planera.html">Planera</a>
+        <a href="genomfora.html">Genomföra</a>
+        <a href="avsluta.html">Avsluta</a>
+        <a href="effekt.html">Effekt</a>
+        <a href="roller.html">Roller i projekt</a>
+      </div>
+    </li>
+    <li><a href="../lessons-learned/index.html">Lessons learned ▾</a></li>
     <li><a href="../trello/index.html">Trello</a></li>
   </ul>
 </nav>
-<div class="home-hero">
-  <h1>Avsluta</h1>
-  <p class="lead">Sidan är under uppbyggnad. Innehållet kommer att fyllas i baserat på kommunens projektportal och Lejonfastigheters processer.</p>
-  <p><a href="../index.html">← Tillbaka till startsidan</a></p>
+
+<div class="page-header">
+  <div class="page-header-inner">
+    <span class="context-pill pill-kommune">Kommunens projektmodell</span>
+    <h1>Avsluta projektet</h1>
+    <p class="lead">Projektets mål är nådda och resultatet är överlämnat till mottagaren. Nu ska projektet formellt avslutas — erfarenheter tas tillvara och alla handlingar ordnas på plats.</p>
+  </div>
 </div>
+
+<main class="main-content">
+  <div class="phase-strip">
+    <a href="behov-ide.html" class="phase-step">Behov/idé</a>
+    <a href="forbereda.html" class="phase-step">Förbereda</a>
+    <a href="planera.html" class="phase-step">Planera</a>
+    <a href="genomfora.html" class="phase-step">Genomföra</a>
+    <a href="avsluta.html" class="phase-step current">Avsluta</a>
+    <a href="effekt.html" class="phase-step">Effekt</a>
+  </div>
+
+  <h2>Vad händer nu?</h2>
+  <p>Genomförandet är klart i och med att styrgruppen tar ett BP 4-beslut — projektets leverans överensstämmer med projektmålen och överlämningen är godkänd.</p>
+  <p>Nu har projektets mål nåtts och resultatet är överlämnat till mottagaren. Projektet ska nu formellt avslutas. En <a href="../lessons-learned/lessons-learned.html">lessons learned</a> utförs för att återblicka och summera erfarenheter och synpunkter. Arbetet sker i workshop-format där alla projektmedlemmar deltar.</p>
+  <p>Projektledaren summerar projektet och dess resultat i en <strong>slutrapport</strong> och projektgruppen avvecklas. Projektledaren ansvarar för att rätt handlingar diarieförs enligt Stadsarkivets riktlinjer för hantering av projekthandlingar.</p>
+
+  <h3>Checklista beställaren</h3>
+  <ul class="checklist">
+    <li>Projektledaren har tagit fram en slutrapport tillsammans med projektgruppen och den kan godkännas</li>
+    <li>Jag har formellt godkänt slutrapporten och därmed avslutat projektet</li>
+    <li>Projektledaren har återlämnat eller avvecklat alla resurser</li>
+  </ul>
+
+  <h3>Checklista projektledaren</h3>
+  <ul class="checklist">
+    <li>Jag har tillsammans med projektgruppen utvärderat projektarbetet och dokumenterat erfarenheter samt genomfört lessons learned</li>
+    <li>Projektgruppen och övriga har fått återkoppling på sitt arbete</li>
+    <li>Jag har återlämnat eller avvecklat resurserna</li>
+    <li>De projektdokument som ska diarieföras har diarieförts löpande under projektet eller görs nu</li>
+    <li>Om det finns frågor som behöver hanteras efter projektets avslut finns dessa beskrivna i slutrapporten</li>
+  </ul>
+
+  <!-- BP5 -->
+  <div class="bp-card">
+    <div class="bp-card-title">
+      <span class="bp-badge">BP 5</span>
+      Beslutspunkt 5 — Projektet avslutas formellt
+    </div>
+    <p>Projektet avslutas formellt i och med att styrgruppen tar ett BP 5-beslut — alla nödvändiga åtgärder är genomförda och projektet kan stängas. <strong>Vem fattar beslut? Beställaren med stöd av styrgrupp.</strong></p>
+    <h4>Vad ska finnas på plats för BP 5?</h4>
+    <ul class="checklist">
+      <li>Beställaren har övertagit det formella ansvaret för det som levererats och eventuell restlista</li>
+      <li>Utvärdering utförd och erfarenheter är tillvaratagna</li>
+      <li>Projektmedlemmarna är återlämnade till ordinarie verksamhet</li>
+      <li>Materiella resurser är återlämnade eller avvecklade</li>
+      <li>Slutrapport är överlämnad och godkänd av styrgruppen</li>
+      <li>Projektdokumenten är diarieförda</li>
+    </ul>
+    <h4>Obligatoriska dokument</h4>
+    <ul>
+      <li><a href="../mallar/index.html">Statusrapport</a></li>
+      <li><a href="../mallar/index.html">Beslutslogg</a></li>
+      <li><a href="../mallar/index.html">Slutrapport</a></li>
+    </ul>
+  </div>
+
+  <div class="lejon-section">
+    <div class="lejon-section-header">
+      <span class="lejon-badge-pill">Lejonfastigheter</span>
+      <h3>Lämna över lokal — LF:s motsvarande fas</h3>
+    </div>
+    <p>Hos Lejonfastigheter motsvaras avslutsfasen av processerna <em>Lämna över lokal</em> och <em>Avsluta projekt</em>. Dessa löper parallellt med kommunens avslutsarbete och innefattar:</p>
+    <ul>
+      <li><strong>Slutbesiktning och överlämning</strong> — lokalen besiktigas och formellt överlämnas till hyresgästen (kommunens förvaltning). Eventuella besiktningsanmärkningar och åtgärdslistor hanteras.</li>
+      <li><strong>Ekonomisk slutredovisning</strong> — projektets totalkostnad redovisas mot det beviljade investeringsbeslutet. Eventuella avvikelser dokumenteras och förklaras.</li>
+      <li><strong>Erfarenhetsåterföring</strong> — LF genomför intern lessons learned med projektteamet. Erfarenheter förs in i organisationens kunskapsbas för kommande projekt.</li>
+      <li><strong>Projektavslut i projektavdelningen</strong> — projektet stängs formellt hos Lejonfastigheter: tidrapportering avslutas, projektfiler arkiveras och projektledaren frisläpps till ordinarie uppdrag.</li>
+    </ul>
+    <p>Det gemensamma avslutet kräver samordning: LF:s överlämningsprotokoll och kommunens leveransgodkännande bör undertecknas i nära anslutning till varandra så att båda parters BP 5-beslut kan fattas på ett samlat underlag.</p>
+  </div>
+
+</main>
+
 <script src="../js/nav.js"></script>
 </body>
 </html>
