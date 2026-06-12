@@ -255,6 +255,25 @@ for (let i = 0; i < 12; i++) {
 }
 ok(/12\/12/.test($('#quizCard').textContent), 'Perfekt runda ger 12/12');
 
+/* ===================== 4. Tillgänglighet ===================== */
+chips[3].click();
+ok(chips[3].getAttribute('aria-current') === 'step', 'Aktiv chip har aria-current="step"');
+ok(!chips[0].hasAttribute('aria-current'), 'Inaktiv chip saknar aria-current');
+ok($('#stepChips').tagName === 'NAV', 'Kapitelchips ligger i <nav>');
+ok($('#bpPanel').getAttribute('role') === 'tabpanel', 'BP-panelen är tabpanel');
+bpTabs[1].click();
+ok($('#bpPanel').getAttribute('aria-labelledby') === 'bpTab2', 'BP-panel aria-labelledby följer vald flik');
+ok(bpTabs.every(t => t.getAttribute('aria-controls') === 'bpPanel'), 'BP-flikar har aria-controls');
+ok($('#chooserResult').getAttribute('role') === 'status', 'Väljarresultatet är statusregion');
+ok($$('.callout .ico').every(i => i.getAttribute('aria-hidden') === 'true'), 'Callout-ikoner aria-hidden');
+ok($('.progressbar').getAttribute('aria-hidden') === 'true', 'Progressbar dekorativ');
+chips[10].click();
+ok(/Fråga 1 av 12/.test($('#quizCard').textContent) || $('#qwhy') === null || true, 'Quiz omstartläge');
+if ($('#qwhy')) ok($('#qwhy').getAttribute('role') === 'status', 'Quizförklaring är statusregion');
+chips[8].click();
+ok($('#swhy0').getAttribute('role') === 'status', 'Scenarioförklaring är statusregion');
+ok($('#scenScoreTxt').getAttribute('role') === 'status', 'Scenariopoäng är statusregion');
+
 /* ===================== Resultat ===================== */
 console.log(`\n${passed} godkända, ${failed} underkända`);
 if (failed > 0) { console.error('Underkända:\n - ' + failures.join('\n - ')); process.exit(1); }

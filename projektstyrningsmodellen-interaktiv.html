@@ -495,9 +495,9 @@ footer b{color:var(--ink)}
 <div class="topnav">
   <div class="topnav-inner">
     <span class="brand"><span class="gate">BP</span> Projektstyrningsmodellen</span>
-    <div class="steps" id="stepChips" role="tablist" aria-label="Utbildningens avsnitt"></div>
+    <nav class="steps" id="stepChips" aria-label="Utbildningens avsnitt"></nav>
   </div>
-  <div class="progressbar"><i id="courseProg"></i></div>
+  <div class="progressbar" aria-hidden="true"><i id="courseProg"></i></div>
 </div>
 
 <header id="start" class="hero wrap slide" data-title="Start">
@@ -581,14 +581,14 @@ footer b{color:var(--ink)}
   <h2>Grindarna är beställarens verktyg</h2>
   <p class="lede">Vid varje BP beslutar beställaren — med stöd av styrgruppen — om projektet ska <strong>gå vidare, parkeras eller läggas ner</strong>. BP 1, 2, 4 och 5 är obligatoriska. BP 3 är valfri. Klicka i checklistan för BP 1 och se vad en startsäkring faktiskt kräver.</p>
 
-  <div class="bp-tabs" role="tablist">
-    <button class="bp-tab" role="tab" data-bp="1" aria-selected="true">BP 1<small>Starta projektet</small></button>
-    <button class="bp-tab" role="tab" data-bp="2" aria-selected="false">BP 2<small>Anta projektplanen</small></button>
-    <button class="bp-tab opt" role="tab" data-bp="3" aria-selected="false">BP 3<small>Vägval — valfri</small></button>
-    <button class="bp-tab" role="tab" data-bp="4" aria-selected="false">BP 4<small>Godkänn leveransen</small></button>
-    <button class="bp-tab" role="tab" data-bp="5" aria-selected="false">BP 5<small>Stäng projektet</small></button>
+  <div class="bp-tabs" role="tablist" aria-label="Beslutspunkterna BP 1 till 5">
+    <button class="bp-tab" role="tab" id="bpTab1" aria-controls="bpPanel" data-bp="1" aria-selected="true">BP 1<small>Starta projektet</small></button>
+    <button class="bp-tab" role="tab" id="bpTab2" aria-controls="bpPanel" data-bp="2" aria-selected="false">BP 2<small>Anta projektplanen</small></button>
+    <button class="bp-tab opt" role="tab" id="bpTab3" aria-controls="bpPanel" data-bp="3" aria-selected="false">BP 3<small>Vägval — valfri</small></button>
+    <button class="bp-tab" role="tab" id="bpTab4" aria-controls="bpPanel" data-bp="4" aria-selected="false">BP 4<small>Godkänn leveransen</small></button>
+    <button class="bp-tab" role="tab" id="bpTab5" aria-controls="bpPanel" data-bp="5" aria-selected="false">BP 5<small>Stäng projektet</small></button>
   </div>
-  <div class="bp-panel" id="bpPanel" role="tabpanel"></div>
+  <div class="bp-panel" id="bpPanel" role="tabpanel" tabindex="0" aria-labelledby="bpTab1"></div>
 </section>
 
 <section id="kategori" class="wrap slide" data-title="Projekt eller uppdrag?">
@@ -614,7 +614,7 @@ footer b{color:var(--ink)}
     </div>
   </div>
 
-  <div class="callout green"><div class="ico">🔍</div><p><b>Förstudien är ett typexempel på uppdrag.</b> En förstudie inför ett möjligt byggprojekt kan drivas som ett <b>separat uppdrag</b> — med eget uppdragsdirektiv (BP 1) och en förstudierapport som avslut (BP 2). Förstudierapporten blir sedan underlag när beställaren tar ställning till att starta själva projektet. Så hänger LF:s förstudie i fasen Förbereda ihop med modellen.</p></div>
+  <div class="callout green"><div class="ico" aria-hidden="true">🔍</div><p><b>Förstudien är ett typexempel på uppdrag.</b> En förstudie inför ett möjligt byggprojekt kan drivas som ett <b>separat uppdrag</b> — med eget uppdragsdirektiv (BP 1) och en förstudierapport som avslut (BP 2). Förstudierapporten blir sedan underlag när beställaren tar ställning till att starta själva projektet. Så hänger LF:s förstudie i fasen Förbereda ihop med modellen.</p></div>
 
   
   <div class="u-stege" aria-label="Uppdragets flöde">
@@ -634,7 +634,7 @@ footer b{color:var(--ink)}
     <div class="cq" data-q="1"><p>2. Hur tydlig är behovsbilden?</p><div class="opts"><button class="copt" data-v="0">Glasklar — alla vet vad som ska göras</button><button class="copt" data-v="1">Tydlig — resultatet är väl definierat</button><button class="copt" data-v="2">Behöver genomlysas — målet är inte klart</button></div></div>
     <div class="cq" data-q="2"><p>3. Hur stort är samordningsbehovet?</p><div class="opts"><button class="copt" data-v="0">Litet — en person löser det</button><button class="copt" data-v="1">Begränsat — ett fåtal funktioner</button><button class="copt" data-v="2">Stort — många intressenter och beroenden</button></div></div>
     <div class="cq" data-q="3"><p>4. Kommer vägval och innehåll behöva omprövas under resans gång?</p><div class="opts"><button class="copt" data-v="0">Nej</button><button class="copt" data-v="1">I begränsad omfattning</button><button class="copt" data-v="2">Ja, löpande — hög osäkerhet</button></div></div>
-    <div class="chooser-result" id="chooserResult"></div>
+    <div class="chooser-result" id="chooserResult" role="status"></div>
   </div>
 </section>
 
@@ -676,7 +676,7 @@ footer b{color:var(--ink)}
     <span class="smart-chip"><b>S</b>pecifika</span><span class="smart-chip"><b>M</b>ätbara</span><span class="smart-chip"><b>A</b>ccepterade</span><span class="smart-chip"><b>R</b>ealistiska</span><span class="smart-chip"><b>T</b>idsatta</span>
   </div>
 
-  <div class="callout green" style="margin-top:48px;margin-bottom:0"><div class="ico">🗂️</div><p><b>Mallarna är frivilliga stödformer</b> som kan justeras per projekt — rubriker får läggas till eller tas bort så länge de obligatoriska delarna finns kvar. Arbeta gärna i Word eller Google Docs, men <b>diarieför som PDF/A, PDF, Word eller Excel</b> (i Ciceron) — .gdoc och .gsheet godkänns inte som arkiverad handling.</p></div>
+  <div class="callout green" style="margin-top:48px;margin-bottom:0"><div class="ico" aria-hidden="true">🗂️</div><p><b>Mallarna är frivilliga stödformer</b> som kan justeras per projekt — rubriker får läggas till eller tas bort så länge de obligatoriska delarna finns kvar. Arbeta gärna i Word eller Google Docs, men <b>diarieför som PDF/A, PDF, Word eller Excel</b> (i Ciceron) — .gdoc och .gsheet godkänns inte som arkiverad handling.</p></div>
 
 </section>
 
@@ -691,7 +691,7 @@ footer b{color:var(--ink)}
     <div class="sk-card kott"><h3>Lejonguiden = köttet</h3><p>Branschspecifikt innehåll: delprocesser, LM/LI/LR/LD-mallar, system (Antura m.fl.), kontrollpunkter. Beskriver <strong>vad som ska göras</strong> i fastighets- och byggarbetet. Behålls intakt.</p></div>
   </div>
 
-  <div class="callout amber"><div class="ico">📌</div><p><b>Lokalförsörjningsprocessen är inte projektet.</b> Behovsanalys, lösa lokalbehov och utredning är <b>linjearbete</b> — fasen Behov/Idé. Processen <b>beställer</b> projektet, men är inte projektet. Vår enskilt största förbättringspotential: idag kallas behovet "projekt" från dag ett och skedena flyter ihop. Med BP 1 får projektet ett <b>formellt startskott</b> — definierad beställare, uppdrag och mandat.</p></div>
+  <div class="callout amber"><div class="ico" aria-hidden="true">📌</div><p><b>Lokalförsörjningsprocessen är inte projektet.</b> Behovsanalys, lösa lokalbehov och utredning är <b>linjearbete</b> — fasen Behov/Idé. Processen <b>beställer</b> projektet, men är inte projektet. Vår enskilt största förbättringspotential: idag kallas behovet "projekt" från dag ett och skedena flyter ihop. Med BP 1 får projektet ett <b>formellt startskott</b> — definierad beställare, uppdrag och mandat.</p></div>
 
   <h3 class="display" style="font-size:21px;margin-bottom:14px">Tre överlämningar i projektets livscykel</h3>
   <div class="ho-grid">
@@ -729,7 +729,7 @@ footer b{color:var(--ink)}
     </tbody>
   </table></div>
 
-  <div class="callout amber" style="margin-bottom:10px"><div class="ico">⚠️</div><p><b>Vanlig förväxling internt:</b> Lejonguidens interna BP-numrering och modellens BP 1–5 är <b>helt orelaterade</b> — likheten är en slump. När vi pratar med förvaltningarna gäller alltid modellens BP 1–5.</p></div>
+  <div class="callout amber" style="margin-bottom:10px"><div class="ico" aria-hidden="true">⚠️</div><p><b>Vanlig förväxling internt:</b> Lejonguidens interna BP-numrering och modellens BP 1–5 är <b>helt orelaterade</b> — likheten är en slump. När vi pratar med förvaltningarna gäller alltid modellens BP 1–5.</p></div>
   </div>
 </section>
 
@@ -908,7 +908,7 @@ tlButtons.forEach(btn=>{
     tlButtons.forEach(b=>b.setAttribute('aria-pressed', b===btn ? 'true':'false'));
     const d=DETAILS[key];
     const dotColors={behov:'#1C1C1C',forbereda:'#1C1C1C',planera:'#CDE4B8',genomfora:'#80C16D',avsluta:'#3D8B43',effekt:'#1C1C1C',bp1:'#3C8540',bp2:'#3C8540',bp3:'#DCEFC9',bp4:'#3C8540',bp5:'#3C8540'};
-    detailPanel.innerHTML=`<h3><span style="width:15px;height:15px;border-radius:${key.startsWith('bp')?'50%':'4px'};background:${dotColors[key]};display:inline-block;flex-shrink:0;border:1.5px solid var(--line)"></span>${d.title}</h3>
+    detailPanel.innerHTML=`<h3><span aria-hidden="true" style="width:15px;height:15px;border-radius:${key.startsWith('bp')?'50%':'4px'};background:${dotColors[key]};display:inline-block;flex-shrink:0;border:1.5px solid var(--line)"></span>${d.title}</h3>
       <div class="tagrow">${d.tags.map(t=>`<span class="dtag">${t}</span>`).join('')}</div>
       <div class="detail-cols">
         <div><h4>Det här händer</h4><ul>${d.what.map(w=>`<li>${w}</li>`).join('')}</ul></div>
@@ -942,7 +942,7 @@ function renderBP(n){
       <div class="checklist">
         <h4><span>${d.intro}</span>${d.list.length>3?`<span class="progress" aria-hidden="true"><i style="width:${doneCount/d.list.length*100}%"></i></span><button class="reset-btn" data-reset>Nollställ</button>`:''}</h4>
         <div>${d.list.map((it,i)=>`<label class="check-item ${checks[i]?'done':''}"><input type="checkbox" data-i="${i}" ${checks[i]?'checked':''}><span class="ct"><b>${it[0]}</b> — ${it[1]}</span></label>`).join('')}</div>
-        <div class="check-done-msg ${doneCount===d.list.length?'show':''}">${d.done}</div>
+        <div class="check-done-msg ${doneCount===d.list.length?'show':''}" role="status">${d.done}</div>
       </div>
       <div class="bp-side">
         <div class="fact"><h5>Resultat av BP ${n}</h5><ul>${d.result.map(r=>`<li>${r}</li>`).join('')}</ul></div>
@@ -960,6 +960,7 @@ const bpTabs=[...document.querySelectorAll('.bp-tab')];
 bpTabs.forEach((tab,ti)=>{
   tab.addEventListener('click',()=>{
     bpTabs.forEach(t=>t.setAttribute('aria-selected', t===tab?'true':'false'));
+    bpPanel.setAttribute('aria-labelledby',tab.id);
     renderBP(+tab.dataset.bp);
   });
   tab.addEventListener('keydown',e=>{
@@ -1020,7 +1021,7 @@ roleGrid.querySelectorAll('.rc-head').forEach(b=>{
 
 /* ============ MISSFÖRSTÅND ============ */
 document.getElementById('mythGrid').innerHTML=MYTHS.map((m,i)=>`
-  <div class="myth" id="myth${i}"><button aria-expanded="false">"${m.q}" <span class="x">✕</span></button><div class="answer">${m.a}</div></div>`).join('');
+  <div class="myth" id="myth${i}"><button aria-expanded="false">"${m.q}" <span class="x" aria-hidden="true">✕</span></button><div class="answer">${m.a}</div></div>`).join('');
 document.querySelectorAll('.myth button').forEach(b=>{
   b.addEventListener('click',()=>{
     const m=b.parentElement;const open=m.classList.toggle('open');
@@ -1042,10 +1043,10 @@ function renderQuiz(){
   const q=QUIZ[qi];
   quizCard.innerHTML=`
     <div class="quiz-prog"><span>Fråga ${qi+1} av ${QUIZ.length}</span><span>${score} rätt hittills</span></div>
-    <div class="quiz-bar"><i style="width:${qi/QUIZ.length*100}%"></i></div>
+    <div class="quiz-bar" aria-hidden="true"><i style="width:${qi/QUIZ.length*100}%"></i></div>
     <div class="quiz-q">${q.q}</div>
     <div class="quiz-opts">${q.o.map((o,i)=>`<button class="qopt" data-i="${i}">${o}</button>`).join('')}</div>
-    <div class="quiz-why" id="qwhy"></div>
+    <div class="quiz-why" id="qwhy" role="status"></div>
     <button class="quiz-next" id="qnext">${qi===QUIZ.length-1?'Se resultat':'Nästa fråga'} →</button>`;
   quizCard.querySelectorAll('.qopt').forEach(b=>{
     b.addEventListener('click',()=>{
@@ -1077,12 +1078,12 @@ const scenList=document.getElementById('scenList');
 let scenDone=0,scenRight=0;
 function renderScen(){
 scenDone=0;scenRight=0;
-scenList.innerHTML='<div class="scen-score" id="scenScore" style="display:flex;justify-content:space-between;align-items:center;gap:12px"><span id="scenScoreTxt">0 av '+SCEN.length+' placerade</span><button class="reset-btn" data-scen-reset>Nollställ övningen</button></div>'+SCEN.map((sc,i)=>`
+scenList.innerHTML='<div class="scen-score" id="scenScore" style="display:flex;justify-content:space-between;align-items:center;gap:12px"><span id="scenScoreTxt" role="status">0 av '+SCEN.length+' placerade</span><button class="reset-btn" data-scen-reset>Nollställ övningen</button></div>'+SCEN.map((sc,i)=>`
   <div class="scen-card">
     <div class="scen-nr">Situation ${i+1}</div>
     <div class="scen-text">${sc.t}</div>
     <div class="scen-opts">${sc.o.map((o,j)=>`<button class="sopt" data-s="${i}" data-j="${j}">${o}</button>`).join('')}</div>
-    <div class="scen-why" id="swhy${i}"></div>
+    <div class="scen-why" id="swhy${i}" role="status"></div>
   </div>`).join('');
 scenList.querySelectorAll('.sopt').forEach(b=>{
   b.addEventListener('click',()=>{
@@ -1107,7 +1108,7 @@ const slides=[...document.querySelectorAll('.slide')];
 const chips=document.getElementById('stepChips');
 const visited=new Set();
 let cur=0;
-chips.innerHTML=slides.map((sl,i)=>`<button class="stepchip" data-i="${i}" role="tab"><span class="nr">${i+1}</span>${sl.dataset.title}</button>`).join('');
+chips.innerHTML=slides.map((sl,i)=>`<button class="stepchip" data-i="${i}"><span class="nr" aria-hidden="true">${i+1}</span>${sl.dataset.title}</button>`).join('');
 const chipEls=[...chips.querySelectorAll('.stepchip')];
 chipEls.forEach(c=>c.addEventListener('click',()=>goTo(+c.dataset.i)));
 const prevBtn=document.getElementById('prevBtn'),nextBtn=document.getElementById('nextBtn'),navPos=document.getElementById('navPos');
@@ -1117,7 +1118,7 @@ function goTo(i){
   slides.forEach((sl,j)=>sl.classList.toggle('active',j===i));
   chipEls.forEach((c,j)=>{
     c.classList.toggle('current',j===i);c.classList.toggle('visited',visited.has(j)&&j!==i);
-    c.setAttribute('aria-current',j===i?'step':'false');
+    if(j===i)c.setAttribute('aria-current','step');else c.removeAttribute('aria-current');
     c.querySelector('.nr').textContent=(visited.has(j)&&j!==i)?'✓':(j+1);
   });
   document.getElementById('courseProg').style.width=((i+1)/slides.length*100)+'%';
