@@ -64,6 +64,19 @@ ok(!/[Vv]ariant\s*A\b|[Vv]ariant\s*B\b/.test(html), 'Inga varianter A/B');
 const gMatches = [...html.matchAll(/G[1-5]\b/g)];
 ok(gMatches.every(m => /Wenell/.test(html.slice(Math.max(0, m.index - 120), m.index + 60))), 'G1–G5 endast i Wenell-kontext');
 
+// Regression från granskning 1 (domänexpert):
+// K1 — ingresserna får inte lära ut att beställaren beslutar vid varje BP
+ok(!/[Vv]id varje BP beslutar beställaren/.test(html), 'K1: ingen "vid varje BP beslutar beställaren"');
+ok(/[Vv]id BP 1–4 beslutar.*beställaren/.test(html), 'K1: ingress anger BP 1–4 = beställaren');
+ok(/[Vv]id BP 5[\s\S]{0,80}styrgruppen/.test(html), 'K1: ingress anger BP 5 = styrgruppen');
+// H1 — styrgruppen fastställer inte projektplanen (BP 2-beslutet är beställarens)
+ok(!/Fastställer projektplanen/.test(html), 'H1: styrgruppen fastställer inte planen');
+// H2 — vid BP 5 godkänns slutrapporten, inte leveransen
+ok(!/godkänner (formellt )?leveransen( formellt)? vid BP 5/i.test(html) && !/Mottar och godkänner leveransen/.test(html), 'H2: BP 5 avser slutrapporten, inte leveransen');
+ok(/Mottar och godkänner slutrapporten vid BP 5/.test(html), 'H2: rollkortet säger slutrapporten vid BP 5');
+// M3 — scenariot pekar inte ut fel beslutsfattare
+ok(!/projektchefen ska fatta beslut/.test(html), 'M3: ingen projektchef som BP 3-beslutsfattare');
+
 /* ===================== 3. Beteende via jsdom ===================== */
 
 const vc = new VirtualConsole(); // tysta "not implemented"-brus
