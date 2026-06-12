@@ -149,6 +149,10 @@ h2{font-size:clamp(26px,3.4vw,36px);font-weight:700;margin-bottom:18px}
 .gate-btn.optional[aria-pressed="true"]{box-shadow:0 0 0 3px rgba(60,133,64,.3),0 2px 7px rgba(20,60,25,.18)}
 .gate-label{position:absolute;bottom:calc(100% + 6px);left:50%;transform:translateX(-50%);font-size:10.5px;font-weight:600;color:var(--ink-soft);white-space:nowrap;font-family:'Source Sans 3',sans-serif;font-style:normal}
 
+/* BP-knappar i mobilens vertikala stege (desktop: dolda — cirklarna på pilarna gäller) */
+.gate-mobile{display:none}
+.check-intro{font-size:14.5px;margin-bottom:10px;max-width:560px}
+
 /* LF-lane */
 .lf-lane{margin-top:22px;display:none;animation:fadeIn .35s ease}
 .lf-lane.visible{display:block}
@@ -472,8 +476,10 @@ footer b{color:var(--ink)}
   .phase,.ph-forbereda,.ph-arrow{clip-path:none;border-radius:8px;justify-content:flex-start;text-align:left;padding:16px 16px;min-height:0}
   .tl-gates{display:none}
   .tl-row{padding-top:0;padding-bottom:0}
-  .phase::after{content:attr(data-bp);display:inline-block;margin-left:auto;font-size:11px;background:#fff;color:var(--model-deep);border-radius:99px;padding:1px 9px;font-family:'Source Sans 3',sans-serif;font-weight:700;font-style:normal}
-  .phase[data-bp=""]::after{display:none}
+  .gate-mobile{display:flex;align-items:center;gap:10px;background:var(--card);border:1px solid var(--line);border-radius:99px;padding:5px 16px 5px 5px;font-size:13px;font-weight:600;color:var(--ink);margin:2px auto;font-family:'Source Sans 3',sans-serif}
+  .gate-mobile .gm-circle{width:34px;height:34px;border-radius:50%;background:#3C8540;color:#fff;display:flex;align-items:center;justify-content:center;font-size:10.5px;font-weight:700;font-family:'Schibsted Grotesk',sans-serif;flex-shrink:0}
+  .gate-mobile.optional .gm-circle{background:#DCEFC9;color:#2C5E2E;border:2px solid #3C8540}
+  .gate-mobile[aria-pressed="true"]{border-color:#3C8540;box-shadow:0 0 0 2px rgba(60,133,64,.25)}
   .timeline-card{padding:22px 16px 20px}
   .bp-panel,.chooser,.quiz-card{padding:24px 18px}
   .bp-tabs{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch}
@@ -505,16 +511,18 @@ footer b{color:var(--ink)}
     <span class="hs hs-out" style="flex:1"></span><span class="hs hs-out" style="flex:.9"></span><span class="hs-dot"></span><span class="hs hs-arrow" style="flex:1.7;background:#CDE4B8"></span><span class="hs-dot"></span><span class="hs-wrap" style="flex:3;position:relative"><span class="hs hs-arrow" style="background:#80C16D;width:100%"></span><span class="hs-dot lt" style="position:absolute;left:37%;top:50%;transform:translate(-50%,-50%);margin:0"></span></span><span class="hs-dot"></span><span class="hs hs-arrow" style="flex:1.1;background:#3D8B43"></span><span class="hs-dot"></span><span class="hs hs-out" style="flex:.8"></span>
   </div>
   <h1>Ett gemensamt språk för projekt — <em>klicka dig igenom modellen</em></h1>
-  <p>Linköpings kommuns projektstyrningsmodell — byggd på Wenell 4.0 — är tvingande för förvaltningarna — våra beställare. Lejonfastigheter inför den frivilligt som gemensamt gränssnitt: samma faser, samma beslutspunkter, samma roller. Lejonguiden behåller vi — modellen blir skalet, Lejonguiden förblir köttet.</p>
+  <p>Linköpings kommuns projektstyrningsmodell bygger på Wenell 4.0 och är tvingande för kommunens förvaltningar — våra beställare. Lejonfastigheter inför den frivilligt som gemensamt gränssnitt: samma faser, samma beslutspunkter, samma roller. Lejonguiden behåller vi: modellen blir skalet, Lejonguiden förblir köttet — mer om det längre fram.</p>
+  <p style="margin-top:16px;font-size:15.5px;max-width:720px;color:var(--ink)"><b>Efter genomgången kan du:</b> placera ett ärende i rätt fas, förklara BP&nbsp;1–5 och vem som beslutar vid varje grind, skilja projekt från uppdrag och uppgift, samt översätta vår byggprocess till modellens språk.</p>
   <div class="meta">
     <span class="chip green">6 faser</span>
     <span class="chip green">5 beslutspunkter — 4 obligatoriska</span>
     <span class="chip amber">Översatt till LF:s byggprocess</span>
     <span class="chip">Tillämpningsanvisning KS 2024-11-05 § 254</span>
+    <span class="chip">⏱ ca 25 minuter</span>
   </div>
   <div class="why-grid">
     <div class="why-card"><div class="skav">Otydliga roller och mandat</div><div class="los">Modellen definierar <b>beställare, styrgrupp, projektledare och mottagare</b> med tydliga ansvar.</div></div>
-    <div class="why-card"><div class="skav">Projekt utan startskott</div><div class="los"><b>BP 1</b> kräver startsäkring — beställare, uppdrag och mandat på plats innan projektet finns.</div></div>
+    <div class="why-card"><div class="skav">Projekt utan startskott</div><div class="los"><b>BP 1</b> kräver en startsäkring — en checklista som säkrar att beställare, uppdrag och mandat finns på plats innan projektet startar.</div></div>
     <div class="why-card"><div class="skav">Otydligt accepterande av leverans</div><div class="los"><b>BP 4</b> kräver ett formellt, signerat <b>leveransgodkännande</b> mot projektmålen.</div></div>
     <div class="why-card"><div class="skav">Bristande insyn i tidplan och faser</div><div class="los"><b>Fasindelning med BP</b> synliggör var projektet befinner sig — för båda parter.</div></div>
   </div>
@@ -525,7 +533,7 @@ footer b{color:var(--ink)}
 <section id="modellen" class="wrap slide" data-title="Modellen">
   <div class="eyebrow">Modellen i ett svep</div>
   <h2>Sex faser. Fem grindar. Ett projekt.</h2>
-  <p class="lede">Modellen är en <strong>fas- och grindmodell</strong>: arbetet delas i faser, och mellan faserna sitter beslutspunkter (BP) — grindar där beslut fattas om projektet ska gå vidare, parkeras eller läggas ner. Vid BP 1–4 beslutar <strong>beställaren</strong>, vid BP 5 styrgruppen. Observera att första och sista fasen ligger <strong>utanför projektet</strong>. Klicka på en fas eller en grind för att lära dig mer.</p>
+  <p class="lede">Modellen är en <strong>fas- och grindmodell</strong>: arbetet delas i faser, och mellan faserna sitter beslutspunkter (BP) — grindar där beslut fattas om projektet ska gå vidare, parkeras eller läggas ner. Vid BP 1–4 beslutar <strong>beställaren</strong>, vid BP 5 styrgruppen. Observera att första och sista fasen ligger <strong>utanför projektet</strong>. Även Förbereda visas i svart: fasen ingår i modellen, men projektet finns formellt först när BP 1 passerats. Klicka på en fas eller en grind för att lära dig mer.</p>
 
   <div class="timeline-card">
     <div class="tl-toolbar">
@@ -537,9 +545,14 @@ footer b{color:var(--ink)}
       <div class="tl-phases" role="group" aria-label="Modellens faser">
         <button class="phase ph-out" data-key="behov" data-bp="" aria-pressed="false" title="I linjen — före projektet">Behov/Idé</button>
         <button class="phase ph-forbereda" data-key="forbereda" data-bp="BP 1" aria-pressed="false" title="Förstudiefasen — avslutas med BP 1">Förbereda</button>
+        <button class="gate-mobile" data-key="bp1" aria-pressed="false"><span class="gm-circle" aria-hidden="true">BP 1</span><span>Starta projektet</span></button>
         <button class="phase ph-arrow ph-planera" data-key="planera" data-bp="BP 2" aria-pressed="false" title="Projektplanen tas fram — avslutas med BP 2">Planera</button>
+        <button class="gate-mobile" data-key="bp2" aria-pressed="false"><span class="gm-circle" aria-hidden="true">BP 2</span><span>Anta projektplanen</span></button>
         <button class="phase ph-arrow ph-genomfora" data-key="genomfora" data-bp="BP 3 · BP 4" aria-pressed="false" title="Den längsta fasen — avslutas med BP 4">Genomföra</button>
+        <button class="gate-mobile optional" data-key="bp3" aria-pressed="false"><span class="gm-circle" aria-hidden="true">BP 3</span><span>Vägval — valfri, under fasen</span></button>
+        <button class="gate-mobile" data-key="bp4" aria-pressed="false"><span class="gm-circle" aria-hidden="true">BP 4</span><span>Godkänn leveransen</span></button>
         <button class="phase ph-arrow ph-avsluta" data-key="avsluta" data-bp="BP 5" aria-pressed="false" title="Liten fas, stor effekt — avslutas med BP 5">Avsluta</button>
+        <button class="gate-mobile" data-key="bp5" aria-pressed="false"><span class="gm-circle" aria-hidden="true">BP 5</span><span>Stäng projektet</span></button>
         <button class="phase ph-out" data-key="effekt" data-bp="" aria-pressed="false" title="Beställarens ansvar — efter projektet">Effekt</button>
       </div>
       <div class="tl-gates">
@@ -676,6 +689,18 @@ footer b{color:var(--ink)}
     <span class="smart-chip"><b>S</b>pecifika</span><span class="smart-chip"><b>M</b>ätbara</span><span class="smart-chip"><b>A</b>ccepterade</span><span class="smart-chip"><b>R</b>ealistiska</span><span class="smart-chip"><b>T</b>idsatta</span>
   </div>
 
+  <div class="scen-card" style="margin-top:48px">
+    <div class="scen-nr">Snabbkoll</div>
+    <div class="scen-text">Vem äger projektdirektivet — och vem äger projektplanen?</div>
+    <div class="scen-opts">
+      <button class="sopt" data-qc="0">Projektledaren äger båda</button>
+      <button class="sopt" data-qc="1">Beställaren äger direktivet, projektledaren planen</button>
+      <button class="sopt" data-qc="2">Beställaren äger båda</button>
+      <button class="sopt" data-qc="3">Styrgruppen äger båda</button>
+    </div>
+    <div class="scen-why" id="qcWhy" role="status"></div>
+  </div>
+
   <div class="callout green" style="margin-top:48px;margin-bottom:0"><div class="ico" aria-hidden="true">🗂️</div><p><b>Mallarna är frivilliga stödformer</b> som kan justeras per projekt — rubriker får läggas till eller tas bort så länge de obligatoriska delarna finns kvar. Kommunens krav på sina förvaltningar: arbeta gärna i Word eller Google Docs, men <b>diarieför som PDF/A, PDF, Word eller Excel</b> (i Ciceron) — .gdoc och .gsheet godkänns inte som arkiverad handling. Bra att känna till när vi delar dokument med förvaltningarna.</p></div>
 
 </section>
@@ -688,7 +713,7 @@ footer b{color:var(--ink)}
 
   <div class="skal-kott">
     <div class="sk-card skal"><h3>Modellen = skalet</h3><p>Generell styrning: faser, beslutspunkter, roller, styrande dokument. Beskriver <strong>hur projektet styrs</strong> — gemensamt språk med förvaltningarna, som är tvingade att använda modellen.</p></div>
-    <div class="sk-card kott"><h3>Lejonguiden = köttet</h3><p>Branschspecifikt innehåll: delprocesser, LM/LI/LR/LD-mallar, system (Antura m.fl.), kontrollpunkter. Beskriver <strong>vad som ska göras</strong> i fastighets- och byggarbetet. Behålls intakt.</p></div>
+    <div class="sk-card kott"><h3>Lejonguiden = köttet</h3><p>Branschspecifikt innehåll: delprocesser, våra interna mallserier (LM/LI/LR/LD), system som projektverktyget Antura, kontrollpunkter. Beskriver <strong>vad som ska göras</strong> i fastighets- och byggarbetet. Behålls intakt.</p></div>
   </div>
 
   <div class="callout amber"><div class="ico" aria-hidden="true">📌</div><p><b>Lokalförsörjningsprocessen är inte projektet.</b> Behovsanalys, lösa lokalbehov och utredning är <b>linjearbete</b> — fasen Behov/Idé. Processen <b>beställer</b> projektet, men är inte projektet. Vår enskilt största förbättringspotential: idag kallas behovet "projekt" från dag ett och skedena flyter ihop. Med BP 1 får projektet ett <b>formellt startskott</b> — definierad beställare, uppdrag och mandat.</p></div>
@@ -751,7 +776,7 @@ footer b{color:var(--ink)}
 <section id="quiz" class="wrap slide" data-title="Slutprov">
   <div class="eyebrow">Testa dig själv</div>
   <h2>Kan du modellen nu?</h2>
-  <p class="lede">Tolv frågor. Du får förklaringen direkt efter varje svar — fel svar är det snabbaste sättet att lära sig.</p>
+  <p class="lede">Fjorton frågor. Du får förklaringen direkt efter varje svar — fel svar är det snabbaste sättet att lära sig.</p>
   <div class="quiz-card" id="quizCard"></div>
 </section>
 
@@ -776,7 +801,7 @@ const DETAILS = {
     side:"<p><b>Viktigt:</b> Den här fasen ingår inte i projektet och är <b>inte projektledarens ansvar</b>. Hos LF är detta lokalförsörjningsprocessen — lokalförsörjningsplan, lösa lokalbehov, utreda möjlig lösning. Linjearbete som <b>beställer</b> projektet.</p><p><b>Resulterar i:</b> ett prioriterat initiativ och ett beslut att gå in i Förbereda.</p>"},
   forbereda:{title:"Förbereda — förstudiefasen",tags:["Avslutas med BP 1","Projektdirektivet tas fram"],lf:false,
     what:["Behovet analyseras djupare — mål och spelplan definieras","Intressenter identifieras","Projektet organiseras: beställare, styrgrupp och projektledare utses","<b>Projektdirektivet</b> tas fram av beställaren"],
-    side:"<p><b>Observera:</b> Förbereda ingår i modellen, men projektet finns formellt först när BP 1 passerats.</p><p><b>Förstudien kan drivas som ett separat uppdrag</b> — med uppdragsdirektiv och förstudierapport (uppdragets BP 1 + BP 2). Rapporten blir sedan underlag för projektets BP 1.</p><p><b>Hos LF:</b> LSA ansvarar för hela Förbereda och tar fram projektdirektivet inför BP 1 — för beställarens räkning, eftersom direktivet formellt är beställarens dokument. FU/Inhyrning genomför eventuella förstudier och utredningar på uppdrag av LSA.</p>"},
+    side:"<p><b>Observera:</b> Förbereda ingår i modellen, men projektet finns formellt först när BP 1 passerats.</p><p><b>Förstudien kan drivas som ett separat uppdrag</b> — med uppdragsdirektiv och förstudierapport (uppdragets BP 1 + BP 2). Rapporten blir sedan underlag för projektets BP 1.</p><p><b>Hos LF:</b> LSA (lokalstrategiska avdelningen) ansvarar för hela Förbereda och tar fram projektdirektivet inför BP 1 — för beställarens räkning, eftersom direktivet formellt är beställarens dokument. FU (fastighetsutveckling)/Inhyrning genomför eventuella förstudier och utredningar på uppdrag av LSA.</p>"},
   planera:{title:"Planera — planeringsfasen",tags:["Avslutas med BP 2","Projektplanen upprättas"],lf:false,
     what:["Projektledaren omsätter direktivet i en <b>projektplan</b>: resultatbeskrivningar, aktivitetsplan, tidplan, budget, riskanalys, kommunikationsplan, intressentanalys","Resurser säkras hos resursägarna","Mottagaren bekräftar att den kan ta emot leveransen"],
     side:"<p><b>Hos LF</b> ligger programskedet här: program- och utredningsskede fram till programhandling, framskrivning med investeringsbeslut, samt <b>hyresöverenskommelsen</b> med kommunen och det politiska beslutet — allt före BP 2.</p><p>Vid BP 2 sker överlämningen FU → projektledare.</p>"},
@@ -794,7 +819,7 @@ const DETAILS = {
     side:"<p><b>Resultat:</b> projektet startar formellt. Beställare, uppdrag och mandat är definierade. Projektledaren kan påbörja Planera.</p><p><b>För LF</b> är detta den viktigaste nyheten: det formella startskott som saknas idag.</p>"},
   bp2:{title:"BP 2 — Anta projektplanen",tags:["Obligatorisk","Beslutsfattare: beställaren","Mellan Planera och Genomföra"],lf:false,
     what:["Beslutsfrågan: <b>leder projektplanen till projektets mål?</b>","Planen är dokumenterad, budget säkerställd, deltagare resurssäkrade och insatta","Mottagaren kan ta emot leveransen"],
-    side:"<p><b>Konsekvens:</b> när planen antagits uppdateras projektdirektivet inte längre — planen lever vidare och beslut förs i beslutsloggen.</p><p><b>Hos LF</b> sammanfaller BP 2 med vår stora interna beslutspunkt: investeringsbeslut, hyresöverenskommelse och överlämning FU → projektledare.</p>"},
+    side:"<p><b>Konsekvens:</b> när planen antagits uppdateras projektdirektivet inte längre — planen lever vidare och beslut förs i beslutsloggen (projektets löpande logg: vem beslutade vad, när och varför).</p><p><b>Hos LF</b> sammanfaller BP 2 med vår stora interna beslutspunkt: investeringsbeslut, hyresöverenskommelse och överlämning FU → projektledare.</p>"},
   bp3:{title:"BP 3 — Vägval och delresultat (valfri)",tags:["Inte obligatorisk","Kan vara flera — eller ingen","Under Genomföra"],lf:false,
     what:["Större förändringar i spelplanen som påverkar mål, budget eller tidplan","Vägval mellan alternativa lösningar","Godkännande av delresultat","Kan finnas flera: BP 3a, 3b, 3c …"],
     side:"<p>Beställaren och styrgruppen avgör om BP 3 behövs.</p><p><b>Hos LF:</b> beslutet att teckna entreprenadkontrakt efter genomförd upphandling är en naturlig BP 3.</p>"},
@@ -813,12 +838,13 @@ const BPS = {
     done:"✔ Startsäkrat! Nu — och först nu — finns projektet. Beställning lämnas till projektledaren via projektdirektivet.",
     result:["Beslut att starta projektet","Beställning till utsedd PL via projektdirektiv","Projektledaren påbörjar fas Planera"],
     mall:"Projektdirektiv + BP 1-beslutsunderlag (startsäkring)",
+    extra:["Två sorters mål","<b>Effektmål</b> = nyttan beställaren vill uppnå efter leveransen — beställarens ansvar. <b>Projektmål</b> = det konkreta resultat projektet ska leverera — projektledarens ansvar. Båda ska in i direktivet. Mer i avsnittet Dokumenten."],
     lf:"Det formella startskott LF saknar idag. Behovet är inte ett projekt förrän BP 1 är passerad — innan dess är det lokalförsörjningsprocessens linjearbete."},
   2:{q:"Leder projektplanen till projektets mål?",who:"Beställaren (med stöd av styrgruppen)",when:"Mellan Planera och Genomföra",opt:false,
     intro:"För att passera BP 2 ska följande vara uppfyllt:",
     list:[["Projektplan","projektledaren har omsatt direktivet i en dokumenterad plan"],["Personella resurser","tilldelade i tillräcklig omfattning"],["Budget och materiella resurser","tillräckliga och säkerställda"],["Projektgruppen","deltagarna är resurssäkrade"],["Förankring","deltagarna är insatta i planen och sin roll"],["Mottagaren","har möjlighet att ta vid leveransen (ägandeskap)"],["Projektplanen antas","godkänns formellt — dokumenteras i beslutsloggen"]],
     done:"✔ Planen är antagen. Direktivet fryses — härifrån är det projektplanen som uppdateras.",
-    result:["Projektplanen antagen","Fas Genomföra startar","Direktivet uppdateras inte längre — beslut förs i beslutsloggen"],
+    result:["Projektplanen antagen","Fas Genomföra startar","Direktivet uppdateras inte längre — beslut förs i beslutsloggen (vem beslutade vad, när och varför)"],
     mall:"Projektplan + BP 2-beslutsunderlag",
     lf:"Sammanfaller med LF:s stora interna beslutspunkt: investeringsbeslut via framskrivning, hyresöverenskommelse + politiskt beslut, och överlämningen FU → projektledare."},
   3:{q:"Ska vi godkänna delresultatet, vägvalet eller förändringen?",who:"Beställaren (med stöd av styrgruppen)",when:"Under Genomföra — vid behov",opt:true,
@@ -896,16 +922,18 @@ const QUIZ = [
   {q:"Vem fattar beslutet vid BP 5?",o:["Beställaren ensam","Projektledaren","Styrgruppen","Mottagaren"],c:2,why:"BP 5 är undantaget: styrgruppen mottar och godkänner formellt slutrapporten och beslutar att stänga projektet. Vid BP 1–4 är det beställaren med stöd av styrgruppen. (Leveransen godkändes redan vid BP 4.)"},
   {q:"Behovet av en ny förskola har identifierats i lokalförsörjningsplanen. Är det ett projekt nu?",o:["Ja — behovet är projektets start","Nej — det är linjearbete i Behov/Idé tills BP 1 passerats","Ja, om Antura-registrering gjorts","Nej, det blir projekt vid BP 2"],c:1,why:"Behov/Idé är linjearbete (lokalförsörjningsprocessen). Projektet existerar först när BP 1 passerats — med beställare, uppdrag och mandat definierade. Det är det formella startskott modellen ger oss."},
   {q:"Vad innebär det att effekt- och projektmålen ska vara SMART:a?",o:["Smarta, Moderna, Agila, Resultatinriktade, Tydliga","Specifika, Mätbara, Accepterade, Realistiska, Tidsatta","Strategiska, Målstyrda, Avgränsade, Resurssatta, Testbara","Det gäller bara effektmålen"],c:1,why:"SMART = Specifika, Mätbara, Accepterade, Realistiska och Tidsatta. Kravet gäller båda måltyperna, och båda ska finnas i projektdirektivet och projektplanen."},
-  {q:"Vilka faser har ett uppdrag?",o:["Samma sex faser som ett projekt","Behov/Idé, Förbereda, Genomföra, Effekt — med BP 1 vid start och BP 2 vid avslut","Bara Genomföra","Förbereda, Planera, Avsluta"],c:1,why:"Uppdraget har fyra faser och två beslutspunkter: BP 1 startar (uppdragsdirektiv), BP 2 avslutar (uppdragsrapport). Ingen separat planeringsfas — planeringen ingår i direktivet."}
+  {q:"Vilka faser har ett uppdrag?",o:["Samma sex faser som ett projekt","Behov/Idé, Förbereda, Genomföra, Effekt — med BP 1 vid start och BP 2 vid avslut","Bara Genomföra","Förbereda, Planera, Avsluta"],c:1,why:"Uppdraget har fyra faser och två beslutspunkter: BP 1 startar (uppdragsdirektiv), BP 2 avslutar (uppdragsrapport). Ingen separat planeringsfas — planeringen ingår i direktivet."},
+  {q:"En kollega säger: 'Vi har precis passerat BP 3 enligt Lejonguiden.' Vad gäller i kontakten med förvaltningen?",o:["Lejonguidens BP 3 är samma som modellens BP 3","Numreringarna är orelaterade — mot förvaltningarna gäller alltid modellens BP 1–5","Lejonguidens numrering ersätter modellens i byggprojekt","Förvaltningen översätter själv till sin numrering"],c:1,why:"Lejonguidens interna BP-numrering och modellens BP 1–5 är helt orelaterade — likheten är en slump. I gränssnittet mot förvaltningarna gäller alltid modellens BP 1–5."},
+  {q:"Vid vilken beslutspunkt tar mottagaren formellt över ansvaret för leveransen?",o:["BP 2","BP 3","BP 4","BP 5"],c:2,why:"Vid BP 4 signeras leveransgodkännandet och mottagaren tar formellt över ansvaret för leveransen. Vid BP 5 stängs projektet och kvarvarande projektansvar går över till förvaltning/mottagare. Kom ihåg: mottagaren är inte nödvändigtvis samma som beställaren."}
 ];
 
 /* ============ TIDSLINJE ============ */
 const detailPanel=document.getElementById('detailPanel');
-const tlButtons=[...document.querySelectorAll('.phase'),...document.querySelectorAll('.gate-btn')];
+const tlButtons=[...document.querySelectorAll('.phase'),...document.querySelectorAll('.gate-btn'),...document.querySelectorAll('.gate-mobile')];
 tlButtons.forEach(btn=>{
   btn.addEventListener('click',()=>{
     const key=btn.dataset.key;
-    tlButtons.forEach(b=>b.setAttribute('aria-pressed', b===btn ? 'true':'false'));
+    tlButtons.forEach(b=>b.setAttribute('aria-pressed', b.dataset.key===key ? 'true':'false'));
     const d=DETAILS[key];
     const dotColors={behov:'#1C1C1C',forbereda:'#1C1C1C',planera:'#CDE4B8',genomfora:'#80C16D',avsluta:'#3D8B43',effekt:'#1C1C1C',bp1:'#3C8540',bp2:'#3C8540',bp3:'#DCEFC9',bp4:'#3C8540',bp5:'#3C8540'};
     detailPanel.innerHTML=`<h3><span aria-hidden="true" style="width:15px;height:15px;border-radius:${key.startsWith('bp')?'50%':'4px'};background:${dotColors[key]};display:inline-block;flex-shrink:0;border:1.5px solid var(--line)"></span>${d.title}</h3>
@@ -914,6 +942,7 @@ tlButtons.forEach(btn=>{
         <div><h4>Det här händer</h4><ul>${d.what.map(w=>`<li>${w}</li>`).join('')}</ul></div>
         <div class="detail-side">${d.side}</div>
       </div>`;
+    try{if(window.matchMedia&&window.matchMedia('(max-width:760px)').matches)detailPanel.scrollIntoView({block:'nearest',behavior:'smooth'})}catch(e){}
   });
 });
 const lfToggle=document.getElementById('lfToggle');
@@ -940,11 +969,13 @@ function renderBP(n){
     </div>
     <div class="bp-grid">
       <div class="checklist">
-        <h4><span>${d.intro}</span>${d.list.length>3?`<span class="progress" aria-hidden="true"><i style="width:${doneCount/d.list.length*100}%"></i></span><button class="reset-btn" data-reset>Nollställ</button>`:''}</h4>
+        <p class="check-intro">${d.intro}</p>
+        <h4><span>${d.opt?'Användningsfall':'Checklista'} — ${d.list.length} punkter</span>${d.list.length>3?`<span class="progress" aria-hidden="true"><i style="width:${doneCount/d.list.length*100}%"></i></span><button class="reset-btn" data-reset>Nollställ</button>`:''}</h4>
         <div>${d.list.map((it,i)=>`<label class="check-item ${checks[i]?'done':''}"><input type="checkbox" data-i="${i}" ${checks[i]?'checked':''}><span class="ct"><b>${it[0]}</b> — ${it[1]}</span></label>`).join('')}</div>
         <div class="check-done-msg ${doneCount===d.list.length?'show':''}" role="status">${d.done}</div>
       </div>
       <div class="bp-side">
+        ${d.extra?`<div class="fact"><h5>${d.extra[0]}</h5>${d.extra[1]}</div>`:''}
         <div class="fact"><h5>Resultat av BP ${n}</h5><ul>${d.result.map(r=>`<li>${r}</li>`).join('')}</ul></div>
         <div class="fact"><h5>Mall</h5>${d.mall}</div>
         <div class="fact lf-fact"><h5>För oss på LF</h5>${d.lf}</div>
@@ -988,13 +1019,40 @@ document.querySelectorAll('.cq').forEach(cq=>{
 function showChooserResult(){
   const sum=cAnswers.reduce((a,b)=>a+b,0);
   const el=document.getElementById('chooserResult');
+  // Grundkategori på summan — men ett enskilt "högt" svar utesluter uppgift,
+  // och stor omfattning + ogenomlyst behov pekar på projekt oavsett summa.
+  let cat=sum<=2?0:sum<=5?1:2;
+  if(cat===0&&cAnswers.some(a=>a===2))cat=1;
+  if(cat===1&&cAnswers[0]===2&&cAnswers[1]===2)cat=2;
+  const drivers=[];
+  if(cAnswers[0]===2)drivers.push('stor omfattning');
+  if(cAnswers[1]===2)drivers.push('behovsbilden behöver genomlysas');
+  if(cAnswers[2]===2)drivers.push('stort samordningsbehov');
+  if(cAnswers[3]===2)drivers.push('löpande omprövning');
+  const drivTxt=drivers.length?`<p style="margin-top:8px;font-size:13px;color:var(--ink-soft)">Det som väger tyngst i dina svar: ${drivers.join(' · ')}.</p>`:'';
   let cls,html;
-  if(sum<=2){cls='cr-uppgift';html=`<h4>Det här låter som en uppgift</h4><p>Ringa omfattning, tydlig behovsbild, litet samordningsbehov — hanteras i linjen utan styrmodellens formalia. Inga beslutspunkter behövs.</p>`;}
-  else if(sum<=5){cls='cr-uppdrag';html=`<h4>Det här låter som ett uppdrag</h4><p>Tydligt definierat resultat med begränsad komplexitet. Styr med <b>uppdragsdirektiv</b> (BP 1) och avsluta med <b>uppdragsrapport</b> (BP 2). Styrgrupp bara vid behov. Typexempel: en förstudie eller utredning med tydlig leverans.</p>`;}
-  else{cls='cr-projekt';html=`<h4>Det här låter som ett projekt</h4><p>Stor omfattning, hög osäkerhet och stort samordningsbehov — hela modellen tillämpas: projektdirektiv, projektplan, styrgrupp och BP 1–5. Börja med startsäkringen inför BP 1.</p>`;}
+  if(cat===0){cls='cr-uppgift';html=`<h4>Det här låter som en uppgift</h4><p>Ringa omfattning, tydlig behovsbild, litet samordningsbehov — hanteras i linjen utan styrmodellens formalia. Inga beslutspunkter behövs.</p>`;}
+  else if(cat===1){cls='cr-uppdrag';html=cAnswers[1]===2
+    ?`<h4>Det här låter som ett uppdrag — sannolikt en förstudie</h4><p>Behovsbilden behöver genomlysas men komplexiteten är i övrigt begränsad — ett typfall för ett <b>förstudieuppdrag</b>: uppdragsdirektiv (BP 1), genomlys behovet, avsluta med förstudierapport (BP 2). Rapporten blir sedan underlag om ett projekt ska startas.</p>`
+    :`<h4>Det här låter som ett uppdrag</h4><p>Tydligt definierat resultat med begränsad komplexitet. Styr med <b>uppdragsdirektiv</b> (BP 1) och avsluta med <b>uppdragsrapport</b> (BP 2). Styrgrupp bara vid behov. Typexempel: en förstudie eller utredning med tydlig leverans.</p>`;}
+  else{cls='cr-projekt';html=`<h4>Det här låter som ett projekt</h4><p>Omfattningen, osäkerheten eller samordningsbehovet motiverar hela modellen: projektdirektiv, projektplan, styrgrupp och BP 1–5. Börja med startsäkringen inför BP 1.</p>`;}
   el.className='chooser-result show '+cls;
-  el.innerHTML=html;
+  el.innerHTML=html+drivTxt;
 }
+
+/* ============ SNABBKOLL (Dokumenten) ============ */
+document.querySelectorAll('[data-qc]').forEach(b=>{
+  b.addEventListener('click',()=>{
+    const card=b.closest('.scen-card');
+    card.querySelectorAll('[data-qc]').forEach(x=>x.disabled=true);
+    const right=b.dataset.qc==='1';
+    if(right)b.classList.add('correct');
+    else{b.classList.add('wrong');card.querySelector('[data-qc="1"]').classList.add('correct');}
+    const w=document.getElementById('qcWhy');
+    w.innerHTML=(right?'<b>Rätt!</b> ':'<b>Inte riktigt.</b> ')+'Direktivet är <b>beställarens</b> dokument (vad, varför, när, hur mycket) inför BP 1. Planen är <b>projektledarens</b> (hur) inför BP 2. När planen antagits uppdateras direktivet inte längre.';
+    w.classList.add('show');
+  });
+});
 
 /* ============ ROLLER ============ */
 const roleGrid=document.getElementById('roleGrid');
@@ -1031,13 +1089,20 @@ document.querySelectorAll('.myth button').forEach(b=>{
 
 /* ============ QUIZ ============ */
 const quizCard=document.getElementById('quizCard');
-let qi=0,score=0;
+// Avsnitt att repetera per fråga (för resultatvyn)
+const QSEC=["Modellen","Beslutspunkterna","Dokumenten","Dokumenten","Projekt eller uppdrag?","Rollerna","Ordlistan","Ordlistan","Beslutspunkterna","Modellen","Dokumenten","Projekt eller uppdrag?","Ordlistan","Beslutspunkterna"];
+let qi=0,score=0,missed=[];
 function renderQuiz(){
   if(qi>=QUIZ.length){
     const n=QUIZ.length;
     const msg=score===n?"Felfritt. Du kan modellen — dags att lära kollegorna.":score>=n-2?"Mycket bra! Du har koll på det väsentliga.":score>=Math.ceil(n/2)?"En bra grund — klicka dig gärna igenom tidslinjen och missförstånden en gång till.":"Bra start! Gå tillbaka till tidslinjen och beslutspunkterna och försök igen.";
-    quizCard.innerHTML=`<div class="quiz-result"><div class="score">${score}/${n}</div><h3>${score>=n-2?'Godkänd grind! ✔':'Resultat'}</h3><p>${msg}</p><button class="quiz-next show" id="restart">Gör om testet</button></div>`;
-    document.getElementById('restart').addEventListener('click',()=>{qi=0;score=0;renderQuiz();});
+    const rep=missed.length?`<div style="text-align:left;max-width:480px;margin:0 auto 20px"><p style="font-weight:600;font-size:14px;margin-bottom:8px">Att repetera:</p><div style="display:flex;gap:8px;flex-wrap:wrap">${missed.map(i=>`<button class="chip" data-goto="${QSEC[i]}" style="cursor:pointer">Fråga ${i+1} → ${QSEC[i]}</button>`).join('')}</div></div>`:'';
+    quizCard.innerHTML=`<div class="quiz-result"><div class="score">${score}/${n}</div><h3>${score>=n-2?'Godkänd grind! ✔':'Resultat'}</h3><p>${msg}</p>${rep}<button class="quiz-next show" id="restart">Gör om testet</button></div>`;
+    quizCard.querySelectorAll('[data-goto]').forEach(b=>b.addEventListener('click',()=>{
+      const idx=slides.findIndex(sl=>sl.dataset.title===b.dataset.goto);
+      if(idx>=0)goTo(idx);
+    }));
+    document.getElementById('restart').addEventListener('click',()=>{qi=0;score=0;missed=[];renderQuiz();});
     return;
   }
   const q=QUIZ[qi];
@@ -1053,7 +1118,7 @@ function renderQuiz(){
       const i=+b.dataset.i;
       quizCard.querySelectorAll('.qopt').forEach(x=>x.disabled=true);
       if(i===q.c){b.classList.add('correct');score++;}
-      else{b.classList.add('wrong');quizCard.querySelector(`.qopt[data-i="${q.c}"]`).classList.add('correct');}
+      else{b.classList.add('wrong');missed.push(qi);quizCard.querySelector(`.qopt[data-i="${q.c}"]`).classList.add('correct');}
       const why=document.getElementById('qwhy');
       why.innerHTML=(i===q.c?'<b>Rätt!</b> ':'<b>Inte riktigt.</b> ')+q.why;
       why.classList.add('show');

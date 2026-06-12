@@ -45,4 +45,29 @@ _(De fem viktigaste förbättringarna och kvarvarande svagheter — se slutet av
 
 ## Iteration 2 — granskare: pedagog/instruktionsdesigner
 
+**Granskarens protokoll:** 0 kritiska, 2 höga, 7 medel, 6 låga. Granskaren bekräftade att aktivering/feedback i slutdelen och navigeringen är styrkor att bevara.
+
+| Nivå | Fynd | Åtgärd |
+|---|---|---|
+| HÖG | H1: Effektmål/projektmål används bärande (BP 1-checklistans första punkt) fyra avsnitt innan de definieras | ✅ "Två sorters mål"-faktaruta i BP 1-panelens sidospalt; Dokumenten blir repetition i stället för förstagångsintroduktion |
+| HÖG | H2: På mobil var BP-grindarna oklickbara (dolda `.tl-gates`, bara ::after-chip) trots ingressens "klicka på en grind" | ✅ Fem riktiga BP-knappar (`.gate-mobile`) infogade mellan faserna i den staplade stegen — dolda på desktop (grid-layouten opåverkad), klickbara på mobil, synkad aria-pressed via data-key. ::after-chipen borttagna |
+| MEDEL | M1: LSA/FU-uttydning dold bakom LF-toggeln | ✅ Uttydning vid första förekomst i Förbereda-panelen |
+| MEDEL | M2: Lejonguide-förväxlingen och mottagare/överlämningar mättes aldrig | ✅ Två nya quizfrågor (13: Lejonguide-numreringen; 14: mottagaren tar över vid BP 4) → 14 frågor |
+| MEDEL | M3: Väljaren kunde säga "tydlig behovsbild" åt den som svarat "behöver genomlysas" | ✅ Regelbaserad logik (högt svar utesluter uppgift; stor omfattning + ogenomlyst behov → projekt), förstudievariant av uppdragstexten, dynamisk drivkraftsrad |
+| MEDEL | M4: Quizresultatet sa inte vad som missades | ✅ "Att repetera"-chips per missad fråga som navigerar till rätt avsnitt (in-memory, ingen lagring) |
+| MEDEL | M5: Tre svarta boxar men texten sa "första och sista fasen" | ✅ Förklarande mening i Modellen-ingressen ("Även Förbereda visas i svart …") |
+| MEDEL | M6: Inga lärandemål eller tidsangivelse på start | ✅ "Efter genomgången kan du …"-rad + chip "ca 25 minuter" |
+| MEDEL | M7: Fyra passiva avsnitt i rad (5–8) utan kunskapskontroll | ✅ Snabbkoll-kort i Dokumenten (direktiv-/planägarskap) med lärande feedback |
+| LÅG | L1: skal/kött + startsäkring oannonserade på start | ✅ "mer om det längre fram" + startsäkring förklarad som checklista |
+| LÅG | L2: "beslutsloggen" före definition | ✅ Minidefinition vid båda första förekomsterna |
+| LÅG | L3: Checklist-intro i 13 px versaler | ✅ Eget `.check-intro`-stycke + rubrik "Checklista — N punkter" ("Användningsfall" för BP 3) |
+| LÅG | L4: Hero-meningens tre tankstreck | ✅ Omskriven till två meningar |
+| LÅG | L5: Detaljpanelen scrollas inte i bild på mobil | ✅ try-kapslad `scrollIntoView` vid ≤760px |
+| LÅG | L6: LM/LI/LR/LD och Antura oförklarade | ✅ Glossade i skal/kött-kortet |
+
+**Medvetet lämnat:** quizets redundans (Q3/Q4, Q5/Q12) behölls — frågorna mäter olika låsta fakta (dokumentägarskap resp. direktivfrysning; förstudie-som-uppdrag resp. uppdragets faser).
+**Regressionssviten:** +20 kontroller (mobilgrindar, snabbkoll, väljarregler, repetitionschips, QSEC-validering, måldefinition i BP 1) → 149, grön.
+
+## Iteration 3 — granskare: UX (mobil + sandlådad artefaktvisare)
+
 _(pågår)_

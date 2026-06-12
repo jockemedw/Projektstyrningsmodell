@@ -119,6 +119,13 @@ ok(phases.map(p => p.textContent.trim()).join('|') === 'Behov/Idé|Förbereda|Pl
 const gates = $$('.gate-btn');
 ok(gates.length === 5, '5 BP-cirklar');
 ok(gates[2].classList.contains('optional'), 'BP 3 markerad som valfri');
+// Granskning 2, H2: mobila BP-knappar i den staplade stegen
+const mGates = $$('.gate-mobile');
+ok(mGates.length === 5, '5 mobila BP-knappar');
+ok(mGates[2].classList.contains('optional'), 'Mobil BP 3 markerad som valfri');
+mGates[0].click();
+ok(/BP 1/.test($('#detailPanel').textContent), 'Mobil BP-knapp fyller detaljpanelen');
+ok(gates[0].getAttribute('aria-pressed') === 'true', 'Desktop- och mobilknapp synkar aria-pressed');
 
 for (const p of phases) {
   p.click();
@@ -157,6 +164,10 @@ ok(bpTabs.length === 5, '5 BP-flikar');
 bpTabs[0].click();
 ok($$('#bpPanel input[type=checkbox]').length === 13, 'BP 1-checklistan har 13 punkter');
 ok(/Beställaren/.test($('#bpPanel').textContent), 'BP 1: beslutsfattare beställaren');
+// Granskning 2, H1+L3: måldefinition i BP 1-panelen, intro utanför versalrubriken
+ok(/Två sorters mål/.test($('#bpPanel').textContent), 'BP 1: effekt-/projektmål definieras i panelen');
+ok($('#bpPanel .check-intro') !== null, 'Checklist-introt ligger i egen paragraf');
+ok(/Checklista — 13 punkter/.test($('#bpPanel').textContent), 'Checklistrubrik med punktantal');
 // Panelen re-renderas vid varje kryss — fråga om elementen varje varv
 for (let i = 0; i < 13; i++) $(`#bpPanel input[data-i="${i}"]`).click();
 ok($$('#bpPanel input[type=checkbox]:checked').length === 13, 'Alla 13 punkter avbockade');
@@ -192,6 +203,11 @@ pick([1, 1, 1, 1]);
 ok(/uppdrag/i.test($('#chooserResult').textContent), 'Väljaren: mellansvar → uppdrag');
 pick([2, 2, 2, 2]);
 ok(/projekt/i.test($('#chooserResult').textContent), 'Väljaren: höga svar → projekt');
+// Granskning 2, M3: ett "behöver genomlysas"-svar får inte ge "uppgift" med text om tydlig behovsbild
+pick([0, 2, 0, 0]);
+ok(/förstudie/i.test($('#chooserResult').textContent) && !/låter som en uppgift/i.test($('#chooserResult').textContent),
+  'Väljaren: ogenomlyst behov utesluter uppgift → förstudieuppdrag');
+ok(/behovsbilden behöver genomlysas/.test($('#chooserResult').textContent), 'Väljaren: dynamisk drivkraftstext');
 // Uppdragets fyra faser (faktalåsning)
 ok(/Behov\/Idé[\s\S]*Förbereda[\s\S]*Genomföra[\s\S]*Effekt/.test($('.u-stege').textContent), 'Uppdraget: fyra faser i mini-stegen');
 
@@ -210,6 +226,11 @@ chips[5].click();
 ok($$('.doc-node').length === 5, '5 dokumentnoder i kedjan');
 ok($$('.doc-gate').length === 5, '5 grindar i dokumentkedjan');
 ok(/SMART/.test($('#dokument').textContent), 'SMART-kriterierna finns');
+// Granskning 2, M7: snabbkollen i Dokumenten
+$('#dokument [data-qc="0"]').click();
+ok(/Inte riktigt/.test($('#qcWhy').textContent), 'Snabbkoll: fel svar ger förklaring');
+ok($('#dokument [data-qc="1"]').classList.contains('correct'), 'Snabbkoll: rätt alternativ markeras');
+ok($('#dokument [data-qc="0"]').disabled, 'Snabbkoll: alternativ låses efter svar');
 
 // --- Ordlistan (faktalåsningar i LF-mappningen) ---
 const ordTxt = $('#ordlista').textContent;
@@ -229,7 +250,7 @@ ok(myths[0].classList.contains('open'), 'Missförstånd expanderar');
 
 // --- Öva: scenarier ---
 chips[8].click();
-const scenCards = $$('.scen-card');
+const scenCards = $$('#scenList .scen-card');
 ok(scenCards.length === 6, '6 övningsscenarier');
 // Extrahera facit ur källan
 const scenSrc = html.match(/const SCEN=\[([\s\S]*?)\n\];/);
@@ -246,27 +267,41 @@ ok($$('#scenList .sopt:disabled').length === 0, 'Nollställ övningen återstäl
 chips[10].click();
 const quizSrc = html.match(/const QUIZ\s*=\s*\[([\s\S]*?)\n\];/);
 const quizC = [...quizSrc[1].matchAll(/c:(\d+),why/g)].map(m => +m[1]);
-ok(quizC.length === 12, '12 quizfrågor med facit');
+ok(quizC.length === 14, '14 quizfrågor med facit');
 // Fel svar först: rätt alternativ ska markeras
 const firstWrong = (quizC[0] + 1) % 4;
 $(`#quizCard .qopt[data-i="${firstWrong}"]`).click();
 ok($(`#quizCard .qopt[data-i="${quizC[0]}"]`).classList.contains('correct'), 'Fel svar: rätt alternativ markeras');
 ok(/Inte riktigt/.test($('#qwhy').textContent), 'Fel svar: förklaring visas');
 $('#qnext').click();
-for (let i = 1; i < 12; i++) {
+for (let i = 1; i < 14; i++) {
   $(`#quizCard .qopt[data-i="${quizC[i]}"]`).click();
   ok(/Rätt!/.test($('#qwhy').textContent), `Quizfråga ${i + 1}: rätt svar ger Rätt!`);
   $('#qnext').click();
 }
-ok(/11\/12/.test($('#quizCard').textContent), 'Resultat 11/12 efter ett fel');
+ok(/13\/14/.test($('#quizCard').textContent), 'Resultat 13/14 efter ett fel');
+// Granskning 2, M4: riktad repetition i resultatvyn
+ok(/Att repetera/.test($('#quizCard').textContent), 'Resultatvyn listar missade frågor');
+const repChip = $('#quizCard [data-goto]');
+ok(repChip !== null && /Fråga 1/.test(repChip.textContent), 'Repetitionschip för fråga 1');
+repChip.click();
+ok(slides.find(sl => sl.dataset.title === repChip.dataset.goto).classList.contains('active'),
+  'Repetitionschip navigerar till rätt avsnitt');
+chips[10].click();
 $('#restart').click();
-ok(/Fråga 1 av 12/.test($('#quizCard').textContent), 'Gör om testet startar om quizet');
+ok(/Fråga 1 av 14/.test($('#quizCard').textContent), 'Gör om testet startar om quizet');
 // Perfekt runda
-for (let i = 0; i < 12; i++) {
+for (let i = 0; i < 14; i++) {
   $(`#quizCard .qopt[data-i="${quizC[i]}"]`).click();
   $('#qnext').click();
 }
-ok(/12\/12/.test($('#quizCard').textContent), 'Perfekt runda ger 12/12');
+ok(/14\/14/.test($('#quizCard').textContent), 'Perfekt runda ger 14/14');
+ok(!/Att repetera/.test($('#quizCard').textContent), 'Felfri runda: ingen repetitionslista');
+// QSEC-mappningen täcker alla frågor och pekar på existerande avsnitt
+const qsecSrc = html.match(/const QSEC=\[([\s\S]*?)\];/);
+const qsec = JSON.parse('[' + qsecSrc[1] + ']');
+ok(qsec.length === 14, 'QSEC täcker alla 14 frågor');
+ok(qsec.every(t => slides.some(sl => sl.dataset.title === t)), 'QSEC pekar bara på existerande avsnitt');
 
 /* ===================== 4. Tillgänglighet ===================== */
 chips[3].click();
