@@ -1,0 +1,1148 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Projektstyrningsmodellen — interaktiv guide för Lejonfastigheter</title>
+<meta name="description" content="Interaktiv utbildning i Linköpings kommuns projektstyrningsmodell för Lejonfastigheter: faser, beslutspunkter BP 1–5, roller, dokument och översättningen till vår byggprocess.">
+<meta name="theme-color" content="#3C8540">
+<meta name="color-scheme" content="only light">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='32' cy='32' r='30' fill='%233C8540'/%3E%3Ctext x='32' y='42' font-family='Arial' font-size='24' font-weight='bold' fill='white' text-anchor='middle'%3EBP%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:ital,wght@0,400;0,600;0,700;1,500&family=Source+Sans+3:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+:root{
+  color-scheme:only light;
+  --paper:#F3F5F0;
+  --card:#FFFFFF;
+  --ink:#17231E;
+  --ink-soft:#54655D;
+  --line:#DCE3DA;
+  --model:#2E7D36;
+  --model-deep:#1F5A26;
+  --model-100:#DCEFC9;
+  --model-050:#F0F7EA;
+  --lf:#C0731A;
+  --lf-deep:#8F5410;
+  --lf-100:#FAEEDD;
+  --warn:#B3441E;
+  --radius:14px;
+  --shadow:0 1px 2px rgba(23,35,30,.06),0 8px 24px -12px rgba(23,35,30,.14);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{animation:none!important;transition:none!important}
+}
+html,body{background:var(--paper)!important}
+.bg-fix{position:fixed;inset:0;background:var(--paper);z-index:-1;pointer-events:none}
+body{
+  font-family:'Source Sans 3',system-ui,-apple-system,sans-serif;
+  background:var(--paper);
+  color:var(--ink);
+  line-height:1.7;
+  font-size:17px;
+}
+h1,h2,h3,h4,.display{font-family:'Schibsted Grotesk','Source Sans 3',system-ui,sans-serif;line-height:1.15;letter-spacing:-.01em}
+a{color:var(--model);text-decoration:none}
+a:hover{text-decoration:underline}
+button{font-family:inherit;cursor:pointer}
+:focus-visible{outline:3px solid var(--model);outline-offset:2px;border-radius:4px}
+h1:focus,h2:focus{outline:none}
+
+/* ---------- Nav ---------- */
+.topnav{
+  position:sticky;top:0;z-index:50;
+  background:rgba(243,245,240,.92);backdrop-filter:blur(8px);
+  border-bottom:1px solid var(--line);
+}
+.topnav-inner{max-width:1180px;margin:0 auto;padding:14px 24px;display:flex;align-items:center;gap:18px;flex-wrap:wrap}
+.brand{font-family:'Schibsted Grotesk',sans-serif;font-weight:700;font-size:15px;white-space:nowrap;display:flex;align-items:center;gap:8px}
+.brand .gate{width:18px;height:18px;border-radius:50%;background:var(--model);display:inline-flex;align-items:center;justify-content:center;color:#fff;font-size:9px;font-weight:700}
+.topnav nav{display:flex;gap:2px;flex-wrap:wrap}
+.topnav nav a{font-size:13px;font-weight:500;color:var(--ink-soft);padding:6px 10px;border-radius:8px}
+.topnav nav a:hover{background:var(--model-050);color:var(--model-deep);text-decoration:none}
+
+/* ---------- Layout ---------- */
+.wrap{max-width:1180px;margin:0 auto;padding:0 24px}
+section:not(.slide){padding:112px 0 8px}
+.eyebrow{font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--model);display:flex;align-items:center;gap:8px;margin-bottom:14px}
+.eyebrow::before{content:"";width:26px;height:2px;background:var(--model);border-radius:2px}
+.eyebrow.lf-eyebrow{color:var(--lf-deep)}
+.eyebrow.lf-eyebrow::before{background:var(--lf)}
+h2{font-size:clamp(26px,3.4vw,36px);font-weight:700;margin-bottom:18px}
+.lede{font-size:18px;color:var(--ink-soft);max-width:760px;margin-bottom:48px}
+.lede strong{color:var(--ink)}
+
+/* ---------- Hero ---------- */
+.hero{padding:96px 0 40px}
+.hero h1{font-size:clamp(34px,5.2vw,58px);font-weight:700;max-width:880px;margin-bottom:24px}
+.hero h1 em{font-style:normal;color:var(--model)}
+.hero p{font-size:18px;color:var(--ink-soft);max-width:720px}
+.hero .meta{margin-top:28px;display:flex;gap:10px;flex-wrap:wrap}
+.chip{font-size:12.5px;font-weight:600;padding:5px 12px;border-radius:99px;border:1px solid var(--line);background:var(--card);color:var(--ink-soft)}
+.chip.green{background:var(--model-100);border-color:transparent;color:var(--model-deep)}
+.chip.amber{background:var(--lf-100);border-color:transparent;color:var(--lf-deep)}
+
+.why-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:20px;margin-top:56px}
+.why-card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:24px 24px 22px}
+.why-card .skav{font-size:13px;font-weight:600;color:var(--warn);margin-bottom:6px;display:flex;gap:6px;align-items:baseline}
+.why-card .skav::before{content:"✕";font-size:11px}
+.why-card .los{font-size:14px;color:var(--ink)}
+.why-card .los b{color:var(--model-deep)}
+
+/* ---------- Tidslinje ---------- */
+.timeline-card{background:var(--card);border:1px solid var(--line);border-radius:20px;box-shadow:var(--shadow);padding:40px 38px 34px;margin-top:6px}
+.tl-toolbar{display:flex;justify-content:space-between;align-items:center;gap:14px;flex-wrap:wrap;margin-bottom:26px}
+.tl-hint{font-size:13.5px;color:var(--ink-soft)}
+.toggle{display:inline-flex;align-items:center;gap:10px;background:var(--lf-100);border:1px solid #EAD4B4;border-radius:99px;padding:7px 14px 7px 10px;font-size:13.5px;font-weight:600;color:var(--lf-deep)}
+.toggle .knob{width:36px;height:20px;border-radius:99px;background:#E3CCA8;position:relative;transition:background .2s;flex-shrink:0}
+.toggle .knob::after{content:"";position:absolute;top:2px;left:2px;width:16px;height:16px;border-radius:50%;background:#fff;transition:left .2s}
+.toggle[aria-pressed="true"] .knob{background:var(--lf)}
+.toggle[aria-pressed="true"] .knob::after{left:18px}
+
+.tl{position:relative;padding:4px 0 6px}
+.tl-row{position:relative;padding-top:62px;padding-bottom:8px}
+.tl-phases{display:grid;grid-template-columns:1.1fr 1fr 1.9fr 3.2fr 1.2fr .9fr;gap:8px}
+.phase{
+  position:relative;border:none;padding:0 8px;min-height:68px;
+  font-family:'Schibsted Grotesk',sans-serif;font-weight:700;font-size:16.5px;
+  display:flex;align-items:center;justify-content:center;text-align:center;
+  transition:transform .15s,filter .15s;
+}
+.phase:hover{filter:brightness(1.07);transform:translateY(-2px)}
+/* Utanför det formella projektet: svarta avrundade boxar, kursiv vit text */
+.ph-out{background:#1C1C1C;color:#fff;font-style:italic;font-weight:500;border-radius:8px}
+.ph-out:hover{filter:brightness(1.35)}
+/* Förbereda: svart box med pilspets höger */
+.ph-forbereda{background:#1C1C1C;color:#fff;font-style:italic;font-weight:500;
+  clip-path:polygon(0 0,calc(100% - 16px) 0,100% 50%,calc(100% - 16px) 100%,0 100%);border-radius:8px 0 0 8px}
+.ph-forbereda:hover{filter:brightness(1.35)}
+/* Gröna pilar: urtag vänster, spets höger — stigande mörkhet */
+.ph-arrow{clip-path:polygon(0 0,calc(100% - 16px) 0,100% 50%,calc(100% - 16px) 100%,0 100%,16px 50%)}
+.ph-planera{background:#CDE4B8;color:#1E4620}
+.ph-genomfora{background:#80C16D;color:#1E4620}
+.ph-avsluta{background:#3D8B43;color:#fff}
+.phase[aria-pressed="true"]{box-shadow:inset 0 0 0 3px rgba(255,255,255,.9);filter:brightness(1.04)}
+.ph-planera[aria-pressed="true"],.ph-genomfora[aria-pressed="true"]{box-shadow:inset 0 0 0 3px rgba(30,70,32,.55)}
+.ph-out[aria-pressed="true"],.ph-forbereda[aria-pressed="true"]{box-shadow:inset 0 0 0 3px rgba(255,255,255,.8);filter:brightness(1.25)}
+
+/* BP-cirklar: rider på pilarnas överkant, som i originalet */
+.tl-gates{position:absolute;top:62px;left:0;right:0;height:0;pointer-events:none;z-index:4}
+.gate-btn{
+  position:absolute;top:0;transform:translate(-50%,-58%);pointer-events:auto;
+  width:48px;height:48px;border-radius:50%;
+  background:#3C8540;border:2.5px solid #F3F5F0;
+  color:#fff;font-family:'Schibsted Grotesk',sans-serif;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;line-height:1;gap:1px;
+  box-shadow:0 2px 7px rgba(20,60,25,.3);
+  transition:transform .15s,filter .15s;
+}
+.gate-btn .bp-sm{font-size:8.5px;font-weight:600;letter-spacing:.05em}
+.gate-btn .bp-nr{font-size:17px;font-weight:700}
+.gate-btn:hover{transform:translate(-50%,-58%) scale(1.14)}
+.gate-btn[aria-pressed="true"]{box-shadow:0 0 0 3px rgba(60,133,64,.35),0 2px 7px rgba(20,60,25,.3)}
+/* BP 3 — valfri: ljus fyllnad med grön kant (originalets färgmarkering) */
+.gate-btn.optional{background:#DCEFC9;border-color:#3C8540;color:#2C5E2E;box-shadow:0 2px 7px rgba(20,60,25,.18)}
+.gate-btn.optional[aria-pressed="true"]{box-shadow:0 0 0 3px rgba(60,133,64,.3),0 2px 7px rgba(20,60,25,.18)}
+.gate-label{position:absolute;bottom:calc(100% + 6px);left:50%;transform:translateX(-50%);font-size:10.5px;font-weight:600;color:var(--ink-soft);white-space:nowrap;font-family:'Source Sans 3',sans-serif;font-style:normal}
+
+/* LF-lane */
+.lf-lane{margin-top:22px;display:none;animation:fadeIn .35s ease}
+.lf-lane.visible{display:block}
+@keyframes fadeIn{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:none}}
+.lf-lane-title{font-size:12px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--lf-deep);margin-bottom:10px;display:flex;align-items:center;gap:8px}
+.lf-lane-title::before{content:"";width:10px;height:10px;border-radius:3px;background:var(--lf)}
+.lf-blocks{display:grid;grid-template-columns:1.1fr 1fr 1.9fr 3.2fr 1.2fr .9fr;gap:8px}
+.lf-block{background:var(--lf-100);border:1px solid #EAD4B4;border-radius:10px;padding:10px 12px;font-size:12px;line-height:1.5;color:#5E430F}
+.lf-block b{display:block;font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--lf-deep);margin-bottom:4px}
+.lf-block ul{list-style:none}
+.lf-block li{padding-left:12px;position:relative}
+.lf-block li::before{content:"›";position:absolute;left:0;color:var(--lf)}
+.lf-block li.hok{font-weight:700;color:var(--lf-deep)}
+.handovers{margin-top:14px;display:flex;gap:10px;flex-wrap:wrap}
+.handover{font-size:12.5px;background:#fff;border:1px dashed var(--lf);border-radius:99px;padding:5px 13px;color:var(--lf-deep);font-weight:600}
+
+/* Detail panel */
+.detail{margin-top:36px;border-top:2px solid var(--line);padding-top:30px;min-height:120px}
+.detail-empty{color:var(--ink-soft);font-size:14.5px;display:flex;align-items:center;gap:10px}
+.detail-empty .pulse{width:10px;height:10px;border-radius:50%;background:var(--model);animation:pulse 1.6s infinite}
+@keyframes pulse{0%,100%{opacity:.35}50%{opacity:1}}
+.detail h3{font-size:22px;margin-bottom:4px;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.detail .tagrow{display:flex;gap:8px;flex-wrap:wrap;margin:8px 0 14px}
+.dtag{font-size:12px;font-weight:600;background:var(--model-050);color:var(--model-deep);border-radius:99px;padding:4px 11px}
+.dtag.lf-tag{background:var(--lf-100);color:var(--lf-deep)}
+.detail-cols{display:grid;grid-template-columns:1.4fr 1fr;gap:36px}
+.detail-cols h4{font-size:13px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-soft);margin:0 0 8px}
+.detail-cols ul{list-style:none;font-size:14.5px}
+.detail-cols li{padding:5px 0 5px 20px;position:relative;border-bottom:1px dashed var(--line)}
+.detail-cols li:last-child{border-bottom:none}
+.detail-cols li::before{content:"→";position:absolute;left:0;color:var(--model);font-weight:700}
+.detail-side{background:var(--model-050);border-radius:12px;padding:16px 18px}
+.detail-side.lf-side{background:var(--lf-100)}
+.detail-side p{font-size:13.5px;margin-bottom:8px}
+.detail-side p:last-child{margin-bottom:0}
+.detail-side b{color:var(--model-deep)}
+.detail-side.lf-side b{color:var(--lf-deep)}
+
+/* ---------- BP-sektion ---------- */
+.bp-tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:0}
+.bp-tab{
+  border:1px solid var(--line);background:var(--card);border-radius:12px 12px 0 0;
+  padding:12px 20px 10px;font-weight:600;font-size:14.5px;color:var(--ink-soft);
+  border-bottom:none;position:relative;top:1px;
+}
+.bp-tab small{display:block;font-weight:500;font-size:11px;margin-top:1px}
+.bp-tab[aria-selected="true"]{background:var(--model);color:#fff;border-color:var(--model)}
+.bp-tab[aria-selected="true"] small{color:rgba(255,255,255,.8)}
+.bp-tab.opt[aria-selected="true"]{background:#6CA856;border-color:#6CA856}
+.bp-panel{background:var(--card);border:1px solid var(--line);border-radius:0 16px 16px 16px;box-shadow:var(--shadow);padding:40px 40px 34px}
+.bp-head{display:flex;gap:18px;align-items:flex-start;flex-wrap:wrap;margin-bottom:18px}
+.bp-circle{width:58px;height:58px;border-radius:50%;background:#3C8540;color:#fff;display:flex;align-items:center;justify-content:center;font-family:'Schibsted Grotesk',sans-serif;font-weight:700;font-size:17px;flex-shrink:0;box-shadow:0 3px 10px rgba(10,74,54,.3)}
+.bp-circle.opt{background:#DCEFC9;color:#2C5E2E;border:3px solid #3C8540;box-shadow:none}
+.bp-head h3{font-size:24px;margin-bottom:2px}
+.bp-q{font-size:16px;color:var(--ink-soft);font-style:italic}
+.bp-q b{color:var(--ink);font-style:normal}
+.bp-meta{display:flex;gap:8px;flex-wrap:wrap;margin:6px 0 0}
+.bp-grid{display:grid;grid-template-columns:1.5fr 1fr;gap:40px;margin-top:14px}
+@media(max-width:860px){.bp-grid,.detail-cols{grid-template-columns:1fr}}
+
+.checklist h4{font-size:13px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-soft);margin-bottom:12px;display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
+.progress{flex:1;min-width:120px;max-width:240px;height:8px;background:var(--model-050);border-radius:99px;overflow:hidden}
+.progress i{display:block;height:100%;width:0;background:var(--model);border-radius:99px;transition:width .25s}
+.check-item{display:flex;gap:11px;align-items:flex-start;padding:8px 10px;border-radius:9px;font-size:14.5px;cursor:pointer;user-select:none}
+.check-item:hover{background:var(--model-050)}
+.check-item input{margin-top:4px;width:16px;height:16px;accent-color:var(--model);cursor:pointer;flex-shrink:0}
+.check-item.done{color:var(--ink-soft)}
+.check-item.done .ct{text-decoration:line-through;text-decoration-color:var(--model);text-decoration-thickness:1.5px}
+.check-item b{font-weight:600;color:var(--ink)}
+.check-done-msg{display:none;margin-top:12px;background:var(--model-100);color:var(--model-deep);font-weight:600;font-size:14px;border-radius:10px;padding:11px 15px}
+.check-done-msg.show{display:block;animation:fadeIn .3s}
+.reset-btn{font-size:12.5px;font-weight:600;color:var(--ink-soft);background:none;border:1px solid var(--line);border-radius:99px;padding:4px 12px}
+.reset-btn:hover{border-color:var(--ink-soft)}
+
+.bp-side{display:flex;flex-direction:column;gap:14px}
+.fact{background:var(--model-050);border-radius:12px;padding:15px 17px;font-size:14px}
+.fact h5{font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--model-deep);margin-bottom:5px}
+.fact.lf-fact{background:var(--lf-100)}
+.fact.lf-fact h5{color:var(--lf-deep)}
+.fact ul{list-style:none}
+.fact li{padding:2px 0 2px 16px;position:relative}
+.fact li::before{content:"•";position:absolute;left:2px;color:var(--model)}
+.fact.lf-fact li::before{color:var(--lf)}
+
+/* ---------- Projekt/uppdrag ---------- */
+.cat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:22px;margin-bottom:48px}
+.cat-card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:28px;position:relative;overflow:hidden}
+.cat-card::before{content:"";position:absolute;inset:0 0 auto 0;height:5px}
+.cat-card.projekt::before{background:var(--model)}
+.cat-card.uppdrag::before{background:#5AA482}
+.cat-card.uppgift::before{background:#A9B5AE}
+.cat-card h3{font-size:20px;margin-bottom:4px}
+.cat-card .sub{font-size:13px;color:var(--ink-soft);margin-bottom:14px}
+.cat-card dl{font-size:13.5px;display:grid;grid-template-columns:auto 1fr;gap:3px 12px}
+.cat-card dt{font-weight:600;color:var(--ink-soft)}
+.cat-card dd{margin:0}
+.cat-card .bps{margin-top:14px;display:flex;gap:6px;align-items:center;flex-wrap:wrap}
+.mini-bp{width:30px;height:30px;border-radius:50%;background:#3C8540;color:#fff;font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;font-family:'Schibsted Grotesk',sans-serif}
+.mini-bp.opt{background:#DCEFC9;border:2px solid #3C8540;color:#2C5E2E}
+.mini-bp.none{background:var(--paper);border:1px solid var(--line);color:var(--ink-soft);font-size:9px;width:auto;border-radius:99px;padding:0 10px;height:24px}
+
+.callout{border-radius:var(--radius);padding:26px 30px;margin:0 0 48px;display:flex;gap:18px;align-items:flex-start}
+.callout.green{background:var(--model-100)}
+.callout.amber{background:var(--lf-100)}
+.callout .ico{font-size:22px;line-height:1.3}
+.callout p{font-size:15px}
+.callout b{font-weight:700}
+
+.chooser{background:var(--card);border:1px solid var(--line);border-radius:20px;box-shadow:var(--shadow);padding:42px}
+.chooser h3{font-size:21px;margin-bottom:6px}
+.chooser .sub{font-size:14px;color:var(--ink-soft);margin-bottom:22px}
+.cq{margin-bottom:28px}
+.cq p{font-weight:600;font-size:15px;margin-bottom:9px}
+.cq .opts{display:flex;gap:8px;flex-wrap:wrap}
+.copt{border:1.5px solid var(--line);background:var(--paper);border-radius:99px;padding:8px 16px;font-size:13.5px;font-weight:500;transition:all .15s}
+.copt:hover{border-color:var(--model)}
+.copt[aria-pressed="true"]{background:var(--model);border-color:var(--model);color:#fff}
+.chooser-result{display:none;margin-top:8px;border-radius:12px;padding:20px 22px;animation:fadeIn .3s}
+.chooser-result.show{display:block}
+.chooser-result h4{font-size:19px;margin-bottom:6px}
+.chooser-result p{font-size:14.5px}
+.cr-projekt{background:var(--model-100)}
+.cr-uppdrag{background:#E7F3EC;border:1px solid #BBDCC9}
+.cr-uppgift{background:#ECEFEA}
+
+/* ---------- Roller ---------- */
+.role-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(255px,1fr));gap:18px}
+.role-card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:0;overflow:hidden;text-align:left;transition:transform .15s,box-shadow .15s}
+.role-card:hover{transform:translateY(-2px);box-shadow:var(--shadow)}
+.role-card .rc-head{width:100%;background:none;border:none;text-align:left;padding:22px 22px 16px;display:flex;justify-content:space-between;gap:10px;align-items:flex-start}
+.role-card .rh3{display:block;font-family:'Schibsted Grotesk',sans-serif;font-weight:600;font-size:17px;margin-bottom:3px;line-height:1.2}
+.role-card .rsub{display:block;font-size:12.5px;color:var(--ink-soft)}
+.rbadge{font-size:10.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;border-radius:99px;padding:3px 9px;white-space:nowrap;flex-shrink:0}
+.rbadge.must{background:var(--model);color:#fff}
+.rbadge.opt{background:var(--paper);border:1px solid var(--line);color:var(--ink-soft)}
+.rc-body{display:none;padding:0 22px 20px;font-size:13.5px;color:var(--ink-soft);border-top:1px dashed var(--line)}
+.rc-body.open{display:block;animation:fadeIn .25s}
+.rc-body ul{list-style:none;margin-top:10px}
+.rc-body li{padding:3px 0 3px 16px;position:relative;color:var(--ink)}
+.rc-body li::before{content:"•";position:absolute;left:2px;color:var(--model)}
+.rc-body .warn-note{margin-top:10px;background:var(--lf-100);color:var(--lf-deep);border-radius:8px;padding:8px 11px;font-size:12.5px;font-weight:600}
+.rc-toggle-hint{font-size:11px;color:var(--ink-soft);padding:0 22px 16px}
+
+/* ---------- Dokument ---------- */
+.doc-chain{display:flex;align-items:stretch;gap:0;flex-wrap:wrap;margin-bottom:26px}
+.doc-node{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px 16px;min-width:170px;flex:1}
+.doc-node h4{font-size:15px;margin-bottom:2px}
+.doc-node p{font-size:12px;color:var(--ink-soft)}
+.doc-node .owner{display:inline-block;margin-top:8px;font-size:11px;font-weight:600;background:var(--model-050);color:var(--model-deep);border-radius:99px;padding:2px 9px}
+.doc-arrow{display:flex;align-items:center;padding:0 6px;color:var(--model);font-weight:700;font-size:18px}
+.doc-gate{display:flex;align-items:center;padding:0 4px}
+.doc-gate span{width:36px;height:36px;border-radius:50%;background:#3C8540;color:#fff;font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;font-family:'Schibsted Grotesk',sans-serif}
+.doc-gate span.opt3{background:#DCEFC9;color:#2C5E2E;border:2px solid #3C8540;font-size:9.5px}
+.doc-running{background:var(--model-050);border-radius:12px;padding:16px 20px;font-size:14px;display:flex;gap:12px;align-items:baseline}
+.doc-running b{color:var(--model-deep)}
+.traffic{display:flex;gap:6px;flex-wrap:wrap;margin-top:10px}
+.tlight{font-size:12px;font-weight:600;border-radius:99px;padding:4px 12px;background:#fff;border:1px solid var(--line)}
+
+/* ---------- Missförstånd ---------- */
+.myth-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:18px}
+.myth{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:0;overflow:hidden}
+.myth button{width:100%;background:none;border:none;text-align:left;padding:20px 22px;font-size:15px;font-weight:600;display:flex;justify-content:space-between;gap:12px;align-items:center}
+.myth button .x{color:var(--warn);font-size:13px;flex-shrink:0;transition:transform .2s}
+.myth .answer{display:none;padding:0 22px 20px;font-size:14px;color:var(--ink-soft)}
+.myth .answer b{color:var(--model-deep)}
+.myth.open .answer{display:block;animation:fadeIn .25s}
+.myth.open button .x{transform:rotate(45deg);color:var(--model)}
+
+/* ---------- LF-sektion ---------- */
+.lf-section{background:linear-gradient(180deg,#FBF4E8 0,var(--paper) 420px);border-top:1px solid #EFDFC4;margin-top:60px}
+.skal-kott{display:grid;grid-template-columns:1fr 1fr;gap:22px;margin-bottom:52px}
+@media(max-width:760px){.skal-kott{grid-template-columns:1fr}}
+.sk-card{border-radius:var(--radius);padding:32px}
+.sk-card.skal{background:var(--model-100)}
+.sk-card.kott{background:var(--lf-100)}
+.sk-card h3{font-size:19px;margin-bottom:8px}
+.sk-card.skal h3{color:var(--model-deep)}
+.sk-card.kott h3{color:var(--lf-deep)}
+.sk-card p{font-size:14.5px}
+.ho-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px;margin-bottom:52px}
+.ho-card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:26px}
+.ho-card .ho-num{width:34px;height:34px;border-radius:50%;background:var(--lf);color:#fff;font-weight:700;display:flex;align-items:center;justify-content:center;margin-bottom:10px;font-family:'Schibsted Grotesk',sans-serif}
+.ho-card h4{font-size:16px;margin-bottom:4px}
+.ho-card p{font-size:13.5px;color:var(--ink-soft)}
+.ho-card .at{display:inline-block;margin-top:10px;font-size:11.5px;font-weight:700;background:var(--model-050);color:var(--model-deep);border-radius:99px;padding:3px 10px}
+table{width:100%;border-collapse:collapse;background:var(--card);border-radius:var(--radius);overflow:hidden;border:1px solid var(--line);font-size:14px}
+th{background:var(--model-deep);color:#fff;text-align:left;padding:14px 17px;font-weight:600;font-size:13px}
+td{padding:13px 17px;border-top:1px solid var(--line);vertical-align:top}
+tbody tr:hover{background:var(--model-050)}
+.tbl-wrap{overflow-x:auto;margin-bottom:52px;border-radius:var(--radius)}
+.lf-th th{background:var(--lf-deep)}
+
+/* ---------- Quiz ---------- */
+.quiz-card{background:var(--card);border:1px solid var(--line);border-radius:20px;box-shadow:var(--shadow);padding:44px;max-width:780px}
+.quiz-prog{font-size:12.5px;font-weight:600;color:var(--ink-soft);margin-bottom:6px;display:flex;justify-content:space-between}
+.quiz-bar{height:7px;background:var(--model-050);border-radius:99px;overflow:hidden;margin-bottom:22px}
+.quiz-bar i{display:block;height:100%;background:var(--model);width:0;transition:width .3s}
+.quiz-q{font-size:19px;font-weight:600;font-family:'Schibsted Grotesk',sans-serif;margin-bottom:18px}
+.quiz-opts{display:flex;flex-direction:column;gap:9px}
+.qopt{border:1.5px solid var(--line);background:var(--paper);border-radius:11px;padding:13px 16px;font-size:14.5px;text-align:left;transition:all .15s}
+.qopt:hover:not(:disabled){border-color:var(--model);transform:translateX(3px)}
+.qopt.correct{background:var(--model-100);border-color:var(--model);font-weight:600}
+.qopt.wrong{background:#FBE9E2;border-color:var(--warn)}
+.qopt:disabled{cursor:default}
+.quiz-why{display:none;margin-top:16px;background:var(--model-050);border-left:4px solid var(--model);border-radius:0 10px 10px 0;padding:14px 17px;font-size:14px}
+.quiz-why.show{display:block;animation:fadeIn .3s}
+.quiz-next{display:none;margin-top:18px;background:var(--model);color:#fff;border:none;border-radius:99px;padding:11px 26px;font-size:14.5px;font-weight:600}
+.quiz-next.show{display:inline-block}
+.quiz-next:hover{background:var(--model-deep)}
+.quiz-result{text-align:center;padding:14px 0 4px}
+.quiz-result .score{font-family:'Schibsted Grotesk',sans-serif;font-size:54px;font-weight:700;color:var(--model)}
+.quiz-result h3{font-size:22px;margin:6px 0 8px}
+.quiz-result p{color:var(--ink-soft);font-size:15px;max-width:480px;margin:0 auto 20px}
+
+
+
+/* ---------- Mål & SMART ---------- */
+.goal-grid{display:grid;grid-template-columns:1fr 1fr;gap:22px;margin-bottom:22px}
+@media(max-width:760px){.goal-grid{grid-template-columns:1fr}}
+.goal-card{border-radius:var(--radius);padding:26px;background:var(--card);border:1px solid var(--line);border-top:5px solid}
+.goal-card.eff{border-top-color:#1C1C1C}
+.goal-card.proj{border-top-color:#3C8540}
+.goal-card h4{font-size:18px;margin-bottom:8px}
+.goal-card p{font-size:14.5px;color:var(--ink-soft)}
+.goal-card p b{color:var(--ink)}
+.smart-row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.smart-label{font-size:13.5px;font-weight:600;color:var(--ink-soft);margin-right:4px}
+.smart-chip{background:var(--model-100);color:var(--model-deep);border-radius:99px;padding:6px 14px;font-size:13px;font-weight:500}
+.smart-chip b{font-weight:800}
+
+/* ---------- Uppdragets mini-stege ---------- */
+.u-stege{display:flex;align-items:center;gap:8px;flex-wrap:wrap;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px 22px;margin-bottom:48px}
+.u-label{font-size:13px;font-weight:700;color:var(--ink-soft);margin-right:6px}
+.u-ph{font-family:'Schibsted Grotesk',sans-serif;font-size:13px;font-weight:500;padding:7px 16px}
+.u-out{background:#1C1C1C;color:#fff;font-style:italic;border-radius:6px}
+.u-green{background:#80C16D;color:#1E4620;font-weight:700;clip-path:polygon(0 0,calc(100% - 10px) 0,100% 50%,calc(100% - 10px) 100%,0 100%,10px 50%);padding:7px 22px}
+.u-gate{width:32px;height:32px;border-radius:50%;background:#3C8540;color:#fff;display:inline-flex;flex-direction:column;align-items:center;justify-content:center;line-height:1;font-family:'Schibsted Grotesk',sans-serif;font-weight:700;font-size:12px;flex-shrink:0}
+.u-gate i{font-style:normal;font-size:7px;font-weight:600}
+
+/* ---------- Öva: scenarier ---------- */
+.scen-card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:26px 28px;margin-bottom:18px;box-shadow:var(--shadow)}
+.scen-card .scen-nr{font-size:11.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--model);margin-bottom:6px}
+.scen-card .scen-text{font-size:16.5px;font-weight:500;margin-bottom:16px;font-family:'Schibsted Grotesk',sans-serif}
+.scen-opts{display:flex;gap:8px;flex-wrap:wrap}
+.sopt{border:1.5px solid var(--line);background:var(--paper);border-radius:99px;padding:8px 17px;font-size:13.5px;font-weight:500;transition:all .15s}
+.sopt:hover:not(:disabled){border-color:#3C8540}
+.sopt.correct{background:var(--model-100);border-color:#3C8540;font-weight:700;color:var(--model-deep)}
+.sopt.wrong{background:#FBE9E2;border-color:var(--warn)}
+.sopt:disabled{cursor:default;opacity:.75}
+.sopt.correct:disabled,.sopt.wrong:disabled{opacity:1}
+.scen-why{display:none;margin-top:14px;background:var(--model-050);border-left:4px solid #3C8540;border-radius:0 10px 10px 0;padding:13px 16px;font-size:14px}
+.scen-why.show{display:block;animation:fadeIn .3s}
+.scen-score{font-size:14px;font-weight:600;color:var(--ink-soft);margin-bottom:20px}
+.scen-score b{color:var(--model-deep)}
+
+/* ---------- Dekorativ ministege på startsliden ---------- */
+.hero-stege{display:flex;align-items:center;gap:5px;margin-bottom:34px;max-width:560px}
+.hs{height:22px;flex:1;display:block}
+.hs-wrap{display:flex;align-items:center}
+.hs-out{background:#1C1C1C;border-radius:4px}
+.hs-arrow{clip-path:polygon(0 0,calc(100% - 8px) 0,100% 50%,calc(100% - 8px) 100%,0 100%,8px 50%)}
+.hs-dot{width:15px;height:15px;border-radius:50%;background:#3C8540;border:1.5px solid var(--paper);flex:none;margin:0 -8px;z-index:1;position:relative}
+.hs-dot.lt{background:#DCEFC9;border-color:#3C8540}
+
+/* ---------- Slides / e-learning ---------- */
+.slide{display:none}
+.slide.active{display:block;animation:slideIn .4s ease}
+@keyframes slideIn{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+.slide{padding:56px 0 24px;min-height:calc(100vh - 260px)}
+.hero.slide{padding:64px 0 24px}
+.progressbar{height:4px;background:var(--model-050)}
+.progressbar i{display:block;height:100%;width:0;background:#3C8540;transition:width .35s}
+.steps{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;padding:2px}
+.steps::-webkit-scrollbar{display:none}
+.stepchip{display:inline-flex;align-items:center;gap:7px;border:1px solid var(--line);background:var(--card);border-radius:99px;padding:5px 13px 5px 6px;font-size:12.5px;font-weight:600;color:var(--ink-soft);white-space:nowrap;transition:all .15s}
+.stepchip .nr{width:21px;height:21px;border-radius:50%;background:var(--paper);border:1px solid var(--line);display:flex;align-items:center;justify-content:center;font-size:10.5px;font-weight:700;flex-shrink:0}
+.stepchip:hover{border-color:#3C8540;color:var(--model-deep)}
+.stepchip.visited .nr{background:#DCEFC9;border-color:#3C8540;color:#2C5E2E}
+.stepchip.current{background:#3C8540;border-color:#3C8540;color:#fff}
+.stepchip.current .nr{background:rgba(255,255,255,.22);border-color:transparent;color:#fff}
+.slide-nav{position:sticky;bottom:0;z-index:40;display:flex;justify-content:space-between;align-items:center;gap:14px;padding:16px 24px;background:rgba(243,245,240,.93);backdrop-filter:blur(8px);border-top:1px solid var(--line)}
+.slide-nav-inner{display:contents}
+.nav-btn{border-radius:99px;padding:13px 26px;font-size:15px;font-weight:700;font-family:'Schibsted Grotesk',sans-serif;transition:all .15s}
+.nav-btn.primary{background:#3C8540;color:#fff;border:none}
+.nav-btn.primary:hover{background:var(--model-deep);transform:translateX(2px)}
+.nav-btn.ghost{background:none;border:1.5px solid var(--line);color:var(--ink-soft)}
+.nav-btn.ghost:hover{border-color:var(--ink-soft);color:var(--ink)}
+.nav-btn:disabled{opacity:.35;cursor:default;transform:none}
+.nav-pos{font-size:13px;font-weight:600;color:var(--ink-soft);text-align:center}
+.cta{display:inline-flex;align-items:center;gap:8px;margin-top:40px;background:#3C8540;color:#fff;border:none;border-radius:99px;padding:16px 34px;font-size:17px;font-weight:700;font-family:'Schibsted Grotesk',sans-serif;box-shadow:0 4px 14px rgba(30,90,40,.3);transition:all .15s}
+.cta:hover{background:var(--model-deep);transform:translateY(-2px)}
+.kbd-hint{font-size:12px;color:var(--ink-soft);margin-top:14px}
+.kbd-hint kbd{background:var(--card);border:1px solid var(--line);border-radius:5px;padding:1px 6px;font-family:inherit;font-size:11px}
+@media(max-width:760px){
+  .slide{padding:32px 0 16px;min-height:0}
+  .hero.slide{padding:40px 0 16px}
+  .nav-pos{display:none}.kbd-hint{display:none}
+  .slide-nav{padding:10px 12px calc(10px + env(safe-area-inset-bottom))}
+  .nav-btn{padding:11px 16px;font-size:13.5px;max-width:49%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .topnav-inner{padding:10px 14px;gap:10px}
+}
+
+/* ---------- Footer ---------- */
+footer{margin-top:0;border-top:1px solid var(--line);padding:34px 0 50px;font-size:13px;color:var(--ink-soft)}
+footer .wrap{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}
+footer b{color:var(--ink)}
+
+/* ---------- Print ---------- */
+@media print{
+  .slide{display:block!important;min-height:0;page-break-after:always}
+  .topnav,.slide-nav,.cta,.kbd-hint,.tl-hint,.reset-btn{display:none!important}
+  .rc-body,.myth .answer{display:block!important}
+  body{background:#fff}
+}
+
+/* ---------- Mobil ---------- */
+@media(max-width:760px){
+  section:not(.slide){padding:64px 0 6px}
+  .wrap{padding:0 16px}
+  .tl-phases,.lf-blocks{grid-template-columns:1fr;gap:8px}
+  .phase,.ph-forbereda,.ph-arrow{clip-path:none;border-radius:8px;justify-content:flex-start;text-align:left;padding:16px 16px;min-height:0}
+  .tl-gates{display:none}
+  .tl-row{padding-top:0;padding-bottom:0}
+  .phase::after{content:attr(data-bp);display:inline-block;margin-left:auto;font-size:11px;background:#fff;color:var(--model-deep);border-radius:99px;padding:1px 9px;font-family:'Source Sans 3',sans-serif;font-weight:700;font-style:normal}
+  .phase[data-bp=""]::after{display:none}
+  .timeline-card{padding:22px 16px 20px}
+  .bp-panel,.chooser,.quiz-card{padding:24px 18px}
+  .bp-tabs{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+  .bp-tabs::-webkit-scrollbar{display:none}
+  .bp-tab{flex-shrink:0;padding:10px 14px 8px}
+  .bp-grid,.detail-cols{gap:24px}
+  .doc-chain{flex-direction:column}
+  .doc-arrow,.doc-gate{justify-content:center;padding:4px 0}
+  .doc-arrow{transform:rotate(90deg)}
+  .scen-card{padding:20px 16px}
+  .hero-stege{max-width:100%}
+  .goal-card,.sk-card,.ho-card,.cat-card{padding:20px 18px}
+}
+</style>
+</head>
+<body>
+<div class="bg-fix" aria-hidden="true"></div>
+
+<div class="topnav">
+  <div class="topnav-inner">
+    <span class="brand"><span class="gate">BP</span> Projektstyrningsmodellen</span>
+    <div class="steps" id="stepChips" role="tablist" aria-label="Utbildningens avsnitt"></div>
+  </div>
+  <div class="progressbar"><i id="courseProg"></i></div>
+</div>
+
+<header id="start" class="hero wrap slide" data-title="Start">
+  <div class="hero-stege" aria-hidden="true">
+    <span class="hs hs-out" style="flex:1"></span><span class="hs hs-out" style="flex:.9"></span><span class="hs-dot"></span><span class="hs hs-arrow" style="flex:1.7;background:#CDE4B8"></span><span class="hs-dot"></span><span class="hs-wrap" style="flex:3;position:relative"><span class="hs hs-arrow" style="background:#80C16D;width:100%"></span><span class="hs-dot lt" style="position:absolute;left:37%;top:50%;transform:translate(-50%,-50%);margin:0"></span></span><span class="hs-dot"></span><span class="hs hs-arrow" style="flex:1.1;background:#3D8B43"></span><span class="hs-dot"></span><span class="hs hs-out" style="flex:.8"></span>
+  </div>
+  <h1>Ett gemensamt språk för projekt — <em>klicka dig igenom modellen</em></h1>
+  <p>Linköpings kommuns projektstyrningsmodell — byggd på Wenell 4.0 — är tvingande för förvaltningarna — våra beställare. Lejonfastigheter inför den frivilligt som gemensamt gränssnitt: samma faser, samma beslutspunkter, samma roller. Lejonguiden behåller vi — modellen blir skalet, Lejonguiden förblir köttet.</p>
+  <div class="meta">
+    <span class="chip green">6 faser</span>
+    <span class="chip green">5 beslutspunkter — 4 obligatoriska</span>
+    <span class="chip amber">Översatt till LF:s byggprocess</span>
+    <span class="chip">Tillämpningsanvisning KS 2024-11-05 § 254</span>
+  </div>
+  <div class="why-grid">
+    <div class="why-card"><div class="skav">Otydliga roller och mandat</div><div class="los">Modellen definierar <b>beställare, styrgrupp, projektledare och mottagare</b> med tydliga ansvar.</div></div>
+    <div class="why-card"><div class="skav">Projekt utan startskott</div><div class="los"><b>BP 1</b> kräver startsäkring — beställare, uppdrag och mandat på plats innan projektet finns.</div></div>
+    <div class="why-card"><div class="skav">Otydligt accepterande av leverans</div><div class="los"><b>BP 4</b> kräver ett formellt, signerat <b>leveransgodkännande</b> mot projektmålen.</div></div>
+    <div class="why-card"><div class="skav">Bristande insyn i tidplan och faser</div><div class="los"><b>Fasindelning med BP</b> synliggör var projektet befinner sig — för båda parter.</div></div>
+  </div>
+  <button class="cta" id="startBtn">Starta utbildningen →</button>
+  <div class="kbd-hint">Tips: bläddra med piltangenterna <kbd>←</kbd> <kbd>→</kbd></div>
+</header>
+
+<section id="modellen" class="wrap slide" data-title="Modellen">
+  <div class="eyebrow">Modellen i ett svep</div>
+  <h2>Sex faser. Fem grindar. Ett projekt.</h2>
+  <p class="lede">Modellen är en <strong>fas- och grindmodell</strong>: arbetet delas i faser, och mellan faserna sitter beslutspunkter (BP) — grindar där <strong>beställaren</strong> beslutar om projektet ska gå vidare, parkeras eller läggas ner. Observera att första och sista fasen ligger <strong>utanför projektet</strong>. Klicka på en fas eller en grind för att lära dig mer.</p>
+
+  <div class="timeline-card">
+    <div class="tl-toolbar">
+      <span class="tl-hint">💡 Klicka på faserna och BP-cirklarna nedan</span>
+      <button class="toggle" id="lfToggle" aria-pressed="false"><span class="knob"></span> Visa LF:s byggprocess under modellen</button>
+    </div>
+    <div class="tl">
+      <div class="tl-row">
+      <div class="tl-phases" role="group" aria-label="Modellens faser">
+        <button class="phase ph-out" data-key="behov" data-bp="" aria-pressed="false" title="I linjen — före projektet">Behov/Idé</button>
+        <button class="phase ph-forbereda" data-key="forbereda" data-bp="BP 1" aria-pressed="false" title="Förstudiefasen — avslutas med BP 1">Förbereda</button>
+        <button class="phase ph-arrow ph-planera" data-key="planera" data-bp="BP 2" aria-pressed="false" title="Projektplanen tas fram — avslutas med BP 2">Planera</button>
+        <button class="phase ph-arrow ph-genomfora" data-key="genomfora" data-bp="BP 3 · BP 4" aria-pressed="false" title="Den längsta fasen — avslutas med BP 4">Genomföra</button>
+        <button class="phase ph-arrow ph-avsluta" data-key="avsluta" data-bp="BP 5" aria-pressed="false" title="Liten fas, stor effekt — avslutas med BP 5">Avsluta</button>
+        <button class="phase ph-out" data-key="effekt" data-bp="" aria-pressed="false" title="Beställarens ansvar — efter projektet">Effekt</button>
+      </div>
+      <div class="tl-gates">
+        <button class="gate-btn" style="left:22.6%" data-key="bp1" aria-pressed="false" aria-label="Beslutspunkt 1 — starta projektet"><span class="bp-sm">BP</span><span class="bp-nr">1</span><span class="gate-label">Starta projektet</span></button>
+        <button class="gate-btn" style="left:43%" data-key="bp2" aria-pressed="false" aria-label="Beslutspunkt 2 — anta projektplanen"><span class="bp-sm">BP</span><span class="bp-nr">2</span><span class="gate-label">Anta projektplanen</span></button>
+        <button class="gate-btn optional" style="left:55.7%" data-key="bp3" aria-pressed="false" aria-label="Beslutspunkt 3, valfri — vägval"><span class="bp-sm">BP</span><span class="bp-nr">3</span><span class="gate-label">Vägval — valfri</span></button>
+        <button class="gate-btn" style="left:77.4%" data-key="bp4" aria-pressed="false" aria-label="Beslutspunkt 4 — godkänn leveransen"><span class="bp-sm">BP</span><span class="bp-nr">4</span><span class="gate-label">Godkänn leveransen</span></button>
+        <button class="gate-btn" style="left:90.3%" data-key="bp5" aria-pressed="false" aria-label="Beslutspunkt 5 — stäng projektet"><span class="bp-sm">BP</span><span class="bp-nr">5</span><span class="gate-label">Stäng projektet</span></button>
+      </div>
+      </div>
+
+      <div class="lf-lane" id="lfLane">
+        <div class="lf-lane-title">Så ligger LF:s byggprojektprocess (totalentreprenad) under modellen</div>
+        <div class="lf-blocks">
+          <div class="lf-block"><b>Lokalförsörjning — linjearbete</b><ul><li>Lokalförsörjningsplan</li><li>Lösa lokalbehov</li><li>Utreda möjlig lösning</li></ul></div>
+          <div class="lf-block"><b>LSA ansvarar</b><ul><li>FU/Inhyrning utreder och gör ev. förstudie på uppdrag</li><li>Projektdirektiv inför BP 1</li></ul></div>
+          <div class="lf-block"><b>Programskedet</b><ul><li>Program- och utredningsskede → programhandling</li><li>Framskrivning → investeringsbeslut</li><li class="hok">Hyresöverenskommelse + politiskt beslut</li></ul></div>
+          <div class="lf-block"><b>Projektera & producera</b><ul><li>Systemhandling (LF projekterar)</li><li>FU + upphandling av TE på systemhandling</li><li>Detaljprojektering (TE)</li><li>Produktion</li><li>Slutbesiktning</li></ul></div>
+          <div class="lf-block"><b>Överlämning</b><ul><li>Lämna över lokal</li><li>Avsluta projekt</li><li>Slutreglering</li></ul></div>
+          <div class="lf-block"><b>Förvaltning</b><ul><li>Nyttoutvärdering</li><li>Garantibesiktning (2 år)</li></ul></div>
+        </div>
+        <div style="font-size:11.5px;color:#8a6a35;margin-top:10px">LSA = lokalstrategiska avdelningen &nbsp;·&nbsp; FU = fastighetsutveckling &nbsp;·&nbsp; TE = totalentreprenör</div>
+        <div class="handovers">
+          <span class="handover">Överlämning 1 · LSA → projekt — vid BP 1</span>
+          <span class="handover">Överlämning 2 · FU → projektledare — vid BP 2</span>
+          <span class="handover">Överlämning 3 · Projektledare → förvaltning — vid BP 5</span>
+        </div>
+      </div>
+
+      <div class="detail" id="detailPanel" aria-live="polite">
+        <div class="detail-empty"><span class="pulse"></span> Välj en fas eller beslutspunkt ovan så visas innehållet här.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="beslutspunkter" class="wrap slide" data-title="Beslutspunkterna">
+  <div class="eyebrow">Beslutspunkterna</div>
+  <h2>Grindarna är beställarens verktyg</h2>
+  <p class="lede">Vid varje BP beslutar beställaren — med stöd av styrgruppen — om projektet ska <strong>gå vidare, parkeras eller läggas ner</strong>. BP 1, 2, 4 och 5 är obligatoriska. BP 3 är valfri. Klicka i checklistan för BP 1 och se vad en startsäkring faktiskt kräver.</p>
+
+  <div class="bp-tabs" role="tablist">
+    <button class="bp-tab" role="tab" data-bp="1" aria-selected="true">BP 1<small>Starta projektet</small></button>
+    <button class="bp-tab" role="tab" data-bp="2" aria-selected="false">BP 2<small>Anta projektplanen</small></button>
+    <button class="bp-tab opt" role="tab" data-bp="3" aria-selected="false">BP 3<small>Vägval — valfri</small></button>
+    <button class="bp-tab" role="tab" data-bp="4" aria-selected="false">BP 4<small>Godkänn leveransen</small></button>
+    <button class="bp-tab" role="tab" data-bp="5" aria-selected="false">BP 5<small>Stäng projektet</small></button>
+  </div>
+  <div class="bp-panel" id="bpPanel" role="tabpanel"></div>
+</section>
+
+<section id="kategori" class="wrap slide" data-title="Projekt eller uppdrag?">
+  <div class="eyebrow">Projekt, uppdrag eller uppgift?</div>
+  <h2>Allt arbete är inte projekt</h2>
+  <p class="lede">Modellen skiljer på tre arbetskategorier med olika formalia. Att välja rätt kategori är det <strong>första</strong> styrbeslutet — ett behov är inte ett projekt bara för att vi kallar det så.</p>
+
+  <div class="cat-grid">
+    <div class="cat-card projekt">
+      <h3>Projekt</h3><div class="sub">Hela modellen tillämpas</div>
+      <dl><dt>Omfattning</dt><dd>Stor</dd><dt>Osäkerhet</dt><dd>Hög</dd><dt>Samordning</dt><dd>Stort behov</dd><dt>Behovsbild</dt><dd>Behöver genomlysas</dd><dt>Omprövning</dt><dd>Löpande</dd><dt>Styrdokument</dt><dd>Projektdirektiv → projektplan</dd><dt>Slutleverans</dt><dd>Slutrapport + leveransgodkännande</dd><dt>Styrgrupp</dt><dd>Obligatorisk</dd></dl>
+      <div class="bps"><span class="mini-bp">1</span><span class="mini-bp">2</span><span class="mini-bp opt">3</span><span class="mini-bp">4</span><span class="mini-bp">5</span></div>
+    </div>
+    <div class="cat-card uppdrag">
+      <h3>Uppdrag</h3><div class="sub">Förenklad styrning — två grindar</div>
+      <dl><dt>Omfattning</dt><dd>Medelstor</dd><dt>Osäkerhet</dt><dd>Lägre</dd><dt>Samordning</dt><dd>Begränsad</dd><dt>Behovsbild</dt><dd>Tydlig</dd><dt>Omprövning</dt><dd>Begränsad</dd><dt>Styrdokument</dt><dd>Uppdragsdirektiv (ingen separat plan)</dd><dt>Slutleverans</dt><dd>Uppdragsrapport / förstudierapport</dd><dt>Styrgrupp</dt><dd>Vid behov</dd></dl>
+      <div class="bps"><span class="mini-bp">1</span><span class="mini-bp">2</span><span style="font-size:12px;color:var(--ink-soft)">start · avslut</span></div>
+    </div>
+    <div class="cat-card uppgift">
+      <h3>Uppgift</h3><div class="sub">Utanför styrmodellen</div>
+      <dl><dt>Omfattning</dt><dd>Ringa</dd><dt>Osäkerhet</dt><dd>Låg</dd><dt>Samordning</dt><dd>Litet behov</dd><dt>Behovsbild</dt><dd>Tydlig</dd><dt>Omprövning</dt><dd>Ingen</dd><dt>Styrdokument</dt><dd>Inga</dd><dt>Slutleverans</dt><dd>—</dd><dt>Styrgrupp</dt><dd>—</dd></dl>
+      <div class="bps"><span class="mini-bp none">Inga beslutspunkter</span></div>
+    </div>
+  </div>
+
+  <div class="callout green"><div class="ico">🔍</div><p><b>Förstudien är ett typexempel på uppdrag.</b> En förstudie inför ett möjligt byggprojekt kan drivas som ett <b>separat uppdrag</b> — med eget uppdragsdirektiv (BP 1) och en förstudierapport som avslut (BP 2). Förstudierapporten blir sedan underlag när beställaren tar ställning till att starta själva projektet. Så hänger LF:s förstudie i fasen Förbereda ihop med modellen.</p></div>
+
+  
+  <div class="u-stege" aria-label="Uppdragets flöde">
+    <span class="u-label">Uppdragets flöde:</span>
+    <span class="u-ph u-out">Behov/Idé</span>
+    <span class="u-ph u-out">Förbereda</span>
+    <span class="u-gate" title="Uppdraget startar — uppdragsdirektiv"><i>BP</i>1</span>
+    <span class="u-ph u-green">Genomföra</span>
+    <span class="u-gate" title="Uppdraget avslutas — uppdragsrapport"><i>BP</i>2</span>
+    <span class="u-ph u-out">Effekt</span>
+  </div>
+
+  <div class="chooser">
+    <h3>Väljaren: vad har du framför dig?</h3>
+    <p class="sub">Svara på fyra frågor om initiativet, så får du en indikation på kategori. (Pedagogiskt stöd — kategoriseringen avgörs alltid av beställaren.)</p>
+    <div class="cq" data-q="0"><p>1. Hur omfattande är arbetet?</p><div class="opts"><button class="copt" data-v="0">Ringa — några dagars insats</button><button class="copt" data-v="1">Medelstort — veckor till månader</button><button class="copt" data-v="2">Stort — månader till år, flera parter</button></div></div>
+    <div class="cq" data-q="1"><p>2. Hur tydlig är behovsbilden?</p><div class="opts"><button class="copt" data-v="0">Glasklar — alla vet vad som ska göras</button><button class="copt" data-v="1">Tydlig — resultatet är väl definierat</button><button class="copt" data-v="2">Behöver genomlysas — målet är inte klart</button></div></div>
+    <div class="cq" data-q="2"><p>3. Hur stort är samordningsbehovet?</p><div class="opts"><button class="copt" data-v="0">Litet — en person löser det</button><button class="copt" data-v="1">Begränsat — ett fåtal funktioner</button><button class="copt" data-v="2">Stort — många intressenter och beroenden</button></div></div>
+    <div class="cq" data-q="3"><p>4. Kommer vägval och innehåll behöva omprövas under resans gång?</p><div class="opts"><button class="copt" data-v="0">Nej</button><button class="copt" data-v="1">I begränsad omfattning</button><button class="copt" data-v="2">Ja, löpande — hög osäkerhet</button></div></div>
+    <div class="chooser-result" id="chooserResult"></div>
+  </div>
+</section>
+
+<section id="roller" class="wrap slide" data-title="Rollerna">
+  <div class="eyebrow">Rollerna</div>
+  <h2>Vem gör vad — och vem beslutar?</h2>
+  <p class="lede">Modellen skiljer på <strong>obligatoriska</strong> och <strong>valbara</strong> roller. De obligatoriska måste finnas i varje projekt — bemanningen anpassas per projekt. Klicka på en roll för ansvar och vanliga fallgropar.</p>
+  <div class="role-grid" id="roleGrid"></div>
+</section>
+
+<section id="dokument" class="wrap slide" data-title="Dokumenten">
+  <div class="eyebrow">Dokumenten</div>
+  <h2>En dokumentkedja som följer grindarna</h2>
+  <p class="lede">Varje BP har sitt underlag. Kärnan är två dokument: <strong>projektdirektivet</strong> (beställarens — <em>vad, varför, när, hur mycket</em>) och <strong>projektplanen</strong> (projektledarens — <em>hur</em>). När planen antagits vid BP 2 uppdateras direktivet inte längre — det är planen som lever vidare, och beslut förs i beslutsloggen.</p>
+
+  <div class="doc-chain">
+    <div class="doc-node"><h4>Projektdirektiv</h4><p>Sätter ramarna. Effektmål + projektmål, avgränsningar, rambudget.</p><span class="owner">Beställaren</span></div>
+    <div class="doc-gate"><span>BP 1</span></div>
+    <div class="doc-node"><h4>Projektplan</h4><p>Detaljerar hur: aktiviteter, tidplan, budget, risker, kommunikation.</p><span class="owner">Projektledaren</span></div>
+    <div class="doc-gate"><span>BP 2</span></div>
+    <div class="doc-node"><h4>Statusrapporter</h4><p>Löpande under Genomföra. Trafikljus — fokus på avvikelser.</p><span class="owner">Projektledaren</span></div>
+    <div class="doc-gate"><span class="opt3" title="Valfri — vid vägval eller delresultat">BP 3</span></div>
+    <div class="doc-node"><h4>Leveransgodkännande</h4><p>Signerat godkännande: leveransen motsvarar projektmålen.</p><span class="owner">Beställare/mottagare</span></div>
+    <div class="doc-gate"><span>BP 4</span></div>
+    <div class="doc-node"><h4>Slutrapport</h4><p>Måluppfyllelse, lärdomar, rekommendationer.</p><span class="owner">Projektledaren</span></div>
+    <div class="doc-gate"><span>BP 5</span></div>
+  </div>
+
+  <div class="doc-running"><b>Löpande genom hela projektet:</b><span>Beslutslogg (vem beslutade vad, när, varför) · Lärlogg (erfarenheter i realtid, inte i efterhand) · Aktivitetsplan · Mötesplanering.
+  <span class="traffic"><span class="tlight">⏱ Tid</span><span class="tlight">💰 Kostnad</span><span class="tlight">🎯 Resultat</span><span class="tlight">👥 Resurs</span><span class="tlight">⚠️ Risk</span><span class="tlight">🙂 Humör</span><span style="font-size:12px;color:var(--ink-soft);align-self:center">← statusrapportens sex trafikljus</span></span></span></div>
+
+  <h3 class="display" style="font-size:21px;margin:52px 0 14px">Två sorters mål — båda ska in i direktivet</h3>
+  <div class="goal-grid">
+    <div class="goal-card eff"><h4>Effektmål</h4><p>Den långsiktiga nytta beställaren vill uppnå <b>efter</b> leveransen — t.ex. "elevernas lärmiljö förbättras och lokalkostnaden per elev sjunker". Följs upp av <b>beställaren</b> i Effekt-fasen.</p></div>
+    <div class="goal-card proj"><h4>Projektmål</h4><p>Det konkreta resultat projektet ska leverera — t.ex. "en färdigställd skola för 540 elever, inflyttningsklar till höstterminen". <b>Projektledarens</b> ansvar att uppnå.</p></div>
+  </div>
+  <div class="smart-row" aria-label="SMART-kriterierna">
+    <span class="smart-label">Båda målen ska vara SMART:</span>
+    <span class="smart-chip"><b>S</b>pecifika</span><span class="smart-chip"><b>M</b>ätbara</span><span class="smart-chip"><b>A</b>ccepterade</span><span class="smart-chip"><b>R</b>ealistiska</span><span class="smart-chip"><b>T</b>idsatta</span>
+  </div>
+
+  <div class="callout green" style="margin-top:48px;margin-bottom:0"><div class="ico">🗂️</div><p><b>Mallarna är frivilliga stödformer</b> som kan justeras per projekt — rubriker får läggas till eller tas bort så länge de obligatoriska delarna finns kvar. Arbeta gärna i Word eller Google Docs, men <b>diarieför som PDF/A, PDF, Word eller Excel</b> (i Ciceron) — .gdoc och .gsheet godkänns inte som arkiverad handling.</p></div>
+
+</section>
+
+<section id="lf" class="lf-section slide" data-title="LF-översättningen">
+  <div class="wrap">
+  <div class="eyebrow lf-eyebrow">Lejonfastigheter</div>
+  <h2>Översättningen till vår vardag</h2>
+  <p class="lede">Modellen ersätter inte Lejonguiden — den lägger ett gemensamt styrlager ovanpå. Vi behåller vårt branschspecifika innehåll och möter kommunens förvaltningar i samma faser, samma beslutspunkter och samma roller.</p>
+
+  <div class="skal-kott">
+    <div class="sk-card skal"><h3>Modellen = skalet</h3><p>Generell styrning: faser, beslutspunkter, roller, styrande dokument. Beskriver <strong>hur projektet styrs</strong> — gemensamt språk med förvaltningarna, som är tvingade att använda modellen.</p></div>
+    <div class="sk-card kott"><h3>Lejonguiden = köttet</h3><p>Branschspecifikt innehåll: delprocesser, LM/LI/LR/LD-mallar, system (Antura m.fl.), kontrollpunkter. Beskriver <strong>vad som ska göras</strong> i fastighets- och byggarbetet. Behålls intakt.</p></div>
+  </div>
+
+  <div class="callout amber"><div class="ico">📌</div><p><b>Lokalförsörjningsprocessen är inte projektet.</b> Behovsanalys, lösa lokalbehov och utredning är <b>linjearbete</b> — fasen Behov/Idé. Processen <b>beställer</b> projektet, men är inte projektet. Vår enskilt största förbättringspotential: idag kallas behovet "projekt" från dag ett och skedena flyter ihop. Med BP 1 får projektet ett <b>formellt startskott</b> — definierad beställare, uppdrag och mandat.</p></div>
+
+  <h3 class="display" style="font-size:21px;margin-bottom:14px">Tre överlämningar i projektets livscykel</h3>
+  <div class="ho-grid">
+    <div class="ho-card"><div class="ho-num">1</div><h4>LSA → projekt</h4><p>LSA ansvarar för hela Förbereda: äger initiativet, säkrar förankring i lokalförsörjningsplan eller politiskt beslut och tar fram projektdirektivet inför BP 1. FU/Inhyrning genomför eventuella förstudier och utredningar på LSA:s uppdrag.</p><span class="at">Vid BP 1</span></div>
+    <div class="ho-card"><div class="ho-num">2</div><h4>FU → projektledare</h4><p>FU driver programskedet fram till BP 2: programhandling, investeringsbeslut via framskrivning, hyresöverenskommelse, stöd i den politiska beslutsprocessen. Projektledaren tar över och driver projektet till BP 5.</p><span class="at">Vid BP 2 — efter investeringsbeslut</span></div>
+    <div class="ho-card"><div class="ho-num">3</div><h4>Projektledare → förvaltning</h4><p>PL slutreglerar entreprenadkontrakt, gör ekonomiskt avslut, säkrar dokumentation och lämnar slutrapport. Förvaltningen tar över: drift, garantibesiktning (2 år), uppföljning av nyttohemtagning.</p><span class="at">Vid BP 5</span></div>
+  </div>
+
+  </div>
+</section>
+
+<section id="ordlista" class="lf-section slide" data-title="Ordlistan">
+  <div class="wrap">
+  <div class="eyebrow lf-eyebrow">Lejonfastigheter</div>
+  <h2>Ordlista: byggspråk ↔ modellspråk</h2>
+  <p class="lede">Samma moment — två språk. Här är översättningen mellan vår byggvardag och modellens begrepp, term för term.</p>
+  <div class="tbl-wrap"><table>
+    <thead class="lf-th"><tr><th>LF/byggterm</th><th>Plats i modellen</th><th>Kommentar</th></tr></thead>
+    <tbody>
+      <tr><td>Lokalförsörjningsplan</td><td>Behov/Idé</td><td>Linjearbete före projektet</td></tr>
+      <tr><td>Förstudie</td><td>Fas Förbereda</td><td>Kan drivas som separat <b>uppdrag</b></td></tr>
+      <tr><td>Förstudierapport</td><td>Underlag för BP 1</td><td>Slutleverans i Förbereda</td></tr>
+      <tr><td>Programhandling</td><td>Fas Planera</td><td>Levereras före BP 2</td></tr>
+      <tr><td>Framskrivning / investeringsbeslut</td><td>Fas Planera</td><td>Beslutsmoment mellan BP 1 och BP 2</td></tr>
+      <tr><td>Hyresöverenskommelse + politiskt beslut</td><td>Fas Planera</td><td>Bindande externt åtagande — tecknas före BP 2</td></tr>
+      <tr><td>Systemhandling</td><td>Fas Genomföra</td><td>Påbörjas först när hyresöverenskommelsen binder åtagandet vid BP 2</td></tr>
+      <tr><td>Upphandling av totalentreprenör</td><td>Fas Genomföra</td><td>På systemhandling — upphandling föregår detaljprojektering</td></tr>
+      <tr><td>Beslut att teckna entreprenadkontrakt</td><td>BP 3 (valfri)</td><td>Naturlig BP 3-kandidat i våra projekt</td></tr>
+      <tr><td>Bygghandling, produktion</td><td>Fas Genomföra</td><td>TE projekterar och bygger</td></tr>
+      <tr><td>Slutbesiktning</td><td>Underlag för BP 4</td><td>Tekniskt godkännande — kompletteras med leveransgodkännande mot projektmålen</td></tr>
+      <tr><td>Lämna över lokal, avsluta projekt</td><td>Fas Avsluta</td><td>Avslutas med BP 5</td></tr>
+      <tr><td>Garantibesiktning (2 år)</td><td>Fas Effekt</td><td>Efter projektet</td></tr>
+      <tr><td>Hyresgästen</td><td>Mottagare</td><td>Tar emot lokalen; LF:s förvaltning är mottagare för drift</td></tr>
+      <tr><td>Projektanmälan</td><td>Parallellt LF-internt</td><td>Digital workflow enligt delegeringsordningen — formaliserar investeringsbeslut/attest mellan BP 1 och BP 2. Ingår inte i kommunens modell.</td></tr>
+    </tbody>
+  </table></div>
+
+  <div class="callout amber" style="margin-bottom:10px"><div class="ico">⚠️</div><p><b>Vanlig förväxling internt:</b> Lejonguidens interna BP-numrering och modellens BP 1–5 är <b>helt orelaterade</b> — likheten är en slump. När vi pratar med förvaltningarna gäller alltid modellens BP 1–5.</p></div>
+  </div>
+</section>
+
+
+<section id="ova" class="wrap slide" data-title="Öva">
+  <div class="eyebrow">Öva</div>
+  <h2>Var i modellen är vi?</h2>
+  <p class="lede">Sex situationer ur vår vardag. Placera var och en i rätt fas eller beslutspunkt — du får förklaringen direkt. Det här är själva färdigheten modellen ska ge oss: att <strong>känna igen var ett projekt befinner sig</strong> oavsett vems språk som används. (LSA = lokalstrategiska avdelningen, FU = fastighetsutveckling.)</p>
+  <div id="scenList"></div>
+</section>
+
+<section id="missar" class="wrap slide" data-title="Missförstånd">
+  <div class="eyebrow">Begreppsskärpa</div>
+  <h2>Sex vanliga missförstånd</h2>
+  <p class="lede">De här sammanblandningarna dyker upp i nästan varje projekt. Klicka för att reda ut dem.</p>
+  <div class="myth-grid" id="mythGrid"></div>
+</section>
+
+<section id="quiz" class="wrap slide" data-title="Slutprov">
+  <div class="eyebrow">Testa dig själv</div>
+  <h2>Kan du modellen nu?</h2>
+  <p class="lede">Tolv frågor. Du får förklaringen direkt efter varje svar — fel svar är det snabbaste sättet att lära sig.</p>
+  <div class="quiz-card" id="quizCard"></div>
+</section>
+
+<div class="slide-nav">
+  <button id="prevBtn" class="nav-btn ghost">← Föregående</button>
+  <div class="nav-pos" id="navPos"></div>
+  <button id="nextBtn" class="nav-btn primary">Nästa avsnitt →</button>
+</div>
+
+<footer>
+  <div class="wrap">
+    <div><b>Källor:</b> Kommunövergripande tillämpningsanvisning för projekt- och uppdragsstyrning (KS 2024-11-05 § 254, uppd. 2025-04-14) · Projektportalen (sites.google.com/linkoping.se/projektportal, kräver @linkoping.se) · Projektmodell mappad mot LF:s byggprocess (2026-03).</div>
+    <div>Internt lärmaterial · Lejonfastigheter · Modellen bygger på Wenell 4.0</div>
+  </div>
+</footer>
+
+<script>
+/* ============ DATA ============ */
+const DETAILS = {
+  behov:{title:"Behov/Idé",tags:["I linjen — före projektet","Beställarens ansvar"],lf:false,
+    what:["Behov identifieras i verksamheten","Beställaren bedömer och prioriterar initiativet","Beslut fattas om att <b>förbereda</b> inför ett kommande projekt"],
+    side:"<p><b>Viktigt:</b> Den här fasen ingår inte i projektet och är <b>inte projektledarens ansvar</b>. Hos LF är detta lokalförsörjningsprocessen — lokalförsörjningsplan, lösa lokalbehov, utreda möjlig lösning. Linjearbete som <b>beställer</b> projektet.</p><p><b>Resulterar i:</b> ett prioriterat initiativ och ett beslut att gå in i Förbereda.</p>"},
+  forbereda:{title:"Förbereda — förstudiefasen",tags:["Avslutas med BP 1","Projektdirektivet tas fram"],lf:false,
+    what:["Behovet analyseras djupare — mål och spelplan definieras","Intressenter identifieras","Projektet organiseras: beställare, styrgrupp och projektledare utses","<b>Projektdirektivet</b> tas fram av beställaren"],
+    side:"<p><b>Förstudien kan drivas som ett separat uppdrag</b> — med uppdragsdirektiv och förstudierapport (uppdragets BP 1 + BP 2). Rapporten blir sedan underlag för projektets BP 1.</p><p><b>Hos LF:</b> LSA ansvarar för hela Förbereda och tar fram projektdirektivet inför BP 1. FU/Inhyrning genomför eventuella förstudier och utredningar på uppdrag av LSA.</p>"},
+  planera:{title:"Planera — förberedelsefasen",tags:["Avslutas med BP 2","Projektplanen upprättas"],lf:false,
+    what:["Projektledaren omsätter direktivet i en <b>projektplan</b>: resultatbeskrivningar, aktivitetsplan, tidplan, budget, riskanalys, kommunikationsplan, intressentanalys","Resurser säkras hos resursägarna","Mottagaren bekräftar att den kan ta emot leveransen"],
+    side:"<p><b>Hos LF</b> ligger programskedet här: program- och utredningsskede fram till programhandling, framskrivning med investeringsbeslut, samt <b>hyresöverenskommelsen</b> med kommunen och det politiska beslutet — allt före BP 2.</p><p>Vid BP 2 sker överlämningen FU → projektledare.</p>"},
+  genomfora:{title:"Genomföra — den längsta fasen",tags:["Avslutas med BP 4","Ev. BP 3 under fasen"],lf:false,
+    what:["Rekommenderat arbetssätt: <b>iterativt i 2–6-veckorscykler</b> — närområdesplanering, visualisering (t.ex. Kanban), korta avstämningar, demonstration av resultat, retrospektiv","Löpande <b>statusrapporter</b> till styrgruppen (trafikljus)","Formell <b>ändringshantering</b> vid påverkan på spelplanen","Eventuella BP 3 vid vägval, delresultat eller större förändringar"],
+    side:"<p><b>Hos LF:</b> systemhandling (LF projekterar), upphandling av totalentreprenör på systemhandling, detaljprojektering (TE), produktion och slutbesiktning. Beslutet att teckna entreprenadkontrakt är en naturlig BP 3.</p>"},
+  avsluta:{title:"Avsluta — liten fas, stor effekt",tags:["Avslutas med BP 5","Slutrapport"],lf:false,
+    what:["Resultatet överlämnas formellt till mottagaren","<b>Slutrapporten</b> sammanfattar måluppfyllelse, lärdomar och rekommendationer","Styrgruppen beslutar formellt om projektavslut","Ansvaret överförs till förvaltningen"],
+    side:"<p><b>Hos LF:</b> lämna över lokal, avsluta projekt, slutreglering av entreprenadkontrakt, ekonomiskt avslut, säkra dokumentation.</p><p>Utan ett formellt avslut fortsätter projektet leva som otydligt ansvar — därav 'liten fas, stor effekt'.</p>"},
+  effekt:{title:"Effekt — nyttjandefasen",tags:["Efter projektet","Beställarens ansvar"],lf:false,
+    what:["Resultatet tas i bruk","<b>Nyttoutvärdering</b> genomförs — uppföljning mot effektmålen","Beställaren bestämmer när, hur och vem som ansvarar"],
+    side:"<p><b>Viktigt:</b> Effekt ligger efter projektet och är <b>inte projektledarens ansvar</b>. Den här fasen glöms ofta bort i rutiner och mallar — bevaka den aktivt.</p><p><b>Hos LF:</b> garantibesiktning (2 år), långsiktig förvaltning, hyresgästens nyttohemtagning.</p>"},
+  bp1:{title:"BP 1 — Starta projektet",tags:["Obligatorisk","Beslutsfattare: beställaren","Mellan Förbereda och Planera"],lf:false,
+    what:["Beslutsfrågan: <b>ska projektet startas och planeringsfasen påbörjas?</b>","Kräver en komplett <b>startsäkring</b> — se checklistan i avsnittet Beslutspunkterna","Projektdirektivet är beställningen till projektledaren"],
+    side:"<p><b>Resultat:</b> projektet startar formellt. Beställare, uppdrag och mandat är definierade. Projektledaren kan påbörja Planera.</p><p><b>För LF</b> är detta den viktigaste nyheten: det formella startskott som saknas idag.</p>"},
+  bp2:{title:"BP 2 — Anta projektplanen",tags:["Obligatorisk","Beslutsfattare: beställaren","Mellan Planera och Genomföra"],lf:false,
+    what:["Beslutsfrågan: <b>leder projektplanen till projektets mål?</b>","Planen är dokumenterad, budget säkerställd, deltagare resurssäkrade och insatta","Mottagaren kan ta emot leveransen"],
+    side:"<p><b>Konsekvens:</b> när planen antagits uppdateras projektdirektivet inte längre — planen lever vidare och beslut förs i beslutsloggen.</p><p><b>Hos LF</b> sammanfaller BP 2 med vår stora interna beslutspunkt: investeringsbeslut, hyresöverenskommelse och överlämning FU → projektledare.</p>"},
+  bp3:{title:"BP 3 — Vägval och delresultat (valfri)",tags:["Inte obligatorisk","Kan vara flera — eller ingen","Under Genomföra"],lf:false,
+    what:["Större förändringar i spelplanen som påverkar mål, budget eller tidplan","Vägval mellan alternativa lösningar","Godkännande av delresultat","Kan finnas flera: BP 3a, 3b, 3c …"],
+    side:"<p>Beställaren och styrgruppen avgör om BP 3 behövs.</p><p><b>Hos LF:</b> beslutet att teckna entreprenadkontrakt efter genomförd upphandling är en naturlig BP 3.</p>"},
+  bp4:{title:"BP 4 — Godkänn leveransen",tags:["Obligatorisk","Beslutsfattare: beställaren","Mellan Genomföra och Avsluta"],lf:false,
+    what:["Beslutsfrågan: <b>överensstämmer leveransen med projektmålen?</b>","Signerat <b>leveransgodkännande</b> av beställare/mottagare","Restpunkter dokumenterade och hanterade","Plan för avslutsfasen finns"],
+    side:"<p><b>Hos LF:</b> slutbesiktningen är det tekniska godkännandet av entreprenaden — leveransgodkännandet är beställarens/mottagarens godkännande mot <b>projektmålen</b>. Två olika saker som kompletterar varandra.</p>"},
+  bp5:{title:"BP 5 — Stäng projektet",tags:["Obligatorisk","Beslutsfattare: styrgruppen","Projektets sista beslutspunkt"],lf:false,
+    what:["Beslutsfrågan: <b>är slutrapporten godkänd och projektet klart att stängas?</b>","Måluppfyllelse, lärdomar och rekommendationer dokumenterade","Ansvaret formellt överlämnat till förvaltning/mottagare","Ekonomiska avslut genomförda"],
+    side:"<p><b>Resultat:</b> projektet upphör formellt. Därefter tar fasen Effekt vid — beställarens ansvar, inte projektledarens.</p><p><b>Hos LF:</b> överlämning 3 — projektledare → förvaltning (drift, garanti, nyttohemtagning).</p>"}
+};
+
+const BPS = {
+  1:{q:"Ska projektet startas och planeringsfasen påbörjas?",who:"Beställaren (med stöd av styrgruppen)",when:"Mellan Förbereda och Planera",opt:false,
+    intro:"Detta är en <b>startsäkring</b> — allt ska vara på plats. Bocka av och se vad som faktiskt krävs:",
+    list:[["Effekt- och projektmål","definierade, förstådda och inom kommunens målinriktning"],["Antaganden och avgränsningar","dokumenterade"],["Utgångspunkter","underlag, beslut och styrande dokument verifierade"],["Beroenden","till annan verksamhet bedömda, planer koordinerade"],["Påverkan","på annan verksamhet definierad och avstämd"],["Övergripande risker","identifierade och hanterade"],["Övergripande tidplan","förslag framtaget"],["Rambudget — finansiering","vilken budget, hur stor, hur projektet finansieras"],["Rambudget — resurser","bedömda"],["Projektledare","utsedd"],["Styrgrupp","utsedd och förankrad"],["Mottagare","utsedd"],["Projektdirektiv","framtaget av beställaren"]],
+    done:"✔ Startsäkrat! Nu — och först nu — finns projektet. Beställning lämnas till projektledaren via projektdirektivet.",
+    result:["Beslut att starta projektet","Beställning till utsedd PL via projektdirektiv","Projektledaren påbörjar fas Planera"],
+    mall:"Projektdirektiv + BP 1-beslutsunderlag (startsäkring)",
+    lf:"Det formella startskott LF saknar idag. Behovet är inte ett projekt förrän BP 1 är passerad — innan dess är det lokalförsörjningsprocessens linjearbete."},
+  2:{q:"Leder projektplanen till projektets mål?",who:"Beställaren (med stöd av styrgruppen)",when:"Mellan Planera och Genomföra",opt:false,
+    intro:"För att passera BP 2 ska följande vara uppfyllt:",
+    list:[["Projektplan","projektledaren har omsatt direktivet i en dokumenterad plan"],["Personella resurser","tilldelade i tillräcklig omfattning"],["Budget och materiella resurser","tillräckliga och säkerställda"],["Projektgruppen","deltagarna är resurssäkrade"],["Förankring","deltagarna är insatta i planen och sin roll"],["Mottagaren","har möjlighet att ta vid leveransen (ägandeskap)"],["Projektplanen antas","godkänns formellt — dokumenteras i beslutsloggen"]],
+    done:"✔ Planen är antagen. Direktivet fryses — härifrån är det projektplanen som uppdateras.",
+    result:["Projektplanen antagen","Fas Genomföra startar","Direktivet uppdateras inte längre — beslut förs i beslutsloggen"],
+    mall:"Projektplan + BP 2-beslutsunderlag",
+    lf:"Sammanfaller med LF:s stora interna beslutspunkt: investeringsbeslut via framskrivning, hyresöverenskommelse + politiskt beslut, och överlämningen FU → projektledare."},
+  3:{q:"Ska vi godkänna delresultatet, vägvalet eller förändringen?",who:"Beställaren (med stöd av styrgruppen)",when:"Under Genomföra — vid behov",opt:true,
+    intro:"BP 3 är <b>inte obligatorisk</b>. Den används vid:",
+    list:[["Större förändringar","i spelplanen som påverkar mål, budget eller tidplan"],["Vägval","mellan alternativa lösningar"],["Delresultat","godkännande innan nästa större aktivitet"],["Iterativa projekt","där fasvisa milstolpar behöver beslutas formellt"]],
+    done:"✔ Du kan ha flera BP 3 (3a, 3b, 3c…) — eller ingen alls. Beställaren och styrgruppen avgör.",
+    result:["Formellt beslut om vägval/delresultat","Spårbarhet i beslutsloggen"],
+    mall:"Ingen egen mall — beslutet dokumenteras i beslutsloggen",
+    lf:"Beslutet att teckna entreprenadkontrakt efter genomförd upphandling är en naturlig BP 3 i våra projekt."},
+  4:{q:"Överensstämmer projektets leverans med projektmålen?",who:"Beställaren (med stöd av styrgruppen)",when:"Mellan Genomföra och Avsluta",opt:false,
+    intro:"För att passera BP 4 ska följande vara uppfyllt:",
+    list:[["Leveransen","överensstämmer med projektmålen"],["Leveransgodkännande","dokumenterat och signerat av beställare/mottagare"],["Mottagaren","tar formellt över ansvaret"],["Restpunkter","dokumenterade och hanterade"],["Plan för avslutsfasen","finns"]],
+    done:"✔ Leveransen är godkänd — fasen Avsluta startar.",
+    result:["Leveransen godkänd","Fas Avsluta startar"],
+    mall:"Leveransgodkännande + BP 4-beslutsunderlag",
+    lf:"Slutbesiktning = tekniskt godkännande av entreprenaden. Leveransgodkännande = godkännande mot projektmålen. Båda behövs — och det formella leveransgodkännandet är nytt för oss."},
+  5:{q:"Är slutrapporten godkänd och projektet klart att stängas?",who:"Styrgruppen (mottar och godkänner formellt)",when:"Vid slutet av Avsluta — sista beslutspunkten",opt:false,
+    intro:"För att passera BP 5 ska följande vara uppfyllt:",
+    list:[["Slutrapport","klar och godkänd"],["Måluppfyllelse","dokumenterad"],["Lärdomar och rekommendationer","dokumenterade"],["Överlämning","ansvaret formellt hos förvaltning/mottagare"],["Ekonomiska avslut","genomförda"],["Erfarenhetsåterföring","arkiverad"]],
+    done:"✔ Projektet är formellt stängt. Nu tar Effekt-fasen vid — beställarens ansvar.",
+    result:["Slutrapporten godkänd","Projektet upphör formellt","Effekt-fasen (nyttoutvärdering) tar vid — beställarens ansvar"],
+    mall:"Slutrapport + BP 5-beslutsunderlag",
+    lf:"Överlämning 3: projektledare → förvaltning. Garantibesiktningen (2 år) ligger efter BP 5, i Effekt."}
+};
+
+const ROLES = [
+  {n:"Beställare",s:"Äger projektet och effektmålen",must:true,
+   d:"Den som beställer och har mandat att starta projektet. Godkänner beslutspunkterna med stöd av styrgruppen. Portalen sammanfattar rollen i sex arbetsområden: säkerställa nyttan, komma överens om spelplanen, säkra resurser, förankra och undanröja hinder, samverka och följa upp samt säkra resultat och effekter.",
+   r:["Ansvarar för effekt- och projektmål","Tillsätter styrgrupp och utser projektledare","Lämnar skriftligt projektdirektiv till PL","Ordförande i styrgruppen","Säkrar att resultatet kommer till användning","Följer upp effektmålen långsiktigt — efter projektet"],
+   w:"Hos oss: kommunens förvaltning. Workshopparna visar att aktivt beställarskap med mandat är den roll som oftast brister."},
+  {n:"Styrgrupp",s:"Beställarens och PL:s stöd",must:true,
+   d:"Säkerställer att projektet ligger i linje med övergripande mål. Leds av beställaren som ordförande.",
+   r:["Fastställer projektplanen","Beslutar om ändringsförslag","Rekommenderar: driva vidare, parkera eller lägga ner","Undanröjer hinder och hanterar avvikelser","Mottar och godkänner leveransen vid BP 5"],
+   w:"Saknas styrgrupp ingår uppgifterna i beställarens ansvar. Styrgruppsmöte hålls minst vid varje BP."},
+  {n:"Projektledare",s:"Leder det operativa arbetet",must:true,
+   d:"Ansvarar för att projektmålen uppnås. Tar fram projektplanen utifrån direktivet.",
+   r:["Planerar, organiserar, delegerar, följer upp","Rapporterar status till styrgruppen","Ansvarar för leveransen mot projektmålen"],
+   w:"PL är föredragande i styrgruppen — men har ingen beslutsrätt där."},
+  {n:"Mottagare",s:"Förvaltar resultatet långsiktigt",must:true,
+   d:"Tar emot och ansvarar för leveranser och resultat — integrerar resultatet i organisationen.",
+   r:["Bekräftar vid BP 2 att den kan ta emot leveransen","Tar formellt över ansvaret vid BP 4","Kan ha förvaltnings- eller driftansvar"],
+   w:"Mottagare ≠ beställare. Hos oss: hyresgästen tar emot lokalen, LF:s förvaltning är mottagare för driften."},
+  {n:"Resursägare",s:"Linjechefer som lånar ut resurser",must:true,
+   d:"Tillhandahåller resurser till projektet och säkrar att de kan delta enligt överenskommelse.",
+   r:["Resurssäkrar deltagare inför BP 2","Kan ingå i styrgruppen — men inte automatiskt"],w:null},
+  {n:"Projektgrupp",s:"Genomför aktiviteterna",must:true,
+   d:"De som operativt genomför projektets aktiviteter. Leds av projektledaren.",
+   r:["Genomför tilldelade aktiviteter","Informerar PL om hinder och framsteg","Ska vara insatta i projektplanen som helhet"],w:null},
+  {n:"Delprojektledare",s:"Vid delprojekt",must:false,d:"Leder delprojekt med tydlig ansvarsfördelning mot övergripande PL.",r:[],w:null},
+  {n:"Förändringsledare",s:"Vid större organisationsförändringar",must:false,d:"Utses av beställaren. Ansvarar för människors väg från nuläge till nyläge.",r:[],w:null},
+  {n:"Referensgrupp",s:"Rådgivande — ej beslutande",must:false,d:"Intressenter och sakkunniga, t.ex. framtida användare eller tekniska specialister. Utses i samråd med styrgruppen.",r:[],w:null},
+  {n:"Kvalitetsgranskare",s:"Extern granskning vid behov",must:false,d:"Utomstående person som granskar projektet enligt en kvalitetsgranskningsplan och rapporterar till styrgruppen.",r:[],w:null},
+  {n:"Kommunikatör",s:"Vid kommunikationsintensiva projekt",must:false,d:"Stöd i intern och extern kommunikation.",r:[],w:null},
+  {n:"Ekonom",s:"Vid komplex ekonomi",must:false,d:"Stöd i kalkyl, uppföljning och ekonomisk rapportering.",r:[],w:null}
+];
+
+const MYTHS = [
+  {q:"Effektmål och projektmål är samma sak",a:"<b>Nej.</b> Effektmål = den långsiktiga nyttan efter leverans — <b>beställarens</b> ansvar att följa upp. Projektmål = det konkreta resultat projektet ska leverera — <b>projektledarens</b> ansvar. Båda ska finnas i direktivet och planen, och båda ska vara SMART:a."},
+  {q:"Projektdirektiv och projektplan är samma dokument",a:"<b>Nej.</b> Direktivet är <b>beställarens</b> dokument inför BP 1: vad, varför, när, hur mycket. Planen är <b>projektledarens</b> dokument inför BP 2: hur. När planen antagits uppdateras direktivet inte längre."},
+  {q:"Alla projekt måste ha BP 3",a:"<b>Nej.</b> BP 3 är valfri — för delresultat, vägval eller större förändringar. Ett projekt kan ha flera (BP 3a, 3b…) eller ingen alls. BP 1, 2, 4 och 5 är obligatoriska."},
+  {q:"Mottagaren är samma som beställaren",a:"<b>Inte nödvändigtvis.</b> Beställaren initierar projektet och äger effektmålen. Mottagaren tar emot och förvaltar resultatet långsiktigt. Det kan vara samma part — men rollerna är olika."},
+  {q:"Behovet är ett projekt från dag ett",a:"<b>Nej — och det är vår vanligaste fallgrop.</b> Behov/Idé är linjearbete (hos LF: lokalförsörjningsprocessen). Projektet finns först när BP 1 passerats med beställare, uppdrag och mandat definierade. Processen beställer projektet — den är inte projektet."},
+  {q:"Lejonguidens BP-nummer = modellens BP-nummer",a:"<b>Nej.</b> Numreringen är helt orelaterad — likheten är en slump. I gränssnittet mot förvaltningarna gäller alltid modellens BP 1–5. Detsamma gäller Wenells G1–G5: i Linköping används BP-nomenklaturen."}
+];
+
+const QUIZ = [
+  {q:"Vem ansvarar för att följa upp effektmålen efter att projektet stängts?",o:["Projektledaren","Beställaren","Mottagaren","Styrgruppen"],c:1,why:"Effekt-fasen ligger efter projektet och är beställarens ansvar. Beställaren bestämmer när, hur och vem som genomför nyttoutvärderingen. Projektledarens ansvar upphör vid BP 5."},
+  {q:"Vilken beslutspunkt är inte obligatorisk?",o:["BP 1","BP 2","BP 3","BP 4"],c:2,why:"BP 3 används vid behov för delresultat, vägval eller större förändringar — det kan finnas flera eller ingen alls. BP 1, 2, 4 och 5 är obligatoriska."},
+  {q:"Vilket dokument tas fram inför BP 1 — och av vem?",o:["Projektplanen, av projektledaren","Projektdirektivet, av beställaren","Förstudierapporten, av styrgruppen","Uppdragsdirektivet, av mottagaren"],c:1,why:"Projektdirektivet är beställarens dokument och beställningen till projektledaren: vad, varför, när och hur mycket. Projektplanen kommer först i fasen Planera."},
+  {q:"När slutar projektdirektivet att uppdateras?",o:["När projektet stängs vid BP 5","Aldrig — det uppdateras löpande","När projektplanen antagits vid BP 2","Vid leveransgodkännandet"],c:2,why:"När planen är antagen vid BP 2 är det projektplanen som lever vidare. Viktiga beslut förs i beslutsloggen."},
+  {q:"En förstudie inför ett möjligt byggprojekt — hur kan den drivas enligt modellen?",o:["Alltid som en del av projektet","Som ett separat uppdrag med BP 1 och BP 2","Som en uppgift utan styrning","Den ingår i Effekt-fasen"],c:1,why:"En förstudie kan drivas som uppdrag: uppdragsdirektiv vid start (BP 1) och förstudierapport vid avslut (BP 2). Rapporten blir sedan underlag för projektets BP 1."},
+  {q:"Vem är ordförande i styrgruppen?",o:["Projektledaren","Mottagaren","En extern kvalitetsgranskare","Beställaren"],c:3,why:"Beställaren ingår i styrgruppen som ordförande och ser till att den blir kallad. Projektledaren är föredragande — utan beslutsrätt."},
+  {q:"Vad är skillnaden mellan slutbesiktning och leveransgodkännande hos LF?",o:["Inga — det är samma sak","Slutbesiktning = tekniskt godkännande av entreprenaden; leveransgodkännande = godkännande mot projektmålen","Leveransgodkännandet görs av entreprenören","Slutbesiktningen sker i Effekt-fasen"],c:1,why:"Slutbesiktningen godkänner entreprenaden tekniskt. Leveransgodkännandet är beställarens/mottagarens formella godkännande att leveransen motsvarar projektmålen — underlaget för BP 4."},
+  {q:"Var i modellen ligger hyresöverenskommelsen i LF:s mappning?",o:["I Förbereda, före BP 1","I Planera, före BP 2","I Genomföra, efter BP 2","I Avsluta"],c:1,why:"Hyresöverenskommelsen + det politiska beslutet tecknas i Planera, före BP 2 — tillsammans med investeringsbeslutet. Först därefter påbörjas systemhandlingen, eftersom åtagandet då är bindande."},
+  {q:"Vem fattar beslutet vid BP 5?",o:["Beställaren ensam","Projektledaren","Styrgruppen","Mottagaren"],c:2,why:"BP 5 är undantaget: styrgruppen mottar och godkänner formellt leveransen och beslutar att stänga projektet. Vid BP 1–4 är det beställaren med stöd av styrgruppen."},
+  {q:"Behovet av en ny förskola har identifierats i lokalförsörjningsplanen. Är det ett projekt nu?",o:["Ja — behovet är projektets start","Nej — det är linjearbete i Behov/Idé tills BP 1 passerats","Ja, om Antura-registrering gjorts","Nej, det blir projekt vid BP 2"],c:1,why:"Behov/Idé är linjearbete (lokalförsörjningsprocessen). Projektet existerar först när BP 1 passerats — med beställare, uppdrag och mandat definierade. Det är det formella startskott modellen ger oss."},
+  {q:"Vad innebär det att effekt- och projektmålen ska vara SMART:a?",o:["Smarta, Moderna, Agila, Resultatinriktade, Tydliga","Specifika, Mätbara, Accepterade, Realistiska, Tidsatta","Strategiska, Målstyrda, Avgränsade, Resurssatta, Testbara","Det gäller bara effektmålen"],c:1,why:"SMART = Specifika, Mätbara, Accepterade, Realistiska och Tidsatta. Kravet gäller båda måltyperna, och båda ska finnas i projektdirektivet och projektplanen."},
+  {q:"Vilka faser har ett uppdrag?",o:["Samma sex faser som ett projekt","Behov/Idé, Förbereda, Genomföra, Effekt — med BP 1 vid start och BP 2 vid avslut","Bara Genomföra","Förbereda, Planera, Avsluta"],c:1,why:"Uppdraget har fyra faser och två beslutspunkter: BP 1 startar (uppdragsdirektiv), BP 2 avslutar (uppdragsrapport). Ingen separat planeringsfas — planeringen ingår i direktivet."}
+];
+
+/* ============ TIDSLINJE ============ */
+const detailPanel=document.getElementById('detailPanel');
+const tlButtons=[...document.querySelectorAll('.phase'),...document.querySelectorAll('.gate-btn')];
+tlButtons.forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    const key=btn.dataset.key;
+    tlButtons.forEach(b=>b.setAttribute('aria-pressed', b===btn ? 'true':'false'));
+    const d=DETAILS[key];
+    const dotColors={behov:'#1C1C1C',forbereda:'#1C1C1C',planera:'#CDE4B8',genomfora:'#80C16D',avsluta:'#3D8B43',effekt:'#1C1C1C',bp1:'#3C8540',bp2:'#3C8540',bp3:'#DCEFC9',bp4:'#3C8540',bp5:'#3C8540'};
+    detailPanel.innerHTML=`<h3><span style="width:15px;height:15px;border-radius:${key.startsWith('bp')?'50%':'4px'};background:${dotColors[key]};display:inline-block;flex-shrink:0;border:1.5px solid var(--line)"></span>${d.title}</h3>
+      <div class="tagrow">${d.tags.map(t=>`<span class="dtag">${t}</span>`).join('')}</div>
+      <div class="detail-cols">
+        <div><h4>Det här händer</h4><ul>${d.what.map(w=>`<li>${w}</li>`).join('')}</ul></div>
+        <div class="detail-side">${d.side}</div>
+      </div>`;
+  });
+});
+const lfToggle=document.getElementById('lfToggle');
+lfToggle.addEventListener('click',()=>{
+  const on=lfToggle.getAttribute('aria-pressed')==='true';
+  lfToggle.setAttribute('aria-pressed',!on);
+  document.getElementById('lfLane').classList.toggle('visible',!on);
+});
+
+/* ============ BP-PANELER ============ */
+const bpPanel=document.getElementById('bpPanel');
+const bpState={};
+function renderBP(n){
+  const d=BPS[n];
+  const checks=(bpState[n]=bpState[n]||new Array(d.list.length).fill(false));
+  const doneCount=checks.filter(Boolean).length;
+  bpPanel.innerHTML=`
+    <div class="bp-head">
+      <div class="bp-circle ${d.opt?'opt':''}">BP ${n}</div>
+      <div><h3>${DETAILS['bp'+n].title.split('— ')[1]||DETAILS['bp'+n].title}</h3>
+        <div class="bp-q">Beslutsfrågan: <b>${d.q}</b></div>
+        <div class="bp-meta"><span class="dtag">${d.opt?'Valfri':'Obligatorisk'}</span><span class="dtag">Beslutsfattare: ${d.who}</span><span class="dtag">${d.when}</span></div>
+      </div>
+    </div>
+    <div class="bp-grid">
+      <div class="checklist">
+        <h4><span>${d.intro}</span>${d.list.length>3?`<span class="progress" aria-hidden="true"><i style="width:${doneCount/d.list.length*100}%"></i></span><button class="reset-btn" data-reset>Nollställ</button>`:''}</h4>
+        <div>${d.list.map((it,i)=>`<label class="check-item ${checks[i]?'done':''}"><input type="checkbox" data-i="${i}" ${checks[i]?'checked':''}><span class="ct"><b>${it[0]}</b> — ${it[1]}</span></label>`).join('')}</div>
+        <div class="check-done-msg ${doneCount===d.list.length?'show':''}">${d.done}</div>
+      </div>
+      <div class="bp-side">
+        <div class="fact"><h5>Resultat av BP ${n}</h5><ul>${d.result.map(r=>`<li>${r}</li>`).join('')}</ul></div>
+        <div class="fact"><h5>Mall</h5>${d.mall}</div>
+        <div class="fact lf-fact"><h5>För oss på LF</h5>${d.lf}</div>
+      </div>
+    </div>`;
+  bpPanel.querySelectorAll('input[type=checkbox]').forEach(cb=>{
+    cb.addEventListener('change',()=>{checks[+cb.dataset.i]=cb.checked;renderBP(n);});
+  });
+  const rb=bpPanel.querySelector('[data-reset]');
+  if(rb)rb.addEventListener('click',()=>{bpState[n]=new Array(d.list.length).fill(false);renderBP(n);});
+}
+const bpTabs=[...document.querySelectorAll('.bp-tab')];
+bpTabs.forEach((tab,ti)=>{
+  tab.addEventListener('click',()=>{
+    bpTabs.forEach(t=>t.setAttribute('aria-selected', t===tab?'true':'false'));
+    renderBP(+tab.dataset.bp);
+  });
+  tab.addEventListener('keydown',e=>{
+    if(e.key!=='ArrowRight'&&e.key!=='ArrowLeft')return;
+    e.stopPropagation();
+    const nxt=bpTabs[(ti+(e.key==='ArrowRight'?1:bpTabs.length-1))%bpTabs.length];
+    nxt.focus();nxt.click();
+  });
+});
+renderBP(1);
+
+/* ============ VÄLJAREN ============ */
+const cAnswers=[null,null,null,null];
+document.querySelectorAll('.cq').forEach(cq=>{
+  const qi=+cq.dataset.q;
+  cq.querySelectorAll('.copt').forEach(o=>{
+    o.addEventListener('click',()=>{
+      cq.querySelectorAll('.copt').forEach(x=>x.setAttribute('aria-pressed','false'));
+      o.setAttribute('aria-pressed','true');
+      cAnswers[qi]=+o.dataset.v;
+      if(cAnswers.every(a=>a!==null))showChooserResult();
+    });
+  });
+});
+function showChooserResult(){
+  const sum=cAnswers.reduce((a,b)=>a+b,0);
+  const el=document.getElementById('chooserResult');
+  let cls,html;
+  if(sum<=2){cls='cr-uppgift';html=`<h4>Det här låter som en uppgift</h4><p>Ringa omfattning, tydlig behovsbild, litet samordningsbehov — hanteras i linjen utan styrmodellens formalia. Inga beslutspunkter behövs.</p>`;}
+  else if(sum<=5){cls='cr-uppdrag';html=`<h4>Det här låter som ett uppdrag</h4><p>Tydligt definierat resultat med begränsad komplexitet. Styr med <b>uppdragsdirektiv</b> (BP 1) och avsluta med <b>uppdragsrapport</b> (BP 2). Styrgrupp bara vid behov. Typexempel: en förstudie eller utredning med tydlig leverans.</p>`;}
+  else{cls='cr-projekt';html=`<h4>Det här låter som ett projekt</h4><p>Stor omfattning, hög osäkerhet och stort samordningsbehov — hela modellen tillämpas: projektdirektiv, projektplan, styrgrupp och BP 1–5. Börja med startsäkringen inför BP 1.</p>`;}
+  el.className='chooser-result show '+cls;
+  el.innerHTML=html;
+}
+
+/* ============ ROLLER ============ */
+const roleGrid=document.getElementById('roleGrid');
+roleGrid.innerHTML=ROLES.map((r,i)=>`
+  <div class="role-card">
+    <button class="rc-head" data-i="${i}" aria-expanded="false">
+      <span><span class="rh3">${r.n}</span><span class="rsub">${r.s}</span></span>
+      <span class="rbadge ${r.must?'must':'opt'}">${r.must?'Obligatorisk':'Valbar'}</span>
+    </button>
+    <div class="rc-toggle-hint">Klicka för detaljer</div>
+    <div class="rc-body" id="rc${i}">
+      <p style="padding-top:12px">${r.d}</p>
+      ${r.r.length?`<ul>${r.r.map(x=>`<li>${x}</li>`).join('')}</ul>`:''}
+      ${r.w?`<div class="warn-note">${r.w}</div>`:''}
+    </div>
+  </div>`).join('');
+roleGrid.querySelectorAll('.rc-head').forEach(b=>{
+  b.addEventListener('click',()=>{
+    const body=document.getElementById('rc'+b.dataset.i);
+    const open=body.classList.toggle('open');
+    b.setAttribute('aria-expanded',open);
+  });
+});
+
+/* ============ MISSFÖRSTÅND ============ */
+document.getElementById('mythGrid').innerHTML=MYTHS.map((m,i)=>`
+  <div class="myth" id="myth${i}"><button aria-expanded="false">"${m.q}" <span class="x">✕</span></button><div class="answer">${m.a}</div></div>`).join('');
+document.querySelectorAll('.myth button').forEach(b=>{
+  b.addEventListener('click',()=>{
+    const m=b.parentElement;const open=m.classList.toggle('open');
+    b.setAttribute('aria-expanded',open);
+  });
+});
+
+/* ============ QUIZ ============ */
+const quizCard=document.getElementById('quizCard');
+let qi=0,score=0;
+function renderQuiz(){
+  if(qi>=QUIZ.length){
+    const n=QUIZ.length;
+    const msg=score===n?"Felfritt. Du kan modellen — dags att lära kollegorna.":score>=n-2?"Mycket bra! Du har koll på det väsentliga.":score>=Math.ceil(n/2)?"En bra grund — klicka dig gärna igenom tidslinjen och missförstånden en gång till.":"Bra start! Gå tillbaka till tidslinjen och beslutspunkterna och försök igen.";
+    quizCard.innerHTML=`<div class="quiz-result"><div class="score">${score}/${n}</div><h3>${score>=n-2?'Godkänd grind! ✔':'Resultat'}</h3><p>${msg}</p><button class="quiz-next show" id="restart">Gör om testet</button></div>`;
+    document.getElementById('restart').addEventListener('click',()=>{qi=0;score=0;renderQuiz();});
+    return;
+  }
+  const q=QUIZ[qi];
+  quizCard.innerHTML=`
+    <div class="quiz-prog"><span>Fråga ${qi+1} av ${QUIZ.length}</span><span>${score} rätt hittills</span></div>
+    <div class="quiz-bar"><i style="width:${qi/QUIZ.length*100}%"></i></div>
+    <div class="quiz-q">${q.q}</div>
+    <div class="quiz-opts">${q.o.map((o,i)=>`<button class="qopt" data-i="${i}">${o}</button>`).join('')}</div>
+    <div class="quiz-why" id="qwhy"></div>
+    <button class="quiz-next" id="qnext">${qi===QUIZ.length-1?'Se resultat':'Nästa fråga'} →</button>`;
+  quizCard.querySelectorAll('.qopt').forEach(b=>{
+    b.addEventListener('click',()=>{
+      const i=+b.dataset.i;
+      quizCard.querySelectorAll('.qopt').forEach(x=>x.disabled=true);
+      if(i===q.c){b.classList.add('correct');score++;}
+      else{b.classList.add('wrong');quizCard.querySelector(`.qopt[data-i="${q.c}"]`).classList.add('correct');}
+      const why=document.getElementById('qwhy');
+      why.innerHTML=(i===q.c?'<b>Rätt!</b> ':'<b>Inte riktigt.</b> ')+q.why;
+      why.classList.add('show');
+      document.getElementById('qnext').classList.add('show');
+    });
+  });
+  document.getElementById('qnext').addEventListener('click',()=>{qi++;renderQuiz();});
+}
+renderQuiz();
+
+
+/* ============ ÖVA: SCENARIER ============ */
+const SCEN=[
+  {t:"Utbildningsförvaltningen flaggar i lokalsamordningen att en skola väntas bli trångbodd om tre år.",o:["Behov/Idé","Förbereda","Planera","BP 1"],c:0,why:"Klassiskt linjearbete i lokalförsörjningsprocessen — Behov/Idé. Inget projekt finns ännu; behovet identifieras, bedöms och prioriteras av beställaren."},
+  {t:"FU har på LSA:s uppdrag tagit fram en förstudie, och LSA skriver nu projektdirektivet.",o:["Behov/Idé","Förbereda","Planera","Genomföra"],c:1,why:"Fasen Förbereda: behovet analyseras, förstudien (som kan drivas som uppdrag) är klar och projektdirektivet tas fram — allt som underlag inför BP 1."},
+  {t:"Programhandlingen är klar, framskrivningen pågår och hyresöverenskommelsen ska upp för politiskt beslut.",o:["Förbereda","Planera","Genomföra","BP 4"],c:1,why:"Fasen Planera. Programhandling, investeringsbeslut via framskrivning och hyresöverenskommelse + politiskt beslut ligger alla före BP 2 i vår mappning."},
+  {t:"Upphandlingen är genomförd och projektchefen ska fatta beslut om att teckna entreprenadkontrakt.",o:["BP 2","BP 3","BP 4","Planera"],c:1,why:"En naturlig BP 3 — ett formellt vägval under Genomföra. BP 3 är valfri i modellen, men kontraktstecknandet är en typisk kandidat i våra projekt."},
+  {t:"Slutbesiktningen är godkänd och leveransgodkännandet ska signeras av beställare och mottagare.",o:["BP 3","BP 4","BP 5","Avsluta"],c:1,why:"BP 4 — beslutsfrågan är om leveransen överensstämmer med projektmålen. Slutbesiktningen är det tekniska underlaget; leveransgodkännandet är det formella beslutet."},
+  {t:"Lokalen är överlämnad och slutrapporten godkänd. Två år senare genomförs garantibesiktningen.",o:["Avsluta","BP 5","Effekt","Genomföra"],c:2,why:"Effekt-fasen — efter projektet. Garantibesiktning, nyttoutvärdering och förvaltning ligger här, och ansvaret är beställarens (och förvaltningens), inte projektledarens."}
+];
+const scenList=document.getElementById('scenList');
+let scenDone=0,scenRight=0;
+function renderScen(){
+scenDone=0;scenRight=0;
+scenList.innerHTML='<div class="scen-score" id="scenScore" style="display:flex;justify-content:space-between;align-items:center;gap:12px"><span id="scenScoreTxt">0 av '+SCEN.length+' placerade</span><button class="reset-btn" data-scen-reset>Nollställ övningen</button></div>'+SCEN.map((sc,i)=>`
+  <div class="scen-card">
+    <div class="scen-nr">Situation ${i+1}</div>
+    <div class="scen-text">${sc.t}</div>
+    <div class="scen-opts">${sc.o.map((o,j)=>`<button class="sopt" data-s="${i}" data-j="${j}">${o}</button>`).join('')}</div>
+    <div class="scen-why" id="swhy${i}"></div>
+  </div>`).join('');
+scenList.querySelectorAll('.sopt').forEach(b=>{
+  b.addEventListener('click',()=>{
+    const i=+b.dataset.s,j=+b.dataset.j,sc=SCEN[i];
+    const card=b.closest('.scen-card');
+    card.querySelectorAll('.sopt').forEach(x=>x.disabled=true);
+    if(j===sc.c){b.classList.add('correct');scenRight++;}
+    else{b.classList.add('wrong');card.querySelector(`.sopt[data-j="${sc.c}"]`).classList.add('correct');}
+    scenDone++;
+    const w=document.getElementById('swhy'+i);
+    w.innerHTML=(j===sc.c?'<b>Rätt!</b> ':'<b>Inte riktigt — rätt svar är '+sc.o[sc.c]+'.</b> ')+sc.why;
+    w.classList.add('show');
+    document.getElementById('scenScoreTxt').innerHTML=`<b>${scenRight} rätt</b> av ${scenDone} placerade`+(scenDone===SCEN.length?' — klart! Gå vidare till Missförstånd.':'');
+  });
+});
+scenList.querySelector('[data-scen-reset]').addEventListener('click',renderScen);
+}
+renderScen();
+
+/* ============ SLIDE-MOTOR ============ */
+const slides=[...document.querySelectorAll('.slide')];
+const chips=document.getElementById('stepChips');
+const visited=new Set();
+let cur=0;
+chips.innerHTML=slides.map((sl,i)=>`<button class="stepchip" data-i="${i}" role="tab"><span class="nr">${i+1}</span>${sl.dataset.title}</button>`).join('');
+const chipEls=[...chips.querySelectorAll('.stepchip')];
+chipEls.forEach(c=>c.addEventListener('click',()=>goTo(+c.dataset.i)));
+const prevBtn=document.getElementById('prevBtn'),nextBtn=document.getElementById('nextBtn'),navPos=document.getElementById('navPos');
+function goTo(i){
+  if(i<0||i>=slides.length)return;
+  visited.add(cur);cur=i;
+  slides.forEach((sl,j)=>sl.classList.toggle('active',j===i));
+  chipEls.forEach((c,j)=>{
+    c.classList.toggle('current',j===i);c.classList.toggle('visited',visited.has(j)&&j!==i);
+    c.setAttribute('aria-current',j===i?'step':'false');
+    c.querySelector('.nr').textContent=(visited.has(j)&&j!==i)?'✓':(j+1);
+  });
+  document.getElementById('courseProg').style.width=((i+1)/slides.length*100)+'%';
+  navPos.textContent=`Avsnitt ${i+1} av ${slides.length} — ${slides[i].dataset.title}`;
+  prevBtn.disabled=(i===0);
+  prevBtn.textContent='← '+(i>0?slides[i-1].dataset.title:'Föregående');
+  if(i===slides.length-1){nextBtn.textContent='Börja om från start ↺';}
+  else{nextBtn.textContent=(i===0?'Starta utbildningen':slides[i+1].dataset.title)+' →';}
+  try{chipEls[i].scrollIntoView({block:'nearest',inline:'center',behavior:'smooth'})}catch(e){}
+  try{history.replaceState(null,'','#'+slides[i].id)}catch(e){}
+  try{document.title=slides[i].dataset.title+' · Projektstyrningsmodellen'}catch(e){}
+  try{window.scrollTo({top:0,behavior:'auto'})}catch(e){try{window.scrollTo(0,0)}catch(e2){}}
+  const h=slides[i].querySelector('h1,h2');
+  if(h){h.setAttribute('tabindex','-1');try{h.focus({preventScroll:true})}catch(e){}}
+}
+prevBtn.addEventListener('click',()=>goTo(cur-1));
+nextBtn.addEventListener('click',()=>goTo(cur===slides.length-1?0:cur+1));
+document.getElementById('startBtn').addEventListener('click',()=>goTo(1));
+document.addEventListener('keydown',e=>{
+  if(e.target&&e.target.matches&&e.target.matches('input,textarea,select,.bp-tab,.qopt,.sopt,.copt,.check-item input'))return;
+  if(e.key==='ArrowRight')goTo(Math.min(cur+1,slides.length-1));
+  if(e.key==='ArrowLeft')goTo(Math.max(cur-1,0));
+});
+let hashIdx=-1;try{hashIdx=slides.findIndex(sl=>'#'+sl.id===location.hash)}catch(e){}
+goTo(hashIdx>=0?hashIdx:0);
+</script>
+</body>
+</html>

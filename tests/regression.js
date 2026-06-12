@@ -1,0 +1,260 @@
+/*
+ * Regressionssvit för projektstyrningsmodellen-interaktiv.html
+ * Körs med: node tests/regression.js
+ * Kräver: jsdom (npm install jsdom)
+ *
+ * Sviten täcker: statiska hårda regler (sandlådesäkerhet, faktalåsningar),
+ * och beteende via jsdom (slides-navigering, tidslinje, BP-flikar, väljare,
+ * roller, missförstånd, scenarier, quiz).
+ */
+const fs = require('fs');
+const path = require('path');
+const { JSDOM, VirtualConsole } = require('jsdom');
+
+const FILE = path.join(__dirname, '..', 'projektstyrningsmodellen-interaktiv.html');
+const html = fs.readFileSync(FILE, 'utf8');
+
+let passed = 0, failed = 0;
+const failures = [];
+function ok(cond, name) {
+  if (cond) { passed++; }
+  else { failed++; failures.push(name); console.error('  ✗ ' + name); }
+}
+
+/* ===================== 1. Statiska hårda regler ===================== */
+
+// Sandlåda: ingen webblagring
+ok(!/localStorage|sessionStorage/.test(html), 'Ingen localStorage/sessionStorage');
+// Sandlåda: bg-fix-lagret finns
+ok(/class="bg-fix"/.test(html), '.bg-fix-lagret finns i body');
+ok(/\.bg-fix\{position:fixed;inset:0;background:var\(--paper\);z-index:-1/.test(html), '.bg-fix CSS intakt');
+// Sandlåda: color-scheme only light (meta + CSS)
+ok(/<meta name="color-scheme" content="only light">/.test(html), 'meta color-scheme only light');
+ok(/color-scheme:only light/.test(html), 'CSS color-scheme only light');
+// Sandlåda: html/body-bakgrund med !important
+ok(/html,body\{background:var\(--paper\)!important\}/.test(html), 'html,body bakgrund !important');
+// Sandlåda: history/scrollTo alltid kapslade i try
+for (const m of html.matchAll(/history\.replaceState|window\.scrollTo/g)) {
+  const before = html.slice(Math.max(0, m.index - 60), m.index);
+  ok(/try\s*\{[^}]*$/.test(before), `${m[0]} vid index ${m.index} är try-kapslad`);
+}
+// En självständig fil: inga externa skript, endast font-CDN som extern resurs
+ok(!/<script[^>]*src=/.test(html), 'Inga externa <script src>');
+const extUrls = [...html.matchAll(/https?:\/\/[^"'\s)]+/g)].map(m => m[0]);
+ok(extUrls.filter(u => /rel=|href=/.test('') || true).every(u =>
+  u.includes('fonts.googleapis.com') || u.includes('fonts.gstatic.com') ||
+  u.includes('sites.google.com') || u.includes('w3.org') || u.includes('linkoping')
+), 'Externa URL:er begränsade till fonter och källhänvisningar');
+// Språk
+ok(/<html lang="sv">/.test(html), 'lang="sv"');
+
+/* ===================== 2. Faktalåsningar (statiskt) ===================== */
+
+// Fasstegens färger (visuell trohet mot 2c8-originalet)
+ok(html.includes('#CDE4B8'), 'Planera-färg #CDE4B8');
+ok(html.includes('#80C16D'), 'Genomföra-färg #80C16D');
+ok(html.includes('#3D8B43'), 'Avsluta-färg #3D8B43');
+ok(html.includes('#3C8540'), 'BP-cirkelfärg #3C8540');
+ok(/\.ph-out\{background:#1C1C1C;color:#fff;font-style:italic/.test(html), 'Svarta kursiva utanför-boxar');
+// BP 3 valfri som ljus cirkel med grön kant
+ok(/\.gate-btn\.optional\{background:#DCEFC9;border-color:#3C8540/.test(html), 'BP 3 ljus cirkel med grön kant');
+// Varianterna A/B får inte återinföras
+ok(!/[Vv]ariant\s*A\b|[Vv]ariant\s*B\b/.test(html), 'Inga varianter A/B');
+// G-beteckningar används inte som modellens nomenklatur (G1–G5 får bara nämnas som Wenell-referens)
+const gMatches = [...html.matchAll(/G[1-5]\b/g)];
+ok(gMatches.every(m => /Wenell/.test(html.slice(Math.max(0, m.index - 120), m.index + 60))), 'G1–G5 endast i Wenell-kontext');
+
+/* ===================== 3. Beteende via jsdom ===================== */
+
+const vc = new VirtualConsole(); // tysta "not implemented"-brus
+vc.on('jsdomError', () => {});
+const dom = new JSDOM(html, { runScripts: 'dangerously', virtualConsole: vc, url: 'https://example.org/' });
+const { document } = dom.window;
+const $ = s => document.querySelector(s);
+const $$ = s => [...document.querySelectorAll(s)];
+
+// --- Slides & navigering ---
+const slides = $$('.slide');
+ok(slides.length === 11, '11 avsnitt (slides)');
+ok(slides[0].classList.contains('active'), 'Start-sliden aktiv initialt');
+ok($$('.stepchip').length === 11, '11 kapitelchips');
+ok($('#prevBtn').disabled === true, 'Föregående avstängd på första sliden');
+
+$('#startBtn').click();
+ok(slides[1].classList.contains('active'), 'Starta-knappen går till avsnitt 2');
+$('#prevBtn').click();
+ok(slides[0].classList.contains('active'), 'Föregående går tillbaka');
+
+document.dispatchEvent(new dom.window.KeyboardEvent('keydown', { key: 'ArrowRight', bubbles: true }));
+ok(slides[1].classList.contains('active'), 'Piltangent höger byter avsnitt');
+document.dispatchEvent(new dom.window.KeyboardEvent('keydown', { key: 'ArrowLeft', bubbles: true }));
+ok(slides[0].classList.contains('active'), 'Piltangent vänster byter tillbaka');
+
+const chips = $$('.stepchip');
+chips[10].click();
+ok(slides[10].classList.contains('active'), 'Chip-klick hoppar till slutprovet');
+ok(/Börja om/.test($('#nextBtn').textContent), 'Sista sliden: nästa-knappen erbjuder omstart');
+$('#nextBtn').click();
+ok(slides[0].classList.contains('active'), 'Omstart från sista sliden går till start');
+chips[1].click();
+
+// --- Tidslinjen ---
+const phases = $$('.phase');
+ok(phases.length === 6, '6 fasknappar');
+ok(phases.map(p => p.textContent.trim()).join('|') === 'Behov/Idé|Förbereda|Planera|Genomföra|Avsluta|Effekt',
+  'Fasordningen korrekt');
+const gates = $$('.gate-btn');
+ok(gates.length === 5, '5 BP-cirklar');
+ok(gates[2].classList.contains('optional'), 'BP 3 markerad som valfri');
+
+for (const p of phases) {
+  p.click();
+  ok($('#detailPanel').textContent.length > 50, `Detaljpanel fylls för fasen ${p.dataset.key}`);
+  ok(p.getAttribute('aria-pressed') === 'true', `aria-pressed sätts för ${p.dataset.key}`);
+}
+gates[4].click();
+ok(/[Ss]tyrgrupp/.test($('#detailPanel').textContent), 'BP 5-detalj: styrgruppen beslutar');
+gates[2].click();
+ok(/valfri/i.test($('#detailPanel').textContent), 'BP 3-detalj nämner valfri');
+
+// Faktalåsning: Behov/Idé och Effekt utanför projektet
+phases[0].click();
+ok(/inte projektledarens ansvar|före projektet|linjearbete/i.test($('#detailPanel').textContent), 'Behov/Idé beskrivs som utanför projektet');
+phases[5].click();
+ok(/inte projektledarens ansvar|efter projektet/i.test($('#detailPanel').textContent), 'Effekt beskrivs som utanför projektet');
+
+const lfToggle = $('#lfToggle');
+ok(!$('#lfLane').classList.contains('visible'), 'LF-lane dold initialt');
+lfToggle.click();
+ok($('#lfLane').classList.contains('visible'), 'LF-toggle visar LF-lane');
+ok(lfToggle.getAttribute('aria-pressed') === 'true', 'LF-toggle aria-pressed uppdateras');
+// Faktalåsning: tre överlämningar
+ok($$('#lfLane .handover').length === 3, 'Tre överlämningar i LF-lane');
+ok(/LSA → projekt[\s\S]*BP 1/.test($('#lfLane').textContent), 'Överlämning 1: LSA → projekt vid BP 1');
+ok(/FU → projektledare[\s\S]*BP 2/.test($('#lfLane').textContent), 'Överlämning 2: FU → projektledare vid BP 2');
+ok(/förvaltning[\s\S]*BP 5/.test($('#lfLane').textContent), 'Överlämning 3: PL → förvaltning vid BP 5');
+lfToggle.click();
+ok(!$('#lfLane').classList.contains('visible'), 'LF-toggle döljer LF-lane igen');
+
+// --- BP-flikar och checklistor ---
+chips[2].click();
+const bpTabs = $$('.bp-tab');
+ok(bpTabs.length === 5, '5 BP-flikar');
+// BP 1: startsäkringens 13 punkter (faktalåsning)
+bpTabs[0].click();
+ok($$('#bpPanel input[type=checkbox]').length === 13, 'BP 1-checklistan har 13 punkter');
+ok(/Beställaren/.test($('#bpPanel').textContent), 'BP 1: beslutsfattare beställaren');
+// Panelen re-renderas vid varje kryss — fråga om elementen varje varv
+for (let i = 0; i < 13; i++) $(`#bpPanel input[data-i="${i}"]`).click();
+ok($$('#bpPanel input[type=checkbox]:checked').length === 13, 'Alla 13 punkter avbockade');
+ok($('#bpPanel .check-done-msg').classList.contains('show'), 'Klart-meddelande visas vid full checklista');
+$('#bpPanel [data-reset]').click();
+ok($$('#bpPanel input[type=checkbox]:checked').length === 0, 'Nollställ tömmer checklistan');
+// BP 2: direktivet fryses
+bpTabs[1].click();
+ok(/[Dd]irektivet (fryses|uppdateras inte)/.test($('#bpPanel').textContent), 'BP 2: direktivet fryses');
+// BP 3 valfri
+bpTabs[2].click();
+ok(/inte obligatorisk|[Vv]alfri/.test($('#bpPanel').textContent), 'BP 3: valfri');
+// BP 5: styrgruppen beslutar (faktalåsning)
+bpTabs[4].click();
+ok(/Styrgruppen/.test($('#bpPanel').textContent), 'BP 5: beslutsfattare styrgruppen');
+// Tangentbordsnavigering i flikraden
+bpTabs[4].dispatchEvent(new dom.window.KeyboardEvent('keydown', { key: 'ArrowRight', bubbles: true }));
+ok(bpTabs[0].getAttribute('aria-selected') === 'true', 'Flik-tangentbord: pil höger wrappar till BP 1');
+
+// --- Projekt/uppdrag-väljaren ---
+chips[3].click();
+const cqs = $$('.cq');
+ok(cqs.length === 4, 'Väljaren har 4 frågor');
+function pick(values) {
+  cqs.forEach((cq, i) => {
+    const opt = cq.querySelector(`.copt[data-v="${values[i]}"]`);
+    opt.click();
+  });
+}
+pick([0, 0, 0, 0]);
+ok(/uppgift/i.test($('#chooserResult').textContent), 'Väljaren: låga svar → uppgift');
+pick([1, 1, 1, 1]);
+ok(/uppdrag/i.test($('#chooserResult').textContent), 'Väljaren: mellansvar → uppdrag');
+pick([2, 2, 2, 2]);
+ok(/projekt/i.test($('#chooserResult').textContent), 'Väljaren: höga svar → projekt');
+// Uppdragets fyra faser (faktalåsning)
+ok(/Behov\/Idé[\s\S]*Förbereda[\s\S]*Genomföra[\s\S]*Effekt/.test($('.u-stege').textContent), 'Uppdraget: fyra faser i mini-stegen');
+
+// --- Roller ---
+chips[4].click();
+const roleCards = $$('.role-card');
+ok(roleCards.length === 12, '12 rollkort');
+ok($$('.rbadge.must').length === 6, '6 obligatoriska roller');
+const rcHead = roleCards[0].querySelector('.rc-head');
+rcHead.click();
+ok(roleCards[0].querySelector('.rc-body').classList.contains('open'), 'Rollkort expanderar');
+ok(rcHead.getAttribute('aria-expanded') === 'true', 'Rollkort aria-expanded');
+
+// --- Dokumentkedjan ---
+chips[5].click();
+ok($$('.doc-node').length === 5, '5 dokumentnoder i kedjan');
+ok($$('.doc-gate').length === 5, '5 grindar i dokumentkedjan');
+ok(/SMART/.test($('#dokument').textContent), 'SMART-kriterierna finns');
+
+// --- Ordlistan (faktalåsningar i LF-mappningen) ---
+const ordTxt = $('#ordlista').textContent;
+ok(/Hyresöverenskommelse[\s\S]*?Fas Planera/.test(ordTxt), 'Ordlista: hyresöverenskommelse i Planera');
+ok(/Systemhandling[\s\S]*?Fas Genomföra/.test(ordTxt), 'Ordlista: systemhandling i Genomföra');
+ok(/entreprenadkontrakt[\s\S]*?BP 3/.test(ordTxt), 'Ordlista: entreprenadkontrakt = BP 3');
+ok(/Garantibesiktning[\s\S]*?Effekt/.test(ordTxt), 'Ordlista: garantibesiktning i Effekt');
+ok(/Slutbesiktning[\s\S]*?BP 4/.test(ordTxt), 'Ordlista: slutbesiktning underlag BP 4');
+ok(/orelaterade/.test(ordTxt), 'Varning om Lejonguidens BP-numrering finns');
+
+// --- Missförstånd ---
+chips[9].click();
+const myths = $$('.myth');
+ok(myths.length === 6, '6 missförstånd');
+myths[0].querySelector('button').click();
+ok(myths[0].classList.contains('open'), 'Missförstånd expanderar');
+
+// --- Öva: scenarier ---
+chips[8].click();
+const scenCards = $$('.scen-card');
+ok(scenCards.length === 6, '6 övningsscenarier');
+// Extrahera facit ur källan
+const scenSrc = html.match(/const SCEN=\[([\s\S]*?)\n\];/);
+const scenC = [...scenSrc[1].matchAll(/c:(\d+)/g)].map(m => +m[1]);
+ok(scenC.length === 6, 'Scenario-facit extraherat');
+scenCards.forEach((card, i) => {
+  card.querySelector(`.sopt[data-j="${scenC[i]}"]`).click();
+});
+ok(/6 rätt[\s\S]*6 placerade/.test($('#scenScore').textContent), 'Alla scenarier rätt → 6 av 6');
+$('[data-scen-reset]').click();
+ok($$('#scenList .sopt:disabled').length === 0, 'Nollställ övningen återställer scenarierna');
+
+// --- Slutprovet ---
+chips[10].click();
+const quizSrc = html.match(/const QUIZ\s*=\s*\[([\s\S]*?)\n\];/);
+const quizC = [...quizSrc[1].matchAll(/c:(\d+),why/g)].map(m => +m[1]);
+ok(quizC.length === 12, '12 quizfrågor med facit');
+// Fel svar först: rätt alternativ ska markeras
+const firstWrong = (quizC[0] + 1) % 4;
+$(`#quizCard .qopt[data-i="${firstWrong}"]`).click();
+ok($(`#quizCard .qopt[data-i="${quizC[0]}"]`).classList.contains('correct'), 'Fel svar: rätt alternativ markeras');
+ok(/Inte riktigt/.test($('#qwhy').textContent), 'Fel svar: förklaring visas');
+$('#qnext').click();
+for (let i = 1; i < 12; i++) {
+  $(`#quizCard .qopt[data-i="${quizC[i]}"]`).click();
+  ok(/Rätt!/.test($('#qwhy').textContent), `Quizfråga ${i + 1}: rätt svar ger Rätt!`);
+  $('#qnext').click();
+}
+ok(/11\/12/.test($('#quizCard').textContent), 'Resultat 11/12 efter ett fel');
+$('#restart').click();
+ok(/Fråga 1 av 12/.test($('#quizCard').textContent), 'Gör om testet startar om quizet');
+// Perfekt runda
+for (let i = 0; i < 12; i++) {
+  $(`#quizCard .qopt[data-i="${quizC[i]}"]`).click();
+  $('#qnext').click();
+}
+ok(/12\/12/.test($('#quizCard').textContent), 'Perfekt runda ger 12/12');
+
+/* ===================== Resultat ===================== */
+console.log(`\n${passed} godkända, ${failed} underkända`);
+if (failed > 0) { console.error('Underkända:\n - ' + failures.join('\n - ')); process.exit(1); }
