@@ -77,6 +77,18 @@ ok(/Mottar och godkänner slutrapporten vid BP 5/.test(html), 'H2: rollkortet s�
 // M3 — scenariot pekar inte ut fel beslutsfattare
 ok(!/projektchefen ska fatta beslut/.test(html), 'M3: ingen projektchef som BP 3-beslutsfattare');
 
+// Regression från granskning 3 (UX):
+// L2 — mobila BP-knappar har tillgängliga namn med BP-numret
+ok((html.match(/gate-mobile[^>]*aria-label="Beslutspunkt \d/g) || []).length === 5, 'L2: 5 mobila BP-knappar med aria-label');
+// M5 — JS-scroll respekterar prefers-reduced-motion
+ok(/const motionOK=/.test(html), 'M5: motionOK-flagga finns');
+ok(!/behavior:'smooth'/.test(html), 'M5: ingen hårdkodad smooth-scroll i JS');
+ok((html.match(/behavior:motionOK\?'smooth':'auto'/g) || []).length === 2, 'M5: båda scroll-anropen villkorar på motionOK');
+// H2 (UX) — mellanbrytpunkt för fasstegen utan att röra desktop ≥1000px
+ok(/max-width:1000px\) and \(min-width:761px\)/.test(html), 'H2: mellanbrytpunkt 761–1000px finns');
+// M3 (UX) — brandtexten döljs på mobil för mindre sticky-krom
+ok(/\.brand\{display:none\}/.test(html), 'M3: brand döljs i mobilbrytpunkten');
+
 /* ===================== 3. Beteende via jsdom ===================== */
 
 const vc = new VirtualConsole(); // tysta "not implemented"-brus
@@ -102,6 +114,9 @@ document.dispatchEvent(new dom.window.KeyboardEvent('keydown', { key: 'ArrowRigh
 ok(slides[1].classList.contains('active'), 'Piltangent höger byter avsnitt');
 document.dispatchEvent(new dom.window.KeyboardEvent('keydown', { key: 'ArrowLeft', bubbles: true }));
 ok(slides[0].classList.contains('active'), 'Piltangent vänster byter tillbaka');
+// Granskning 3, L3: piltangent med fokus på en knapp får INTE byta avsnitt
+$('#nextBtn').dispatchEvent(new dom.window.KeyboardEvent('keydown', { key: 'ArrowRight', bubbles: true }));
+ok(slides[0].classList.contains('active'), 'L3: pil från knapp byter inte avsnitt');
 
 const chips = $$('.stepchip');
 chips[10].click();
@@ -168,12 +183,21 @@ ok(/Beställaren/.test($('#bpPanel').textContent), 'BP 1: beslutsfattare bestäl
 ok(/Två sorters mål/.test($('#bpPanel').textContent), 'BP 1: effekt-/projektmål definieras i panelen');
 ok($('#bpPanel .check-intro') !== null, 'Checklist-introt ligger i egen paragraf');
 ok(/Checklista — 13 punkter/.test($('#bpPanel').textContent), 'Checklistrubrik med punktantal');
-// Panelen re-renderas vid varje kryss — fråga om elementen varje varv
-for (let i = 0; i < 13; i++) $(`#bpPanel input[data-i="${i}"]`).click();
+// Granskning 3, H1: inkrementell uppdatering — checkboxen får INTE bytas ut
+// (full re-render skulle kasta fokus). Verifiera att samma DOM-nod består.
+const firstCb = $('#bpPanel input[data-i="0"]');
+firstCb.click();
+ok($('#bpPanel input[data-i="0"]') === firstCb, 'H1: checklistans input-nod återanvänds (ingen re-render)');
+ok(firstCb.closest('.check-item').classList.contains('done'), 'H1: kryssad rad får .done direkt');
+for (let i = 1; i < 13; i++) $(`#bpPanel input[data-i="${i}"]`).click();
 ok($$('#bpPanel input[type=checkbox]:checked').length === 13, 'Alla 13 punkter avbockade');
 ok($('#bpPanel .check-done-msg').classList.contains('show'), 'Klart-meddelande visas vid full checklista');
+const barW = $('#bpPanel .progress i').style.width;
+ok(barW === '100%', 'H1: progressbaren uppdateras inkrementellt till 100%');
 $('#bpPanel [data-reset]').click();
 ok($$('#bpPanel input[type=checkbox]:checked').length === 0, 'Nollställ tömmer checklistan');
+ok(!$('#bpPanel .check-done-msg').classList.contains('show'), 'Nollställ döljer klart-meddelandet');
+ok($$('#bpPanel .check-item.done').length === 0, 'Nollställ tar bort alla .done-markeringar');
 // BP 2: direktivet fryses
 bpTabs[1].click();
 ok(/[Dd]irektivet (fryses|uppdateras inte)/.test($('#bpPanel').textContent), 'BP 2: direktivet fryses');
@@ -186,6 +210,10 @@ ok(/Styrgruppen/.test($('#bpPanel').textContent), 'BP 5: beslutsfattare styrgrup
 // Tangentbordsnavigering i flikraden
 bpTabs[4].dispatchEvent(new dom.window.KeyboardEvent('keydown', { key: 'ArrowRight', bubbles: true }));
 ok(bpTabs[0].getAttribute('aria-selected') === 'true', 'Flik-tangentbord: pil höger wrappar till BP 1');
+// Granskning 3, L6: roving tabindex — bara vald flik i tabordningen
+ok(bpTabs[0].getAttribute('tabindex') === '0', 'L6: vald flik har tabindex 0');
+ok(bpTabs.filter(t => t.getAttribute('tabindex') === '0').length === 1, 'L6: exakt en flik i tabordningen');
+ok(bpTabs.slice(1).every(t => t.getAttribute('tabindex') === '-1'), 'L6: ovalda flikar har tabindex -1');
 
 // --- Projekt/uppdrag-väljaren ---
 chips[3].click();
@@ -273,7 +301,11 @@ const firstWrong = (quizC[0] + 1) % 4;
 $(`#quizCard .qopt[data-i="${firstWrong}"]`).click();
 ok($(`#quizCard .qopt[data-i="${quizC[0]}"]`).classList.contains('correct'), 'Fel svar: rätt alternativ markeras');
 ok(/Inte riktigt/.test($('#qwhy').textContent), 'Fel svar: förklaring visas');
+// Granskning 3, M2: fokus flyttas till "Nästa fråga" efter svar (inte till body)
+ok(document.activeElement === $('#qnext'), 'M2: fokus på Nästa fråga efter svar');
 $('#qnext').click();
+// M2: ny fråga fokuserar frågerubriken
+ok(document.activeElement === $('#quizCard .quiz-q'), 'M2: fokus på frågerubriken vid ny fråga');
 for (let i = 1; i < 14; i++) {
   $(`#quizCard .qopt[data-i="${quizC[i]}"]`).click();
   ok(/Rätt!/.test($('#qwhy').textContent), `Quizfråga ${i + 1}: rätt svar ger Rätt!`);

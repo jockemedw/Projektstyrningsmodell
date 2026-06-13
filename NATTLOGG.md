@@ -70,4 +70,27 @@ _(De fem viktigaste förbättringarna och kvarvarande svagheter — se slutet av
 
 ## Iteration 3 — granskare: UX (mobil + sandlådad artefaktvisare)
 
+**Granskarens protokoll:** 0 kritiska, 2 höga, 5 medel, 6 låga. Sandlådedisciplinen bedömdes "exemplarisk" — alla history/scroll/fokus-anrop verifierat try-kapslade, inga lagrings-/parent-/nätverksanrop, ljust-tema-skyddet heltäckande. (Första granskningsförsöket fick timeout utan leverans och kördes om med stramare uppdrag.)
+
+| Nivå | Fynd | Åtgärd |
+|---|---|---|
+| HÖG | H1: Checklistan re-renderades per kryss → fokus föll till body (oanvändbart med tangentbord), progressbaren nollställdes | ✅ Inkrementell DOM-uppdatering: togglar `.done` på raden, uppdaterar progressbredd och klart-meddelande direkt. Ingen `innerHTML`-omskrivning |
+| HÖG | H2: Mellanbredd 761–900px klippte fas-/BP-etiketter (surfplatta, delad skärm i Teams) | ✅ Mellanbrytpunkt `@media(max-width:1000px) and (min-width:761px)`: `clamp()`-skalad fastext, mindre gate-label. Desktop ≥1000px pixelidentisk (faktalåsning 1 respekterad) |
+| MEDEL | M1: Touch-ytor under ~44px (chips, copt/sopt, toggle, reset) | ✅ Ökad vertikal padding i mobilbrytpunkten |
+| MEDEL | M2: Quizfokus strandade två gånger per fråga | ✅ Fokus → "Nästa fråga" efter svar; → frågerubriken (tabindex -1) vid ny fråga |
+| MEDEL | M3: Sticky topnav + slide-nav åt ~22% av mobilskärmen | ✅ Brandtexten döljs ≤760px (titeln finns i `document.title`) — topnav blir en rad |
+| MEDEL | M4: Dolda scrolllister utan affordans (BP-flikar, chips) | ✅ Fade-mask (`mask-image`) på `.steps`/`.bp-tabs` i mobilläget |
+| MEDEL | M5: JS smooth-scroll ignorerade prefers-reduced-motion | ✅ `motionOK`-flagga; båda `scrollIntoView` villkorar `'smooth'`/`'auto'` |
+| LÅG | L1: title-tooltips utan touch-motsvarighet | ⏸ Lämnat — samma info finns i detaljpanelen efter klick (granskaren bedömde förlusten "begränsad") |
+| LÅG | L2: mobila BP-knappar saknade BP-nr i tillgängligt namn | ✅ `aria-label="Beslutspunkt N — …"` på alla fem |
+| LÅG | L3: globala piltangenter krockade med qnext/reset/chips | ✅ Guard utökad till alla interaktiva kontroller (rubriker undantagna) |
+| LÅG | L4: check-done-msg annonserades inte (byggdes färdig) | ✅ Löst av H1 — meddelandet togglas nu på en bestående live-region |
+| LÅG | L5: hint-texten nämnde "BP-cirklar" som är dolda på mobil | ✅ "faserna och beslutspunkterna" |
+| LÅG | L6: tablist utan roving tabindex (fem tabbstopp) | ✅ Bara vald flik i tabordningen |
+
+**Medvetet lämnat:** L1 (se ovan). Värdvyns egen scrollbar i mörkt apptema ligger utanför sidans kontroll (granskarens egen notis, ej fynd).
+**Regressionssviten:** +17 kontroller (inkrementell checklista, quizfokus, motionOK, mellanbrytpunkt, roving tabindex, mobil-aria, piltangentsguard) → 166, grön.
+
+## Iteration 4 — granskare: tillgänglighet (WCAG)
+
 _(pågår)_

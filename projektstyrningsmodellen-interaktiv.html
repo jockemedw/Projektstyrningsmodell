@@ -453,6 +453,18 @@ tbody tr:hover{background:var(--model-050)}
   .slide-nav{padding:10px 12px calc(10px + env(safe-area-inset-bottom))}
   .nav-btn{padding:11px 16px;font-size:13.5px;max-width:49%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
   .topnav-inner{padding:10px 14px;gap:10px}
+  .brand{display:none} /* en rad mindre sticky-krom — titeln finns i document.title */
+  .steps,.bp-tabs{mask-image:linear-gradient(90deg,#000 90%,transparent);-webkit-mask-image:linear-gradient(90deg,#000 90%,transparent)}
+  .copt,.sopt{padding:12px 18px}
+  .stepchip{padding:9px 14px 9px 8px}
+  .reset-btn{padding:8px 14px}
+  .toggle{padding:10px 16px 10px 12px}
+}
+
+/* ---------- Mellanbredd: fasstegen krymper innan den staplas ---------- */
+@media(max-width:1000px) and (min-width:761px){
+  .phase{font-size:clamp(12.5px,1.9vw,16.5px);padding:0 4px}
+  .gate-label{font-size:9.5px}
 }
 
 /* ---------- Footer ---------- */
@@ -537,7 +549,7 @@ footer b{color:var(--ink)}
 
   <div class="timeline-card">
     <div class="tl-toolbar">
-      <span class="tl-hint">💡 Klicka på faserna och BP-cirklarna nedan</span>
+      <span class="tl-hint">💡 Klicka på faserna och beslutspunkterna nedan</span>
       <button class="toggle" id="lfToggle" aria-pressed="false"><span class="knob"></span> Visa LF:s byggprocess under modellen</button>
     </div>
     <div class="tl">
@@ -545,14 +557,14 @@ footer b{color:var(--ink)}
       <div class="tl-phases" role="group" aria-label="Modellens faser">
         <button class="phase ph-out" data-key="behov" data-bp="" aria-pressed="false" title="I linjen — före projektet">Behov/Idé</button>
         <button class="phase ph-forbereda" data-key="forbereda" data-bp="BP 1" aria-pressed="false" title="Förstudiefasen — avslutas med BP 1">Förbereda</button>
-        <button class="gate-mobile" data-key="bp1" aria-pressed="false"><span class="gm-circle" aria-hidden="true">BP 1</span><span>Starta projektet</span></button>
+        <button class="gate-mobile" data-key="bp1" aria-pressed="false" aria-label="Beslutspunkt 1 — starta projektet"><span class="gm-circle" aria-hidden="true">BP 1</span><span>Starta projektet</span></button>
         <button class="phase ph-arrow ph-planera" data-key="planera" data-bp="BP 2" aria-pressed="false" title="Projektplanen tas fram — avslutas med BP 2">Planera</button>
-        <button class="gate-mobile" data-key="bp2" aria-pressed="false"><span class="gm-circle" aria-hidden="true">BP 2</span><span>Anta projektplanen</span></button>
+        <button class="gate-mobile" data-key="bp2" aria-pressed="false" aria-label="Beslutspunkt 2 — anta projektplanen"><span class="gm-circle" aria-hidden="true">BP 2</span><span>Anta projektplanen</span></button>
         <button class="phase ph-arrow ph-genomfora" data-key="genomfora" data-bp="BP 3 · BP 4" aria-pressed="false" title="Den längsta fasen — avslutas med BP 4">Genomföra</button>
-        <button class="gate-mobile optional" data-key="bp3" aria-pressed="false"><span class="gm-circle" aria-hidden="true">BP 3</span><span>Vägval — valfri, under fasen</span></button>
-        <button class="gate-mobile" data-key="bp4" aria-pressed="false"><span class="gm-circle" aria-hidden="true">BP 4</span><span>Godkänn leveransen</span></button>
+        <button class="gate-mobile optional" data-key="bp3" aria-pressed="false" aria-label="Beslutspunkt 3, valfri — vägval under fasen"><span class="gm-circle" aria-hidden="true">BP 3</span><span>Vägval — valfri, under fasen</span></button>
+        <button class="gate-mobile" data-key="bp4" aria-pressed="false" aria-label="Beslutspunkt 4 — godkänn leveransen"><span class="gm-circle" aria-hidden="true">BP 4</span><span>Godkänn leveransen</span></button>
         <button class="phase ph-arrow ph-avsluta" data-key="avsluta" data-bp="BP 5" aria-pressed="false" title="Liten fas, stor effekt — avslutas med BP 5">Avsluta</button>
-        <button class="gate-mobile" data-key="bp5" aria-pressed="false"><span class="gm-circle" aria-hidden="true">BP 5</span><span>Stäng projektet</span></button>
+        <button class="gate-mobile" data-key="bp5" aria-pressed="false" aria-label="Beslutspunkt 5 — stäng projektet"><span class="gm-circle" aria-hidden="true">BP 5</span><span>Stäng projektet</span></button>
         <button class="phase ph-out" data-key="effekt" data-bp="" aria-pressed="false" title="Beställarens ansvar — efter projektet">Effekt</button>
       </div>
       <div class="tl-gates">
@@ -928,6 +940,7 @@ const QUIZ = [
 ];
 
 /* ============ TIDSLINJE ============ */
+const motionOK=!(window.matchMedia&&window.matchMedia('(prefers-reduced-motion:reduce)').matches);
 const detailPanel=document.getElementById('detailPanel');
 const tlButtons=[...document.querySelectorAll('.phase'),...document.querySelectorAll('.gate-btn'),...document.querySelectorAll('.gate-mobile')];
 tlButtons.forEach(btn=>{
@@ -942,7 +955,7 @@ tlButtons.forEach(btn=>{
         <div><h4>Det här händer</h4><ul>${d.what.map(w=>`<li>${w}</li>`).join('')}</ul></div>
         <div class="detail-side">${d.side}</div>
       </div>`;
-    try{if(window.matchMedia&&window.matchMedia('(max-width:760px)').matches)detailPanel.scrollIntoView({block:'nearest',behavior:'smooth'})}catch(e){}
+    try{if(window.matchMedia&&window.matchMedia('(max-width:760px)').matches)detailPanel.scrollIntoView({block:'nearest',behavior:motionOK?'smooth':'auto'})}catch(e){}
   });
 });
 const lfToggle=document.getElementById('lfToggle');
@@ -981,16 +994,34 @@ function renderBP(n){
         <div class="fact lf-fact"><h5>För oss på LF</h5>${d.lf}</div>
       </div>
     </div>`;
+  // Inkrementell uppdatering — full re-render skulle kasta fokus till body
+  // för tangentbordsanvändare och nollställa progress-animationen
+  const syncChecks=()=>{
+    const done=checks.filter(Boolean).length;
+    const bar=bpPanel.querySelector('.progress i');
+    if(bar)bar.style.width=(done/d.list.length*100)+'%';
+    bpPanel.querySelector('.check-done-msg').classList.toggle('show',done===d.list.length);
+  };
   bpPanel.querySelectorAll('input[type=checkbox]').forEach(cb=>{
-    cb.addEventListener('change',()=>{checks[+cb.dataset.i]=cb.checked;renderBP(n);});
+    cb.addEventListener('change',()=>{
+      checks[+cb.dataset.i]=cb.checked;
+      cb.closest('.check-item').classList.toggle('done',cb.checked);
+      syncChecks();
+    });
   });
   const rb=bpPanel.querySelector('[data-reset]');
-  if(rb)rb.addEventListener('click',()=>{bpState[n]=new Array(d.list.length).fill(false);renderBP(n);});
+  if(rb)rb.addEventListener('click',()=>{
+    checks.fill(false);
+    bpPanel.querySelectorAll('input[type=checkbox]').forEach(cb=>{cb.checked=false;cb.closest('.check-item').classList.remove('done');});
+    syncChecks();
+  });
 }
 const bpTabs=[...document.querySelectorAll('.bp-tab')];
+// Roving tabindex: bara vald flik är i tabordningen (ARIA tabs-mönstret)
+bpTabs.forEach((t,i)=>t.setAttribute('tabindex',i===0?'0':'-1'));
 bpTabs.forEach((tab,ti)=>{
   tab.addEventListener('click',()=>{
-    bpTabs.forEach(t=>t.setAttribute('aria-selected', t===tab?'true':'false'));
+    bpTabs.forEach(t=>{const sel=t===tab;t.setAttribute('aria-selected',sel);t.setAttribute('tabindex',sel?'0':'-1');});
     bpPanel.setAttribute('aria-labelledby',tab.id);
     renderBP(+tab.dataset.bp);
   });
@@ -1109,10 +1140,11 @@ function renderQuiz(){
   quizCard.innerHTML=`
     <div class="quiz-prog"><span>Fråga ${qi+1} av ${QUIZ.length}</span><span>${score} rätt hittills</span></div>
     <div class="quiz-bar" aria-hidden="true"><i style="width:${qi/QUIZ.length*100}%"></i></div>
-    <div class="quiz-q">${q.q}</div>
+    <div class="quiz-q" tabindex="-1">${q.q}</div>
     <div class="quiz-opts">${q.o.map((o,i)=>`<button class="qopt" data-i="${i}">${o}</button>`).join('')}</div>
     <div class="quiz-why" id="qwhy" role="status"></div>
     <button class="quiz-next" id="qnext">${qi===QUIZ.length-1?'Se resultat':'Nästa fråga'} →</button>`;
+  if(qi>0){try{quizCard.querySelector('.quiz-q').focus({preventScroll:true})}catch(e){}}
   quizCard.querySelectorAll('.qopt').forEach(b=>{
     b.addEventListener('click',()=>{
       const i=+b.dataset.i;
@@ -1122,7 +1154,9 @@ function renderQuiz(){
       const why=document.getElementById('qwhy');
       why.innerHTML=(i===q.c?'<b>Rätt!</b> ':'<b>Inte riktigt.</b> ')+q.why;
       why.classList.add('show');
-      document.getElementById('qnext').classList.add('show');
+      const nx=document.getElementById('qnext');
+      nx.classList.add('show');
+      try{nx.focus()}catch(e){}
     });
   });
   document.getElementById('qnext').addEventListener('click',()=>{qi++;renderQuiz();});
@@ -1192,7 +1226,7 @@ function goTo(i){
   prevBtn.textContent='← '+(i>0?slides[i-1].dataset.title:'Föregående');
   if(i===slides.length-1){nextBtn.textContent='Börja om från start ↺';}
   else{nextBtn.textContent=(i===0?'Starta utbildningen':slides[i+1].dataset.title)+' →';}
-  try{chipEls[i].scrollIntoView({block:'nearest',inline:'center',behavior:'smooth'})}catch(e){}
+  try{chipEls[i].scrollIntoView({block:'nearest',inline:'center',behavior:motionOK?'smooth':'auto'})}catch(e){}
   try{history.replaceState(null,'','#'+slides[i].id)}catch(e){}
   try{document.title=slides[i].dataset.title+' · Projektstyrningsmodellen'}catch(e){}
   try{window.scrollTo({top:0,behavior:'auto'})}catch(e){try{window.scrollTo(0,0)}catch(e2){}}
@@ -1203,7 +1237,9 @@ prevBtn.addEventListener('click',()=>goTo(cur-1));
 nextBtn.addEventListener('click',()=>goTo(cur===slides.length-1?0:cur+1));
 document.getElementById('startBtn').addEventListener('click',()=>goTo(1));
 document.addEventListener('keydown',e=>{
-  if(e.target&&e.target.matches&&e.target.matches('input,textarea,select,.bp-tab,.qopt,.sopt,.copt,.check-item input'))return;
+  // Pilnavigering mellan avsnitt bara när fokus inte ligger på en interaktiv
+  // kontroll (knappar, fält, flikar) — rubriker (tabindex="-1") räknas inte
+  if(e.target&&e.target.matches&&e.target.matches('button,a[href],input,textarea,select,[tabindex]:not([tabindex="-1"])'))return;
   if(e.key==='ArrowRight')goTo(Math.min(cur+1,slides.length-1));
   if(e.key==='ArrowLeft')goTo(Math.max(cur-1,0));
 });
