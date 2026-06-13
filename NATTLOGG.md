@@ -91,6 +91,28 @@ _(De fem viktigaste förbättringarna och kvarvarande svagheter — se slutet av
 **Medvetet lämnat:** L1 (se ovan). Värdvyns egen scrollbar i mörkt apptema ligger utanför sidans kontroll (granskarens egen notis, ej fynd).
 **Regressionssviten:** +17 kontroller (inkrementell checklista, quizfokus, motionOK, mellanbrytpunkt, roving tabindex, mobil-aria, piltangentsguard) → 166, grön.
 
-## Iteration 4 — granskare: tillgänglighet (WCAG)
+## Iteration 4 — granskare: tillgänglighet (WCAG 2.1/2.2 AA)
+
+**Granskarens protokoll:** 1 kritiskt, 4 höga, 4 medel, 4 låga. Granskaren verifierade och godkände uttryckligen: den låsta fasstegspaletten (alla par ≥5:1), `--ink-soft`-kontrasten, prefers-reduced-motion (CSS + JS), sandlådeskydden, checkbox-etiketteringen och BP-flikarnas roving tabindex.
+
+| Nivå | Fynd | Åtgärd |
+|---|---|---|
+| KRITISK | K1: Inget `<main>`-landmärke; topnav var `<div>`; Start-sliden var felaktigt sidans `<header>` | ✅ `<header class="topnav">` (banner), allt innehåll i `<main id="content">`, Start → `<section>`, bläddringsfältet → `<nav>`. Exakt ett `<header>` |
+| HÖG | H1: Vald valfri BP-flik vit text på #6CA856 = 2.85:1 | ✅ Ljus botten #DCEFC9 + mörk text #1F5A26 (8.2:1), samma "valfri"-look som BP 3-cirkeln |
+| HÖG | H2: Visuella rubriker utan rubrikelement (quiz-q, scen-text som div) | ✅ Båda → `<h3>`. `.rh3` lämnad (ligger i `<button>` — rubrik där vore ogiltig HTML) |
+| HÖG | H3: `aria-pressed` på fas-/grindknappar (enkelval, inte toggles) — dubbel "pressed" för bp3 | ✅ → `aria-current="true"` + `aria-controls="detailPanel"`. aria-pressed kvar bara på äkta toggles (LF-spaket, väljaren) |
+| HÖG | H4: Detaljpanelen gav ingen indikation på desktop att innehåll dök upp | ✅ `scrollIntoView` på alla breddar (inte bara mobil), rubrik `tabindex="-1"`; live-region kvar för uppläsning |
+| MEDEL | M1: Orange `--lf` listmarkörer 3.21:1 mot lf-100 | ✅ → `--lf-deep` (5.33:1) |
+| MEDEL | M2: Rätt/fel i quiz/scenarier enbart färg | ✅ ✓/✕-glyfer via `::after` på correct/wrong |
+| MEDEL | M3: (verifierad som korrekt — checkboxar rätt etiketterade) | — ingen åtgärd behövdes |
+| MEDEL | M4: Meningsbärande/dekorativa emoji utan textalt. (💡, ⏱) | ✅ `aria-hidden` på dekorativa emoji |
+| LÅG | L1: Förkortningshint #8a6a35 = 4.37:1 | ✅ → `--lf-deep` |
+| LÅG | L2: Fokusring grön-på-grön på gröna knappar | ✅ Mörkare ring (#1F5A26) + vit halo (`box-shadow`) — syns mot ljust/grönt/svart |
+| LÅG | L3/L4: verifierade som redan korrekta (disabled-undantag, piltangentsguard) | — |
+
+**Medvetet lämnat:** `.rh3` som span (HTML-validitet). Per-slide-`<h1>` infördes inte — behållen `<h1>` på Start + `<h2>` per sektion är ett accepterat SPA-mönster; att göra varje sektionsrubrik till `<h1>` skulle krocka med den visuella hierarkin. `aria-pressed` på `.copt` behållen (granskaren flaggade den inte; fungerar som flervalsmarkering).
+**Regressionssviten:** +20 kontroller (landmärken, aria-current-migrering, kontrastregler, rubrikelement, ✓/✕-markörer, fokushalo) → 186, grön.
+
+## Iteration 5 — granskare: språk (svensk sakprosa)
 
 _(pågår)_

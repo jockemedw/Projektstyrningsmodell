@@ -89,6 +89,24 @@ ok(/max-width:1000px\) and \(min-width:761px\)/.test(html), 'H2: mellanbrytpunkt
 // M3 (UX) — brandtexten döljs på mobil för mindre sticky-krom
 ok(/\.brand\{display:none\}/.test(html), 'M3: brand döljs i mobilbrytpunkten');
 
+// Regression från granskning 4 (tillgänglighet):
+// K1 — dokumentlandmärken
+ok(/<header class="topnav">/.test(html), 'K1: topnav är <header> (banner)');
+ok(/<main id="content">/.test(html) && /<\/main>/.test(html), 'K1: <main>-landmärke omsluter innehållet');
+ok(/<section id="start" class="hero/.test(html), 'K1: Start-sliden är <section>, inte sidhuvud');
+ok(/<nav class="slide-nav"/.test(html), 'K1: bläddringsfältet är <nav>');
+ok((html.match(/<header/g) || []).length === 1, 'K1: exakt ett <header> (ingen dubbel banner)');
+// H1 — vald valfri BP-flik har mörk text (kontrast)
+ok(/\.bp-tab\.opt\[aria-selected="true"\]\{background:#DCEFC9;border-color:#3C8540;color:#1F5A26\}/.test(html), 'H1: vald valfri flik mörk text på ljus botten');
+// M1/L1 — orange listmarkörer och hint använder lf-deep, inte svaga --lf/inline
+ok(!/li::before\{[^}]*color:var\(--lf\)\}/.test(html), 'M1: inga listmarkörer i svaga --lf');
+ok(!/#8a6a35/.test(html), 'L1: ingen lågkontrast inline-hint kvar');
+// M2 — rätt/fel markeras även icke-färgmässigt
+ok(/\.qopt\.correct::after,\.sopt\.correct::after\{content:" ✓"/.test(html), 'M2: ✓-markör på rätt svar');
+ok(/\.qopt\.wrong::after,\.sopt\.wrong::after\{content:" ✕"/.test(html), 'M2: ✕-markör på fel svar');
+// L2 — fokusring med halo
+ok(/box-shadow:0 0 0 2px #fff/.test(html), 'L2: fokusring har vit halo');
+
 /* ===================== 3. Beteende via jsdom ===================== */
 
 const vc = new VirtualConsole(); // tysta "not implemented"-brus
@@ -97,6 +115,12 @@ const dom = new JSDOM(html, { runScripts: 'dangerously', virtualConsole: vc, url
 const { document } = dom.window;
 const $ = s => document.querySelector(s);
 const $$ = s => [...document.querySelectorAll(s)];
+
+// --- Landmärken (granskning 4, K1) ---
+ok($('main#content') !== null, 'K1: <main> finns i DOM');
+ok($('header.topnav') !== null, 'K1: banner-header finns');
+ok($('main#content #start') !== null, 'K1: Start-sliden ligger i main');
+ok($('main#content nav.slide-nav') !== null, 'K1: bläddringsnav ligger i main');
 
 // --- Slides & navigering ---
 const slides = $$('.slide');
@@ -140,13 +164,19 @@ ok(mGates.length === 5, '5 mobila BP-knappar');
 ok(mGates[2].classList.contains('optional'), 'Mobil BP 3 markerad som valfri');
 mGates[0].click();
 ok(/BP 1/.test($('#detailPanel').textContent), 'Mobil BP-knapp fyller detaljpanelen');
-ok(gates[0].getAttribute('aria-pressed') === 'true', 'Desktop- och mobilknapp synkar aria-pressed');
+// Granskning 4, H3: enkelval signaleras med aria-current (inte felaktig aria-pressed-toggle)
+ok(gates[0].getAttribute('aria-current') === 'true', 'H3: desktop- och mobilknapp synkar aria-current via data-key');
+ok(!$$('.phase, .gate-btn, .gate-mobile').some(b => b.hasAttribute('aria-pressed')), 'H3: inga aria-pressed kvar på fas-/grindknappar');
+ok($$('.phase, .gate-btn, .gate-mobile').every(b => b.getAttribute('aria-controls') === 'detailPanel'), 'H3: knapparna pekar på detailPanel via aria-controls');
 
 for (const p of phases) {
   p.click();
   ok($('#detailPanel').textContent.length > 50, `Detaljpanel fylls för fasen ${p.dataset.key}`);
-  ok(p.getAttribute('aria-pressed') === 'true', `aria-pressed sätts för ${p.dataset.key}`);
+  ok(p.getAttribute('aria-current') === 'true', `aria-current sätts för ${p.dataset.key}`);
 }
+// Bara ett element åt gången är aktuellt (per data-key — desktop/mobil delar nyckel men bara ett syns)
+gates[1].click();
+ok($$('[aria-current="true"]').filter(b => b.classList.contains('phase') || b.classList.contains('gate-btn') || b.classList.contains('gate-mobile')).every(b => b.dataset.key === 'bp2'), 'H3: bara aktuell nyckel markeras');
 gates[4].click();
 ok(/[Ss]tyrgrupp/.test($('#detailPanel').textContent), 'BP 5-detalj: styrgruppen beslutar');
 gates[2].click();
@@ -280,6 +310,8 @@ ok(myths[0].classList.contains('open'), 'Missförstånd expanderar');
 chips[8].click();
 const scenCards = $$('#scenList .scen-card');
 ok(scenCards.length === 6, '6 övningsscenarier');
+// Granskning 4, H2: scenariotexten är en rubrik
+ok($('#scenList .scen-text').tagName === 'H3', 'H2: scenariotext är <h3>');
 // Extrahera facit ur källan
 const scenSrc = html.match(/const SCEN=\[([\s\S]*?)\n\];/);
 const scenC = [...scenSrc[1].matchAll(/c:(\d+)/g)].map(m => +m[1]);
@@ -296,6 +328,8 @@ chips[10].click();
 const quizSrc = html.match(/const QUIZ\s*=\s*\[([\s\S]*?)\n\];/);
 const quizC = [...quizSrc[1].matchAll(/c:(\d+),why/g)].map(m => +m[1]);
 ok(quizC.length === 14, '14 quizfrågor med facit');
+// Granskning 4, H2: quizfrågan är en rubrik
+ok($('#quizCard .quiz-q').tagName === 'H3', 'H2: quizfråga är <h3>');
 // Fel svar först: rätt alternativ ska markeras
 const firstWrong = (quizC[0] + 1) % 4;
 $(`#quizCard .qopt[data-i="${firstWrong}"]`).click();

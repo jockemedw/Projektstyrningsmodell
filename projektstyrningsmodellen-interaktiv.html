@@ -49,8 +49,9 @@ h1,h2,h3,h4,.display{font-family:'Schibsted Grotesk','Source Sans 3',system-ui,s
 a{color:var(--model);text-decoration:none}
 a:hover{text-decoration:underline}
 button{font-family:inherit;cursor:pointer}
-:focus-visible{outline:3px solid var(--model);outline-offset:2px;border-radius:4px}
-h1:focus,h2:focus{outline:none}
+/* Fokusring med vit halo så den syns mot ljusa, gröna och svarta ytor */
+:focus-visible{outline:3px solid var(--model-deep);outline-offset:2px;box-shadow:0 0 0 2px #fff;border-radius:4px}
+h1:focus,h2:focus,h3:focus,.quiz-q:focus,.scen-text:focus{outline:none;box-shadow:none}
 
 /* ---------- Nav ---------- */
 .topnav{
@@ -125,9 +126,9 @@ h2{font-size:clamp(26px,3.4vw,36px);font-weight:700;margin-bottom:18px}
 .ph-planera{background:#CDE4B8;color:#1E4620}
 .ph-genomfora{background:#80C16D;color:#1E4620}
 .ph-avsluta{background:#3D8B43;color:#fff}
-.phase[aria-pressed="true"]{box-shadow:inset 0 0 0 3px rgba(255,255,255,.9);filter:brightness(1.04)}
-.ph-planera[aria-pressed="true"],.ph-genomfora[aria-pressed="true"]{box-shadow:inset 0 0 0 3px rgba(30,70,32,.55)}
-.ph-out[aria-pressed="true"],.ph-forbereda[aria-pressed="true"]{box-shadow:inset 0 0 0 3px rgba(255,255,255,.8);filter:brightness(1.25)}
+.phase[aria-current="true"]{box-shadow:inset 0 0 0 3px rgba(255,255,255,.9);filter:brightness(1.04)}
+.ph-planera[aria-current="true"],.ph-genomfora[aria-current="true"]{box-shadow:inset 0 0 0 3px rgba(30,70,32,.55)}
+.ph-out[aria-current="true"],.ph-forbereda[aria-current="true"]{box-shadow:inset 0 0 0 3px rgba(255,255,255,.8);filter:brightness(1.25)}
 
 /* BP-cirklar: rider på pilarnas överkant, som i originalet */
 .tl-gates{position:absolute;top:62px;left:0;right:0;height:0;pointer-events:none;z-index:4}
@@ -143,10 +144,10 @@ h2{font-size:clamp(26px,3.4vw,36px);font-weight:700;margin-bottom:18px}
 .gate-btn .bp-sm{font-size:8.5px;font-weight:600;letter-spacing:.05em}
 .gate-btn .bp-nr{font-size:17px;font-weight:700}
 .gate-btn:hover{transform:translate(-50%,-58%) scale(1.14)}
-.gate-btn[aria-pressed="true"]{box-shadow:0 0 0 3px rgba(60,133,64,.35),0 2px 7px rgba(20,60,25,.3)}
+.gate-btn[aria-current="true"]{box-shadow:0 0 0 3px rgba(60,133,64,.35),0 2px 7px rgba(20,60,25,.3)}
 /* BP 3 — valfri: ljus fyllnad med grön kant (originalets färgmarkering) */
 .gate-btn.optional{background:#DCEFC9;border-color:#3C8540;color:#2C5E2E;box-shadow:0 2px 7px rgba(20,60,25,.18)}
-.gate-btn.optional[aria-pressed="true"]{box-shadow:0 0 0 3px rgba(60,133,64,.3),0 2px 7px rgba(20,60,25,.18)}
+.gate-btn.optional[aria-current="true"]{box-shadow:0 0 0 3px rgba(60,133,64,.3),0 2px 7px rgba(20,60,25,.18)}
 .gate-label{position:absolute;bottom:calc(100% + 6px);left:50%;transform:translateX(-50%);font-size:10.5px;font-weight:600;color:var(--ink-soft);white-space:nowrap;font-family:'Source Sans 3',sans-serif;font-style:normal}
 
 /* BP-knappar i mobilens vertikala stege (desktop: dolda — cirklarna på pilarna gäller) */
@@ -164,7 +165,7 @@ h2{font-size:clamp(26px,3.4vw,36px);font-weight:700;margin-bottom:18px}
 .lf-block b{display:block;font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--lf-deep);margin-bottom:4px}
 .lf-block ul{list-style:none}
 .lf-block li{padding-left:12px;position:relative}
-.lf-block li::before{content:"›";position:absolute;left:0;color:var(--lf)}
+.lf-block li::before{content:"›";position:absolute;left:0;color:var(--lf-deep)}
 .lf-block li.hok{font-weight:700;color:var(--lf-deep)}
 .handovers{margin-top:14px;display:flex;gap:10px;flex-wrap:wrap}
 .handover{font-size:12.5px;background:#fff;border:1px dashed var(--lf);border-radius:99px;padding:5px 13px;color:var(--lf-deep);font-weight:600}
@@ -201,7 +202,9 @@ h2{font-size:clamp(26px,3.4vw,36px);font-weight:700;margin-bottom:18px}
 .bp-tab small{display:block;font-weight:500;font-size:11px;margin-top:1px}
 .bp-tab[aria-selected="true"]{background:var(--model);color:#fff;border-color:var(--model)}
 .bp-tab[aria-selected="true"] small{color:rgba(255,255,255,.8)}
-.bp-tab.opt[aria-selected="true"]{background:#6CA856;border-color:#6CA856}
+/* Vald valfri flik: samma ljusa look som BP 3-cirkeln (#1F5A26 på #DCEFC9 = 8.2:1) */
+.bp-tab.opt[aria-selected="true"]{background:#DCEFC9;border-color:#3C8540;color:#1F5A26}
+.bp-tab.opt[aria-selected="true"] small{color:#2C5E2E}
 .bp-panel{background:var(--card);border:1px solid var(--line);border-radius:0 16px 16px 16px;box-shadow:var(--shadow);padding:40px 40px 34px}
 .bp-head{display:flex;gap:18px;align-items:flex-start;flex-wrap:wrap;margin-bottom:18px}
 .bp-circle{width:58px;height:58px;border-radius:50%;background:#3C8540;color:#fff;display:flex;align-items:center;justify-content:center;font-family:'Schibsted Grotesk',sans-serif;font-weight:700;font-size:17px;flex-shrink:0;box-shadow:0 3px 10px rgba(10,74,54,.3)}
@@ -235,7 +238,7 @@ h2{font-size:clamp(26px,3.4vw,36px);font-weight:700;margin-bottom:18px}
 .fact ul{list-style:none}
 .fact li{padding:2px 0 2px 16px;position:relative}
 .fact li::before{content:"•";position:absolute;left:2px;color:var(--model)}
-.fact.lf-fact li::before{color:var(--lf)}
+.fact.lf-fact li::before{color:var(--lf-deep)}
 
 /* ---------- Projekt/uppdrag ---------- */
 .cat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:22px;margin-bottom:48px}
@@ -357,6 +360,9 @@ tbody tr:hover{background:var(--model-050)}
 .qopt.correct{background:var(--model-100);border-color:var(--model);font-weight:600}
 .qopt.wrong{background:#FBE9E2;border-color:var(--warn)}
 .qopt:disabled{cursor:default}
+/* Rätt/fel ska inte signaleras med enbart färg (WCAG 1.4.1) */
+.qopt.correct::after,.sopt.correct::after{content:" ✓";font-weight:800;color:var(--model-deep)}
+.qopt.wrong::after,.sopt.wrong::after{content:" ✕";font-weight:800;color:var(--warn)}
 .quiz-why{display:none;margin-top:16px;background:var(--model-050);border-left:4px solid var(--model);border-radius:0 10px 10px 0;padding:14px 17px;font-size:14px}
 .quiz-why.show{display:block;animation:fadeIn .3s}
 .quiz-next{display:none;margin-top:18px;background:var(--model);color:#fff;border:none;border-radius:99px;padding:11px 26px;font-size:14.5px;font-weight:600}
@@ -491,7 +497,7 @@ footer b{color:var(--ink)}
   .gate-mobile{display:flex;align-items:center;gap:10px;background:var(--card);border:1px solid var(--line);border-radius:99px;padding:5px 16px 5px 5px;font-size:13px;font-weight:600;color:var(--ink);margin:2px auto;font-family:'Source Sans 3',sans-serif}
   .gate-mobile .gm-circle{width:34px;height:34px;border-radius:50%;background:#3C8540;color:#fff;display:flex;align-items:center;justify-content:center;font-size:10.5px;font-weight:700;font-family:'Schibsted Grotesk',sans-serif;flex-shrink:0}
   .gate-mobile.optional .gm-circle{background:#DCEFC9;color:#2C5E2E;border:2px solid #3C8540}
-  .gate-mobile[aria-pressed="true"]{border-color:#3C8540;box-shadow:0 0 0 2px rgba(60,133,64,.25)}
+  .gate-mobile[aria-current="true"]{border-color:#3C8540;box-shadow:0 0 0 2px rgba(60,133,64,.25)}
   .timeline-card{padding:22px 16px 20px}
   .bp-panel,.chooser,.quiz-card{padding:24px 18px}
   .bp-tabs{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch}
@@ -510,15 +516,16 @@ footer b{color:var(--ink)}
 <body>
 <div class="bg-fix" aria-hidden="true"></div>
 
-<div class="topnav">
+<header class="topnav">
   <div class="topnav-inner">
     <span class="brand"><span class="gate">BP</span> Projektstyrningsmodellen</span>
     <nav class="steps" id="stepChips" aria-label="Utbildningens avsnitt"></nav>
   </div>
   <div class="progressbar" aria-hidden="true"><i id="courseProg"></i></div>
-</div>
+</header>
 
-<header id="start" class="hero wrap slide" data-title="Start">
+<main id="content">
+<section id="start" class="hero wrap slide" data-title="Start">
   <div class="hero-stege" aria-hidden="true">
     <span class="hs hs-out" style="flex:1"></span><span class="hs hs-out" style="flex:.9"></span><span class="hs-dot"></span><span class="hs hs-arrow" style="flex:1.7;background:#CDE4B8"></span><span class="hs-dot"></span><span class="hs-wrap" style="flex:3;position:relative"><span class="hs hs-arrow" style="background:#80C16D;width:100%"></span><span class="hs-dot lt" style="position:absolute;left:37%;top:50%;transform:translate(-50%,-50%);margin:0"></span></span><span class="hs-dot"></span><span class="hs hs-arrow" style="flex:1.1;background:#3D8B43"></span><span class="hs-dot"></span><span class="hs hs-out" style="flex:.8"></span>
   </div>
@@ -530,7 +537,7 @@ footer b{color:var(--ink)}
     <span class="chip green">5 beslutspunkter — 4 obligatoriska</span>
     <span class="chip amber">Översatt till LF:s byggprocess</span>
     <span class="chip">Tillämpningsanvisning KS 2024-11-05 § 254</span>
-    <span class="chip">⏱ ca 25 minuter</span>
+    <span class="chip"><span aria-hidden="true">⏱</span> ca 25 minuter</span>
   </div>
   <div class="why-grid">
     <div class="why-card"><div class="skav">Otydliga roller och mandat</div><div class="los">Modellen definierar <b>beställare, styrgrupp, projektledare och mottagare</b> med tydliga ansvar.</div></div>
@@ -540,7 +547,7 @@ footer b{color:var(--ink)}
   </div>
   <button class="cta" id="startBtn">Starta utbildningen →</button>
   <div class="kbd-hint">Tips: bläddra med piltangenterna <kbd>←</kbd> <kbd>→</kbd></div>
-</header>
+</section>
 
 <section id="modellen" class="wrap slide" data-title="Modellen">
   <div class="eyebrow">Modellen i ett svep</div>
@@ -549,30 +556,30 @@ footer b{color:var(--ink)}
 
   <div class="timeline-card">
     <div class="tl-toolbar">
-      <span class="tl-hint">💡 Klicka på faserna och beslutspunkterna nedan</span>
+      <span class="tl-hint"><span aria-hidden="true">💡</span> Klicka på faserna och beslutspunkterna nedan</span>
       <button class="toggle" id="lfToggle" aria-pressed="false"><span class="knob"></span> Visa LF:s byggprocess under modellen</button>
     </div>
     <div class="tl">
       <div class="tl-row">
       <div class="tl-phases" role="group" aria-label="Modellens faser">
-        <button class="phase ph-out" data-key="behov" data-bp="" aria-pressed="false" title="I linjen — före projektet">Behov/Idé</button>
-        <button class="phase ph-forbereda" data-key="forbereda" data-bp="BP 1" aria-pressed="false" title="Förstudiefasen — avslutas med BP 1">Förbereda</button>
-        <button class="gate-mobile" data-key="bp1" aria-pressed="false" aria-label="Beslutspunkt 1 — starta projektet"><span class="gm-circle" aria-hidden="true">BP 1</span><span>Starta projektet</span></button>
-        <button class="phase ph-arrow ph-planera" data-key="planera" data-bp="BP 2" aria-pressed="false" title="Projektplanen tas fram — avslutas med BP 2">Planera</button>
-        <button class="gate-mobile" data-key="bp2" aria-pressed="false" aria-label="Beslutspunkt 2 — anta projektplanen"><span class="gm-circle" aria-hidden="true">BP 2</span><span>Anta projektplanen</span></button>
-        <button class="phase ph-arrow ph-genomfora" data-key="genomfora" data-bp="BP 3 · BP 4" aria-pressed="false" title="Den längsta fasen — avslutas med BP 4">Genomföra</button>
-        <button class="gate-mobile optional" data-key="bp3" aria-pressed="false" aria-label="Beslutspunkt 3, valfri — vägval under fasen"><span class="gm-circle" aria-hidden="true">BP 3</span><span>Vägval — valfri, under fasen</span></button>
-        <button class="gate-mobile" data-key="bp4" aria-pressed="false" aria-label="Beslutspunkt 4 — godkänn leveransen"><span class="gm-circle" aria-hidden="true">BP 4</span><span>Godkänn leveransen</span></button>
-        <button class="phase ph-arrow ph-avsluta" data-key="avsluta" data-bp="BP 5" aria-pressed="false" title="Liten fas, stor effekt — avslutas med BP 5">Avsluta</button>
-        <button class="gate-mobile" data-key="bp5" aria-pressed="false" aria-label="Beslutspunkt 5 — stäng projektet"><span class="gm-circle" aria-hidden="true">BP 5</span><span>Stäng projektet</span></button>
-        <button class="phase ph-out" data-key="effekt" data-bp="" aria-pressed="false" title="Beställarens ansvar — efter projektet">Effekt</button>
+        <button class="phase ph-out" data-key="behov" data-bp="" aria-controls="detailPanel" title="I linjen — före projektet">Behov/Idé</button>
+        <button class="phase ph-forbereda" data-key="forbereda" data-bp="BP 1" aria-controls="detailPanel" title="Förstudiefasen — avslutas med BP 1">Förbereda</button>
+        <button class="gate-mobile" data-key="bp1" aria-controls="detailPanel" aria-label="Beslutspunkt 1 — starta projektet"><span class="gm-circle" aria-hidden="true">BP 1</span><span>Starta projektet</span></button>
+        <button class="phase ph-arrow ph-planera" data-key="planera" data-bp="BP 2" aria-controls="detailPanel" title="Projektplanen tas fram — avslutas med BP 2">Planera</button>
+        <button class="gate-mobile" data-key="bp2" aria-controls="detailPanel" aria-label="Beslutspunkt 2 — anta projektplanen"><span class="gm-circle" aria-hidden="true">BP 2</span><span>Anta projektplanen</span></button>
+        <button class="phase ph-arrow ph-genomfora" data-key="genomfora" data-bp="BP 3 · BP 4" aria-controls="detailPanel" title="Den längsta fasen — avslutas med BP 4">Genomföra</button>
+        <button class="gate-mobile optional" data-key="bp3" aria-controls="detailPanel" aria-label="Beslutspunkt 3, valfri — vägval under fasen"><span class="gm-circle" aria-hidden="true">BP 3</span><span>Vägval — valfri, under fasen</span></button>
+        <button class="gate-mobile" data-key="bp4" aria-controls="detailPanel" aria-label="Beslutspunkt 4 — godkänn leveransen"><span class="gm-circle" aria-hidden="true">BP 4</span><span>Godkänn leveransen</span></button>
+        <button class="phase ph-arrow ph-avsluta" data-key="avsluta" data-bp="BP 5" aria-controls="detailPanel" title="Liten fas, stor effekt — avslutas med BP 5">Avsluta</button>
+        <button class="gate-mobile" data-key="bp5" aria-controls="detailPanel" aria-label="Beslutspunkt 5 — stäng projektet"><span class="gm-circle" aria-hidden="true">BP 5</span><span>Stäng projektet</span></button>
+        <button class="phase ph-out" data-key="effekt" data-bp="" aria-controls="detailPanel" title="Beställarens ansvar — efter projektet">Effekt</button>
       </div>
       <div class="tl-gates">
-        <button class="gate-btn" style="left:22.6%" data-key="bp1" aria-pressed="false" aria-label="Beslutspunkt 1 — starta projektet"><span class="bp-sm">BP</span><span class="bp-nr">1</span><span class="gate-label">Starta projektet</span></button>
-        <button class="gate-btn" style="left:43%" data-key="bp2" aria-pressed="false" aria-label="Beslutspunkt 2 — anta projektplanen"><span class="bp-sm">BP</span><span class="bp-nr">2</span><span class="gate-label">Anta projektplanen</span></button>
-        <button class="gate-btn optional" style="left:55.7%" data-key="bp3" aria-pressed="false" aria-label="Beslutspunkt 3, valfri — vägval"><span class="bp-sm">BP</span><span class="bp-nr">3</span><span class="gate-label">Vägval — valfri</span></button>
-        <button class="gate-btn" style="left:77.4%" data-key="bp4" aria-pressed="false" aria-label="Beslutspunkt 4 — godkänn leveransen"><span class="bp-sm">BP</span><span class="bp-nr">4</span><span class="gate-label">Godkänn leveransen</span></button>
-        <button class="gate-btn" style="left:90.3%" data-key="bp5" aria-pressed="false" aria-label="Beslutspunkt 5 — stäng projektet"><span class="bp-sm">BP</span><span class="bp-nr">5</span><span class="gate-label">Stäng projektet</span></button>
+        <button class="gate-btn" style="left:22.6%" data-key="bp1" aria-controls="detailPanel" aria-label="Beslutspunkt 1 — starta projektet"><span class="bp-sm">BP</span><span class="bp-nr">1</span><span class="gate-label">Starta projektet</span></button>
+        <button class="gate-btn" style="left:43%" data-key="bp2" aria-controls="detailPanel" aria-label="Beslutspunkt 2 — anta projektplanen"><span class="bp-sm">BP</span><span class="bp-nr">2</span><span class="gate-label">Anta projektplanen</span></button>
+        <button class="gate-btn optional" style="left:55.7%" data-key="bp3" aria-controls="detailPanel" aria-label="Beslutspunkt 3, valfri — vägval"><span class="bp-sm">BP</span><span class="bp-nr">3</span><span class="gate-label">Vägval — valfri</span></button>
+        <button class="gate-btn" style="left:77.4%" data-key="bp4" aria-controls="detailPanel" aria-label="Beslutspunkt 4 — godkänn leveransen"><span class="bp-sm">BP</span><span class="bp-nr">4</span><span class="gate-label">Godkänn leveransen</span></button>
+        <button class="gate-btn" style="left:90.3%" data-key="bp5" aria-controls="detailPanel" aria-label="Beslutspunkt 5 — stäng projektet"><span class="bp-sm">BP</span><span class="bp-nr">5</span><span class="gate-label">Stäng projektet</span></button>
       </div>
       </div>
 
@@ -586,7 +593,7 @@ footer b{color:var(--ink)}
           <div class="lf-block"><b>Överlämning</b><ul><li>Lämna över lokal</li><li>Avsluta projekt</li><li>Slutreglering</li></ul></div>
           <div class="lf-block"><b>Förvaltning</b><ul><li>Nyttoutvärdering</li><li>Garantibesiktning (2 år)</li></ul></div>
         </div>
-        <div style="font-size:11.5px;color:#8a6a35;margin-top:10px">LSA = lokalstrategiska avdelningen &nbsp;·&nbsp; FU = fastighetsutveckling &nbsp;·&nbsp; Inhyrning = LF:s enhet för inhyrda lokaler &nbsp;·&nbsp; TE = totalentreprenör</div>
+        <div style="font-size:11.5px;color:var(--lf-deep);margin-top:10px">LSA = lokalstrategiska avdelningen &nbsp;·&nbsp; FU = fastighetsutveckling &nbsp;·&nbsp; Inhyrning = LF:s enhet för inhyrda lokaler &nbsp;·&nbsp; TE = totalentreprenör</div>
         <div class="handovers">
           <span class="handover">Överlämning 1 · LSA → projekt — vid BP 1</span>
           <span class="handover">Överlämning 2 · FU → projektledare — vid BP 2</span>
@@ -703,7 +710,7 @@ footer b{color:var(--ink)}
 
   <div class="scen-card" style="margin-top:48px">
     <div class="scen-nr">Snabbkoll</div>
-    <div class="scen-text">Vem äger projektdirektivet — och vem äger projektplanen?</div>
+    <h3 class="scen-text">Vem äger projektdirektivet — och vem äger projektplanen?</h3>
     <div class="scen-opts">
       <button class="sopt" data-qc="0">Projektledaren äger båda</button>
       <button class="sopt" data-qc="1">Beställaren äger direktivet, projektledaren planen</button>
@@ -792,11 +799,12 @@ footer b{color:var(--ink)}
   <div class="quiz-card" id="quizCard"></div>
 </section>
 
-<div class="slide-nav">
+<nav class="slide-nav" aria-label="Bläddra mellan avsnitt">
   <button id="prevBtn" class="nav-btn ghost">← Föregående</button>
   <div class="nav-pos" id="navPos"></div>
   <button id="nextBtn" class="nav-btn primary">Nästa avsnitt →</button>
-</div>
+</nav>
+</main>
 
 <footer>
   <div class="wrap">
@@ -946,16 +954,16 @@ const tlButtons=[...document.querySelectorAll('.phase'),...document.querySelecto
 tlButtons.forEach(btn=>{
   btn.addEventListener('click',()=>{
     const key=btn.dataset.key;
-    tlButtons.forEach(b=>b.setAttribute('aria-pressed', b.dataset.key===key ? 'true':'false'));
+    tlButtons.forEach(b=>{if(b.dataset.key===key)b.setAttribute('aria-current','true');else b.removeAttribute('aria-current');});
     const d=DETAILS[key];
     const dotColors={behov:'#1C1C1C',forbereda:'#1C1C1C',planera:'#CDE4B8',genomfora:'#80C16D',avsluta:'#3D8B43',effekt:'#1C1C1C',bp1:'#3C8540',bp2:'#3C8540',bp3:'#DCEFC9',bp4:'#3C8540',bp5:'#3C8540'};
-    detailPanel.innerHTML=`<h3><span aria-hidden="true" style="width:15px;height:15px;border-radius:${key.startsWith('bp')?'50%':'4px'};background:${dotColors[key]};display:inline-block;flex-shrink:0;border:1.5px solid var(--line)"></span>${d.title}</h3>
+    detailPanel.innerHTML=`<h3 tabindex="-1"><span aria-hidden="true" style="width:15px;height:15px;border-radius:${key.startsWith('bp')?'50%':'4px'};background:${dotColors[key]};display:inline-block;flex-shrink:0;border:1.5px solid var(--line)"></span>${d.title}</h3>
       <div class="tagrow">${d.tags.map(t=>`<span class="dtag">${t}</span>`).join('')}</div>
       <div class="detail-cols">
         <div><h4>Det här händer</h4><ul>${d.what.map(w=>`<li>${w}</li>`).join('')}</ul></div>
         <div class="detail-side">${d.side}</div>
       </div>`;
-    try{if(window.matchMedia&&window.matchMedia('(max-width:760px)').matches)detailPanel.scrollIntoView({block:'nearest',behavior:motionOK?'smooth':'auto'})}catch(e){}
+    try{detailPanel.scrollIntoView({block:'nearest',behavior:motionOK?'smooth':'auto'})}catch(e){}
   });
 });
 const lfToggle=document.getElementById('lfToggle');
@@ -1140,7 +1148,7 @@ function renderQuiz(){
   quizCard.innerHTML=`
     <div class="quiz-prog"><span>Fråga ${qi+1} av ${QUIZ.length}</span><span>${score} rätt hittills</span></div>
     <div class="quiz-bar" aria-hidden="true"><i style="width:${qi/QUIZ.length*100}%"></i></div>
-    <div class="quiz-q" tabindex="-1">${q.q}</div>
+    <h3 class="quiz-q" tabindex="-1">${q.q}</h3>
     <div class="quiz-opts">${q.o.map((o,i)=>`<button class="qopt" data-i="${i}">${o}</button>`).join('')}</div>
     <div class="quiz-why" id="qwhy" role="status"></div>
     <button class="quiz-next" id="qnext">${qi===QUIZ.length-1?'Se resultat':'Nästa fråga'} →</button>`;
@@ -1180,7 +1188,7 @@ scenDone=0;scenRight=0;
 scenList.innerHTML='<div class="scen-score" id="scenScore" style="display:flex;justify-content:space-between;align-items:center;gap:12px"><span id="scenScoreTxt" role="status">0 av '+SCEN.length+' placerade</span><button class="reset-btn" data-scen-reset>Nollställ övningen</button></div>'+SCEN.map((sc,i)=>`
   <div class="scen-card">
     <div class="scen-nr">Situation ${i+1}</div>
-    <div class="scen-text">${sc.t}</div>
+    <h3 class="scen-text">${sc.t}</h3>
     <div class="scen-opts">${sc.o.map((o,j)=>`<button class="sopt" data-s="${i}" data-j="${j}">${o}</button>`).join('')}</div>
     <div class="scen-why" id="swhy${i}" role="status"></div>
   </div>`).join('');
