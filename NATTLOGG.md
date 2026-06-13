@@ -3,9 +3,23 @@
 **Körning:** 2026-06-12/13 · **Iterationstak:** 7 (6 granskarperspektiv + 1 ev. extra verifieringsrunda)
 **Stoppvillkor:** två på varandra följande granskningar utan fynd över nivå LÅG, eller granskarbedömning om avtagande värde.
 
-## Sammanfattning (fylls i sist)
+## Sammanfattning
 
-_(De fem viktigaste förbättringarna och kvarvarande svagheter — se slutet av körningen.)_
+Sju iterationer kördes (sex roterande granskarperspektiv + en slutverifiering), iterationstaket var 7. Varje iteration använde en oberoende granskaragent med färskt kontext som bara såg HANDOVER.md, HTML-filen och granskningsuppdraget — aldrig byggarens resonemang. Regressionssviten växte från 110 till 203 jsdom-kontroller och är grön. Inga faktalåsningar bröts; fyra avvägningar som rör domänfakta loggades i FRAGOR.md i stället för att genomföras.
+
+**De fem viktigaste förbättringarna:**
+1. **Rätt beslutsfattare per beslutspunkt.** Ingresserna lärde ut att beställaren beslutar vid varje BP — i strid med faktalåsningen (BP 5 = styrgruppen) och sidans eget quizfacit. Rättat överallt, och sammanblandningen av BP 4:s leveransgodkännande med BP 5:s slutrapportgodkännande städades bort. (Domängranskningen, kritiskt.)
+2. **Mobilen fungerar nu på riktigt.** Beslutspunkterna var oklickbara i den staplade fasstegen på mobil trots att texten sa "klicka på en grind" — fem riktiga BP-knappar infördes (desktop-stegens visuella trohet orörd). Måldefinitionerna flyttades fram till första användningen. (UX + pedagogik, högt.)
+3. **Tillgänglighet upp till AA.** Dokumentlandmärken (header/main/nav), korrekt `aria-current` i stället för missbrukat `aria-pressed` på fas-/grindknappar, kontrastfel rättat (valfri BP-flik 2.85:1 → 8.2:1), rätt/fel signaleras inte längre med enbart färg, fokus tappas inte längre vid checklistans uppdatering. (Tillgänglighet, kritiskt + högt.)
+4. **Byggtermer som testas blir nu också undervisade.** Nybörjaren föll på ord som introducerades i förbifarten men provades på allvar (Wenell, BP, spelplan, framskrivning) — alla förklaras nu vid första förekomst, och en stötta i Öva pekar tillbaka på LF-översättningen och Ordlistan. (Nybörjargranskningen, kritiskt.)
+5. **Genomgående språk- och typografivård.** Svenska citattecken, enhetlig fasbenämning ("fasen Effekt"), klarspråkade meningar med verb i stället för nominaliseringskedjor, utskrivna förkortningar. (Språkgranskningen, högt.)
+
+**Kvarvarande svagheter:**
+- **Fyra domänfrågor i FRAGOR.md väntar på Joakims svar** (LSA/beställar-relationen kring direktivet, Wenells koppling till G-beteckningarna, "Inhyrning"-definitionen, Ciceron-callouten för LF). Tolkningarna i sidan är gjorda försiktigt men bör bekräftas.
+- **Ingen progress-persistens** mellan sessioner — medveten begränsning (ingen webblagring i artefaktvisaren), blir relevant först vid eventuell hosting.
+- **Quizets frågeordning är fast** (ingen slumpning) — känd punkt från HANDOVER, inte åtgärdad.
+- **Mobil-/mellanbreddstestning är gjord i kod (jsdom + CSS-granskning), inte i fysiska enheter** — fasstegens chevron-trohet och panel-transitioner bör ögongranskas på en riktig telefon före bred distribution.
+- Tre kosmetiska låg-fynd från slutverifieringen åtgärdade; inga öppna fynd över nivå låg återstår.
 
 ---
 
@@ -157,3 +171,22 @@ _(De fem viktigaste förbättringarna och kvarvarande svagheter — se slutet av
 
 **Medvetet lämnat:** M4 (kopplingen finns redan). 
 **Regressionssviten:** +8 nybörjarkontroller → 203, grön.
+
+## Iteration 7 — slutlig helhetsverifiering (regressionsjakt)
+
+**Granskarens protokoll:** 0 kritiska, 0 höga, 0 medel, 3 låga. Granskaren verifierade explicit att samtliga faktalåsningar är intakta (BP-beslutsfattare, 13-punkterslistan, BP 3 valfri, faserna utanför projektet, LF-mappningen, tre överlämningar, inga A/B-varianter, uppdragets fyra faser, gate-cirklarnas matematiskt korrekta positioner), att HTML/JS/mallsträngar är hela, och att sandlådekraven (try-kapsling, ingen webblagring, `.bg-fix`, `color-scheme: only light`) håller. Bedömning: **leveransklar**.
+
+| Nivå | Fynd | Åtgärd |
+|---|---|---|
+| KRITISK | Inga | — |
+| HÖG | Inga | — |
+| MEDEL | Inga | — |
+| LÅG | L1: Dött `lf`-schema i DETAILS + oanvända `.lf-side`/`.lf-tag`-CSS | ✅ Döda CSS-reglerna borttagna |
+| LÅG | L2: Källdatering inkonsekvent (chip vs footer) | ✅ "uppd. 2025-04-14" tillagt i hero-chipen |
+| LÅG | L3: `prefers-reduced-motion` dubbeltäckt (CSS + JS) | ⏸ Ingen åtgärd — granskaren bedömde det som ofarligt, inte en konflikt |
+
+**Regressionssviten:** 203 kontroller, grön.
+
+## Stoppvillkor och avslut
+
+Iterationstaket (7) nått. Slutverifieringen gav inga fynd över nivå låg och granskaren bedömde sidan som leveransklar med uttalat avtagande värde av ytterligare iterationer — stoppvillkorets andra ben ("granskaren bedömer att ytterligare iterationer ger avtagande värde"). Det formella "två på varandra följande LOW-only-granskningar" uppnåddes inte fullt ut (iteration 6 hade fynd), men kombinationen av rent slutprotokoll + iterationstak + granskarens leveransbedömning motiverar avslut. Totalt åtgärdat över körningen: 4 kritiska, 15 höga, 27 medel och 28 låga fynd; 7 medvetet lämnade (med motivering ovan); 4 domänfrågor till Joakim.
