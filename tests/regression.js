@@ -107,6 +107,22 @@ ok(/\.qopt\.wrong::after,\.sopt\.wrong::after\{content:" ✕"/.test(html), 'M2: 
 // L2 — fokusring med halo
 ok(/box-shadow:0 0 0 2px #fff/.test(html), 'L2: fokusring har vit halo');
 
+// Regression från granskning 5 (språk):
+// H2 — enhetlig fasbenämning, inga bindestrecksformer
+ok(!/Effekt-fasen/.test(html), 'H2(språk): ingen "Effekt-fasen"-form');
+ok(/fasen Effekt/.test(html), 'H2(språk): formen "fasen Effekt" används');
+// H1/M3 — svenska typografiska citattecken i löptext, inga raka i de flaggade
+ok(/”\$\{m\.q\}”/.test(html), 'H1(språk): myt-rubriker i typografiska citattecken');
+ok(/”Vi har precis passerat BP 3 enligt Lejonguiden\.”/.test(html), 'H1(språk): quizcitat i typografiska citattecken');
+ok(/”liten fas, stor effekt”/.test(html), 'M3(språk): citat med typografiska tecken');
+ok(/kallas behovet ”projekt”/.test(html), 'H1(språk): callout-citat typografiskt');
+// M2 — "ev." utskrivet
+ok(!/gör ev\. förstudie/.test(html), 'M2(språk): "ev." utskrivet till eventuell');
+// L1 — cirka i stället för ca
+ok(/cirka 25 minuter/.test(html), 'L1(språk): "cirka" i tidsangivelsen');
+// L4 — ägandeskap-parentesen borttagen
+ok(!/\(ägandeskap\)/.test(html), 'L4(språk): parentesen (ägandeskap) borttagen');
+
 /* ===================== 3. Beteende via jsdom ===================== */
 
 const vc = new VirtualConsole(); // tysta "not implemented"-brus

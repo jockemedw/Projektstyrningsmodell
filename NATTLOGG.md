@@ -113,6 +113,28 @@ _(De fem viktigaste förbättringarna och kvarvarande svagheter — se slutet av
 **Medvetet lämnat:** `.rh3` som span (HTML-validitet). Per-slide-`<h1>` infördes inte — behållen `<h1>` på Start + `<h2>` per sektion är ett accepterat SPA-mönster; att göra varje sektionsrubrik till `<h1>` skulle krocka med den visuella hierarkin. `aria-pressed` på `.copt` behållen (granskaren flaggade den inte; fungerar som flervalsmarkering).
 **Regressionssviten:** +20 kontroller (landmärken, aria-current-migrering, kontrastregler, rubrikelement, ✓/✕-markörer, fokushalo) → 186, grön.
 
-## Iteration 5 — granskare: språk (svensk sakprosa)
+## Iteration 5 — granskare: språk (svensk sakprosa / klarspråk)
+
+**Granskarens protokoll:** 0 kritiska, 3 höga, 5 medel, 5 låga. Granskaren bekräftade konsekvent du-tilltal och vi-perspektiv, korrekt och konsekvent bruk av de låsta termerna (fasnamn, BP 1–5, roller, LF-termer) samt att grind/beslutspunkt-synonymin är pedagogiskt medveten, inte en inkonsekvens.
+
+| Nivå | Fynd | Åtgärd |
+|---|---|---|
+| HÖG | H1: Raka citattecken i löptext (myt-rubriker, quizcitat) | ✅ Svenska ”…” i myt-rubriker, quizcitat, callout-citat och målexempel |
+| HÖG | H2: "Effekt-fasen" vs "fasen Effekt" — inkonsekvent | ✅ "fasen Effekt" genomgående (7 förekomster), bindestrecksformen borttagen |
+| HÖG | H3: Otydlig syftning "den" om mottagaren | ✅ "att verksamheten kan ta emot" / "att mottagaren kan ta emot" |
+| MEDEL | M1/M4: "2–6-veckorscykler" + nominaliseringskedja utan verb | ✅ "iterativt, i cykler om 2–6 veckor: planera närområdet, visualisera arbetet …, stäm av ofta, visa resultat och håll retrospektiv" |
+| MEDEL | M2: "ev." förkortat i LF-spåret | ✅ Utskrivet "eventuell" |
+| MEDEL | M3: Raka enkelfnuttar runt 'liten fas, stor effekt' | ✅ Typografiska ”…” |
+| MEDEL | M5: Versala dd-värden i kategorikorten | ⏸ Lämnat — konsekvent inom alla tre korten; försvarbar stil för definitionslistvärden (granskarens lägsta prio) |
+| LÅG | L1: "ca" → "cirka" | ✅ |
+| LÅG | L2: Inkonsekvent ellips | ✅ "BP 3a, 3b, 3c…" utan mellanslag |
+| LÅG | L3: "PL" ointroducerat | ✅ "projektledaren (PL)" i rollkortet; "PL" i beställarkortet utskrivet |
+| LÅG | L4: "(ägandeskap)" otydlig parentes | ✅ "har möjlighet och mandat att ta över leveransen" |
+| LÅG | L5: "förvaltning" i två betydelser | ⏸ Lämnat — korrekt i respektive sammanhang; ändring riskerar röra domänfakta (granskarens lägsta prio) |
+
+**Medvetet lämnat:** M5 och L5 (se ovan) — bägge granskarens lägsta prioritet, inga fel, och L5 tangerar domänfakta.
+**Regressionssviten:** +9 språkkontroller (fasbenämning, typografiska citattecken, utskrivet "ev.", "cirka", borttagen parentes) → 195, grön.
+
+## Iteration 6 — granskare: nybörjarkollega på LF (utan förkunskap)
 
 _(pågår)_
