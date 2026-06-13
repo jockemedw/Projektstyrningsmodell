@@ -123,6 +123,16 @@ ok(/cirka 25 minuter/.test(html), 'L1(språk): "cirka" i tidsangivelsen');
 // L4 — ägandeskap-parentesen borttagen
 ok(!/\(ägandeskap\)/.test(html), 'L4(språk): parentesen (ägandeskap) borttagen');
 
+// Regression från granskning 6 (nybörjarkollega):
+ok(/Wenell 4\.0 \(en etablerad svensk projektledningsmetodik\)/.test(html), 'K1: Wenell förklaras vid första förekomsten');
+ok(/samma <b>beslutspunkter \(BP\)<\/b>/.test(html), 'K2: BP skrivs ut på startsliden före why-korten');
+ok(/Bygger på byggtermer/.test(html) && /Repetera gärna <b>LF-översättningen<\/b>/.test(html), 'K3: stötta i Öva pekar på LF-översättningen/Ordlistan');
+ok(/spelplan \(projektets ramar/.test(html), 'H2(nyb): spelplan förklaras vid första förekomsten');
+ok(/framskrivning \(det politiska beslutsunderlaget\)/.test(html), 'M2(nyb): framskrivning förklaras');
+ok(/slå på reglaget ovan/.test(html), 'H3(nyb): förstärkt uppmaning om LF-byggprocessen');
+ok(/Ciceron, kommunens diariesystem/.test(html), 'L2(nyb): Ciceron förklaras');
+ok(!/Mottagare ≠ beställare/.test(html), 'L3(nyb): ≠-tecknet utskrivet i ord');
+
 /* ===================== 3. Beteende via jsdom ===================== */
 
 const vc = new VirtualConsole(); // tysta "not implemented"-brus

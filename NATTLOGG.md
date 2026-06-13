@@ -137,4 +137,23 @@ _(De fem viktigaste förbättringarna och kvarvarande svagheter — se slutet av
 
 ## Iteration 6 — granskare: nybörjarkollega på LF (utan förkunskap)
 
-_(pågår)_
+**Granskarens protokoll:** 3 kritiska, 3 höga, 4 medel, 3 låga. Genomgående tema: byggvärldens termer introduceras i förbifarten (overlay/tabell/parentes) men testas på allvar i Öva och Slutprovet. Strukturen och kunskapsordningen i övrigt beröms.
+
+| Nivå | Fynd | Åtgärd |
+|---|---|---|
+| KRITISK | K1: "Wenell 4.0" aldrig förklarat | ✅ "(en etablerad svensk projektledningsmetodik)" vid första förekomsten |
+| KRITISK | K2: "BP" används i why-korten innan det skrivs ut | ✅ "beslutspunkter (BP)" i hero-stycket, före why-griden |
+| KRITISK | K3: Öva/Slutprov testar byggtermer som bara visats i förbifarten | ✅ "Bygger på byggtermer"-stötta överst i Öva som hänvisar till LF-översättningen och Ordlistan |
+| HÖG | H1: LSA/FU testas i Öva, tunt förklarade | ✅ Redan glossade i Förbereda-panelen + LF-lane-fotnoten; Öva-stöttan förstärker |
+| HÖG | H2: "spelplan" jargong utan definition | ✅ "(projektets ramar: mål, budget, tid och avgränsningar)" vid första förekomsten + kort gloss i BP 3 |
+| HÖG | H3: LF-byggprocessen dold som default men provas | ✅ Tydligare reglagetext + uppmaning: "slå på reglaget ovan — kopplingen … återkommer i övningarna och slutprovet" |
+| MEDEL | M1: Ordlistan tät som inlärning | ✅ Adresseras av K3-stöttan (Ordlistan ramas som uppslag, grunderna lärs före) |
+| MEDEL | M2: "framskrivning" odefinierat | ✅ "(det politiska beslutsunderlaget)" |
+| MEDEL | M3: LM/LI/LR/LD, Antura namedroppas | ✅ Redan glossade i iteration 2 ("våra interna mallserier", "projektverktyget Antura") |
+| MEDEL | M4: "Godkänd grind" förutsätter grind=BP | ⏸ Lämnat — grind/BP/beslutspunkt kopplas redan ihop i Modellen ("Fem grindar"); granskaren bedömde åtgärd ej nödvändig |
+| LÅG | L1: Kanban/retrospektiv oförklarat | ✅ Korta glosser |
+| LÅG | L2: Ciceron oförklarat | ✅ "(kommunens diariesystem)" |
+| LÅG | L3: "≠"-tecken i löptext | ✅ Utskrivet "är inte samma som" |
+
+**Medvetet lämnat:** M4 (kopplingen finns redan). 
+**Regressionssviten:** +8 nybörjarkontroller → 203, grön.
